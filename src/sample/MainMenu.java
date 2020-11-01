@@ -1,35 +1,17 @@
 package sample;
 
-import java.util.*;
+public abstract class MainMenu {
 
-public class MainMenu {
-	private Player player;
-
-	public MainMenu() {
-
+	protected String mode;
+	
+	public void setMode(String s){
+		mode = s;
 	}
 
-	public Game newGame() {
-		// Main menu screen starts a new game
-		// initialise player
-		return new Classic();
-	}
+	public abstract Game newGame();
+	// Main menu screen starts a new game
+	// initialise player
 
-	public Game loadGame() {
-		// Main menu screen shows a list of saved games and loads them
-		// initialise player
-		// will call showSavedGames -> javafx gui render-> select and give loaded game
-		return new Classic();
-	}
 
-	public List<Game> showSavedGames(Player player) {
-		// Returns the list of saved games of a user
-		return new ArrayList<Game>();
-	}
-
-	// public void exitGame(Player player) {
-	// // Serializes the game if any and just exit the game
-	// return;
-	// }
 
 }

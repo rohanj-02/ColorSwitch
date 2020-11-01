@@ -7,5 +7,5 @@ public class Player {
     private int highScore;
     private ArrayList<Game> savedGame;
     private int numberOfStars;
-
+    private Game currentGame;
 }

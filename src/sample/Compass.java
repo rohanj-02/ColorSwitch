@@ -12,5 +12,4 @@ public class Compass extends Game {
 
     }
     // serializes game for that player
-
 }
