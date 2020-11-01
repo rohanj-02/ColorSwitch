@@ -8,6 +8,7 @@ public class EndGame {
 
     public void exitToMainMenu() {
         // return to mainMenu
+        // update player info i.e distance .....other stats
     }
 
 }
