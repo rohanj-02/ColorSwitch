@@ -1,8 +1,9 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public abstract class MainMenu {
+public class MainMenu {
 
 	protected String mode;
 	ArrayList<Player> listOfPlayers;
@@ -12,9 +13,23 @@ public abstract class MainMenu {
 		mode = s;
 	}
 
-	public abstract Game newGame();
+	public Game newGame(){
+		return new Classic();
+	}
 	// Main menu screen starts a new game
 	// initialise player
+
+	public Game loadGame() {
+		// Main menu screen shows a list of saved games and loads them
+		// initialise player
+		// will call showSavedGames -> javafx gui render-> select and give loaded game
+		return new Classic();
+	}
+
+	public List<Game> showSavedGames(Player player) {
+		// Returns the list of saved games of a user
+		return new ArrayList<Game>();
+	}
 
 //	another implementation
 //	abstract class obstacle
