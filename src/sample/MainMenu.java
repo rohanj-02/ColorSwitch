@@ -72,4 +72,8 @@ public class MainMenu implements Serializable{
 //	game and player serializable
 //	gameplay and game class
 
+//  SameNameException
+//  NotEnoughStarsException
+//  raise IOException
+//  
 }
