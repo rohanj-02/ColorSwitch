@@ -1,6 +1,9 @@
 package sample;
+import java.io.Serializable;
+import java.io.IOException;
+import java.io.ClassNotFoundException;
 
-public class Ball extends GameElement{
+public class Ball extends GameElement implements Serializable{
 	private String colour;
 	private int jumpSize;
 	// private int[] position;
@@ -43,4 +46,10 @@ public class Ball extends GameElement{
 	public void decreaseHeight(int n){
 		this.setPosY(this.getPosY() - n);
 	}
+
+
+    public static void serialize() throws IOException{}
+    
+    public static void deserialize() throws IOException, ClassNotFoundException{}
+
 }

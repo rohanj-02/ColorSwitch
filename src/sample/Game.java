@@ -1,8 +1,23 @@
 package sample;
 
-public abstract class Game {
+import java.util.ArrayList;
+import java.io.IOException;
+import java.io.ClassNotFoundException;
+import java.io.Serializable;
 
-    private Player player;
+public abstract class Game implements Serializable{
+
+    private transient Player player;
+    // Player Game 2 way association maybe recursion in serialization
+    // When deserializing PLayer object, in savedGames() in a Game object
+    // set Game.player = this to give reference of the player to Game object
+    private ArrayList<Obstacle> listOfObstacle;
+    private Ball ball;
+    private int currentScore;
+
+    public abstract static void serialize() throws IOException;
+    
+    public abstract static void deserialize() throws IOException, ClassNotFoundException;
 
     public abstract void pauseGame();
     // pause button click handles

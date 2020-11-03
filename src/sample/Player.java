@@ -1,13 +1,16 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.io.ClassNotFoundException;
 
-public class Player {
+public class Player implements Serializable{
 	private String name;
 	private int highScore;
 	private ArrayList<Game> savedGames;
 	private int numberOfStars;
-	private Game currentGame;
+	// private Game currentGame;
 
 	public String getName() {
 		return name;
@@ -41,11 +44,16 @@ public class Player {
 		this.numberOfStars = numberOfStars;
 	}
 
-	public Game getCurrentGame() {
-		return currentGame;
+	public void addToSavedGames(Game currentGame){
+		this.savedGames.add(currentGame);		
 	}
 
-	public void setCurrentGame(Game currentGame) {
-		this.currentGame = currentGame;
+    public static void serialize() throws IOException{
+
 	}
+    
+    public static void deserialize() throws IOException, ClassNotFoundException{
+
+	}
+
 }
