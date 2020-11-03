@@ -1,8 +1,8 @@
 package sample;
 
-public class ColourSwitch {
+public class ColourSwitch extends GameElement {
 
-	private int[] position;
+	// private int[] position;
 
 	/**
 	 * Returns whether the object has been collected or not

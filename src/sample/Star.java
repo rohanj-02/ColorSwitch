@@ -1,7 +1,7 @@
 package sample;
 
-public class Star {
-    private int[] position;
+public class Star extends GameElement{
+    // private int[] position;
 
     /**
      * Returns whether the star has been collected or not
