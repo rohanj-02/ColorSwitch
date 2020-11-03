@@ -1,5 +1,8 @@
 package sample;
 
+import java.io.IOException;
+import java.lang.ClassNotFoundException;
+
 public class Classic extends Game {
 
     @Override
@@ -14,4 +17,11 @@ public class Classic extends Game {
     }
     // serializes game for that player
 
+    // public static void serialize() throws IOException{
+
+    // }
+    
+    // public static void deserialize() throws IOException, ClassNotFoundException{
+
+    // }
 }

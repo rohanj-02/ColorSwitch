@@ -3,7 +3,7 @@ package sample;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.io.IOException;
-import java.io.ClassNotFoundException;
+import java.lang.ClassNotFoundException;
 
 public class Player implements Serializable{
 	private String name;

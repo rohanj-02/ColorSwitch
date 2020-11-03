@@ -2,18 +2,23 @@ package sample;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
+import java.io.IOException;
+import java.lang.ClassNotFoundException;
 
-public class MainMenu {
+
+public class MainMenu implements Serializable{
 
 	protected String mode;
-	ArrayList<Player> listOfPlayers;
-	Player currentPlayer;
+	protected ArrayList<Player> listOfPlayers;
+	protected transient Player currentPlayer;
 
 	public void setMode(String s) {
 		mode = s;
 	}
 
 	public Game newGame(){
+		//if else block to create a new Game object according to mode
 		return new Classic();
 	}
 	// Main menu screen starts a new game
@@ -28,9 +33,31 @@ public class MainMenu {
 
 	public List<Game> showSavedGames(Player player) {
 		// Returns the list of saved games of a user
-		return new ArrayList<Game>();
+		return this.currentPlayer.savedGames;
 	}
 
+	/*
+		Creates a new player and adds it to the list of players
+	*/
+	public void createNewPlayer(){
+
+	}
+
+	public void setPlayer(Player player){
+		this.currentPlayer = player;	
+	}
+
+	public List<Player> getPlayerList(){
+		return this.listOfPlayers;
+	}
+
+	public static void serialize() throws IOException{
+
+    }
+    
+    public static void deserialize() throws IOException, ClassNotFoundException{
+
+    }
 //	another implementation
 //	abstract class obstacle
 //	interface motion

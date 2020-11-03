@@ -2,7 +2,7 @@ package sample;
 
 import java.util.ArrayList;
 import java.io.IOException;
-import java.io.ClassNotFoundException;
+import java.lang.ClassNotFoundException;
 import java.io.Serializable;
 
 public abstract class Game implements Serializable{
@@ -14,10 +14,6 @@ public abstract class Game implements Serializable{
     private ArrayList<Obstacle> listOfObstacle;
     private Ball ball;
     private int currentScore;
-
-    public abstract static void serialize() throws IOException;
-    
-    public abstract static void deserialize() throws IOException, ClassNotFoundException;
 
     public abstract void pauseGame();
     // pause button click handles

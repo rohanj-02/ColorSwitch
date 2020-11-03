@@ -1,7 +1,7 @@
 package sample;
 import java.io.Serializable;
 import java.io.IOException;
-import java.io.ClassNotFoundException;
+import java.lang.ClassNotFoundException;
 
 public class Ball extends GameElement implements Serializable{
 	private String colour;
