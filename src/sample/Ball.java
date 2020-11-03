@@ -12,7 +12,7 @@ public class Ball {
 
 	public void setColour(String colour) {
 		this.colour = colour;
-
+	}
 
 		public int getJumpSize () {
 			return jumpSize;
@@ -50,11 +50,17 @@ public class Ball {
 		}
 
 		public void setPosX(int x){
-			this.setPosition(new int[x, this.getPosY()]);
+			int[] temp = new int[2];
+			temp[0] = x;
+			temp[1] = this.getPosY();
+			this.setPosition(temp);
 		}
 
 		public void setPosY(int y){
-			this.setPosition(new int[this.getPosX(), y]);
+			int[] temp = new int[2];
+			temp[0] = this.getPosX();
+			temp[1] = y;
+			this.setPosition(temp);
 		}
 
 		/**
