@@ -1,28 +1,56 @@
 package sample;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable;
-import java.io.IOException;
-import java.lang.ClassNotFoundException;
 
 
-public class MainMenu implements Serializable{
+public class MainMenu implements Serializable {
 
 	protected String mode;
 	protected ArrayList<Player> listOfPlayers;
 	protected transient Player currentPlayer;
 
+	public static void serialize() throws IOException {
+
+	}
+
+	public static void deserialize() throws IOException, ClassNotFoundException {
+
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
 	public void setMode(String s) {
 		mode = s;
 	}
 
-	public Game newGame(){
+	public ArrayList<Player> getListOfPlayers() {
+		return listOfPlayers;
+	}
+
+	public void setListOfPlayers(ArrayList<Player> listOfPlayers) {
+		this.listOfPlayers = listOfPlayers;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	// Main menu screen starts a new game
+	// initialise player
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	public Game newGame() {
 		//if else block to create a new Game object according to mode
 		return new Classic();
 	}
-	// Main menu screen starts a new game
-	// initialise player
 
 	public Game loadGame() {
 		// Main menu screen shows a list of saved games and loads them
@@ -33,31 +61,23 @@ public class MainMenu implements Serializable{
 
 	public List<Game> showSavedGames(Player player) {
 		// Returns the list of saved games of a user
-		return this.currentPlayer.savedGames;
+		return this.currentPlayer.getSavedGames();
 	}
 
 	/*
 		Creates a new player and adds it to the list of players
 	*/
-	public void createNewPlayer(){
+	public void createNewPlayer() {
 
 	}
 
-	public void setPlayer(Player player){
-		this.currentPlayer = player;	
+	public void setPlayer(Player player) {
+		this.currentPlayer = player;
 	}
 
-	public List<Player> getPlayerList(){
+	public List<Player> getPlayerList() {
 		return this.listOfPlayers;
 	}
-
-	public static void serialize() throws IOException{
-
-    }
-    
-    public static void deserialize() throws IOException, ClassNotFoundException{
-
-    }
 //	another implementation
 //	abstract class obstacle
 //	interface motion

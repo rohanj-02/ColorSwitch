@@ -1,23 +1,27 @@
 package sample;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.io.IOException;
-import java.lang.ClassNotFoundException;
 
-public class Player implements Serializable{
-	private String name;
+public class Player implements Serializable {
+	private final String name = "user";
 	private int highScore;
 	private ArrayList<Game> savedGames;
 	private int numberOfStars;
+	// save the stats of the player after every game
 	// private Game currentGame;
+
+	public static void serialize() throws IOException {
+
+	}
+
+	public static void deserialize() throws IOException, ClassNotFoundException {
+
+	}
 
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public int getHighScore() {
@@ -28,11 +32,11 @@ public class Player implements Serializable{
 		this.highScore = highScore;
 	}
 
-	public ArrayList<Game> getSavedGame() {
+	public ArrayList<Game> getSavedGames() {
 		return savedGames;
 	}
 
-	public void setSavedGame(ArrayList<Game> savedGame) {
+	public void setSavedGames(ArrayList<Game> savedGame) {
 		this.savedGames = savedGame;
 	}
 
@@ -44,16 +48,8 @@ public class Player implements Serializable{
 		this.numberOfStars = numberOfStars;
 	}
 
-	public void addToSavedGames(Game currentGame){
-		this.savedGames.add(currentGame);		
-	}
-
-    public static void serialize() throws IOException{
-
-	}
-    
-    public static void deserialize() throws IOException, ClassNotFoundException{
-
+	public void addToSavedGames(Game currentGame) {
+		this.savedGames.add(currentGame);
 	}
 
 }

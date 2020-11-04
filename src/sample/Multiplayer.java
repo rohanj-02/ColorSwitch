@@ -1,31 +1,30 @@
 package sample;
 
-import java.io.IOException;
-import java.lang.ClassNotFoundException;
-
 public class Multiplayer extends Game {
-    private Player player1;
-    private Player player2;
+	private Player player1;
+	private Player player2;
+	// Create 2 games in this class and run them in parallel
+	// Can be 2 classic or 2 compass or 2 ocean associated with each player
 
-    @Override
-    public void pauseGame() {
+	@Override
+	public void pauseGame() {
 
-    }
-    // pause button click handles
+	}
+	// pause button click handles
 
-    @Override
-    public void saveGame() {
+	@Override
+	public void saveGame() {
 
-    }
-    // serializes game for that player
+	}
+	// serializes game for that player
 
-    // public static void serialize() throws IOException{
+	// public static void serialize() throws IOException{
 
-    // }
-    
-    // public static void deserialize() throws IOException, ClassNotFoundException{
-        
-    // }
+	// }
+
+	// public static void deserialize() throws IOException, ClassNotFoundException{
+
+	// }
     /*
      Student std1 = new Student("Krishna", 30);
       

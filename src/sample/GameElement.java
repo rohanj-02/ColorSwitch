@@ -1,21 +1,21 @@
 package sample;
 
 public abstract class GameElement {
-    private Point position;
-    
-    public int getPosX(){
-        return this.position.getX();
-    }
+	private Point position;
 
-    public int getPosY(){
-        return this.position.getY();
-    }
+	public float getPosX() {
+		return this.position.getX();
+	}
 
-    public void setPosX(int _x){
-        this.position.setX(_x);
-    }
+	public void setPosX(float _x) {
+		this.position.setX(_x);
+	}
 
-    public void setPosY(int _y){
-        this.position.setY(_y);
-    }
+	public float getPosY() {
+		return this.position.getY();
+	}
+
+	public void setPosY(float _y) {
+		this.position.setY(_y);
+	}
 }

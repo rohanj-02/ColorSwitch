@@ -1,22 +1,22 @@
 package sample;
 
 public class Point {
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
-    public int getX(){
+    public float getX(){
         return this.x;
     } 
 
-    public int getY(){
+    public float getY(){
         return this.y;
     } 
 
-    public void setX(int _x){
+    public void setX(float _x){
         this.x = _x;
     }
 
-    public void setY(int _y){
+    public void setY(float _y){
         this.y = _y;
     }
 }
