@@ -1,6 +1,6 @@
 package sample;
 
-public class Bar extends Obstacle {
+public class Line extends Obstacle {
 
 	private float width;
 	private float linearVelocity;

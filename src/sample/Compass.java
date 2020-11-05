@@ -28,4 +28,11 @@ public class Compass extends Game {
 //     public static void deserialize() throws IOException, ClassNotFoundException{
 
 //     }
+	public void resumeGame(){
+
+	}
+
+	public void startGame(){
+
+	}
 }

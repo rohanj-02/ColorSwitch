@@ -18,6 +18,16 @@ public class Classic extends Game {
 
     }
 
+
+    @Override
+    public void resumeGame(){
+
+    }
+
+    @Override
+    public void startGame(){
+
+    }
     // public static void serialize() throws IOException{
 
     // }

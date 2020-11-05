@@ -2,36 +2,45 @@ package sample;
 
 public class Rectangle extends Obstacle {
 
-    public float width;
-    public float height;
-    public float angularVelocity; //decide pivot later
+	private float width;
+	private float height;
+	private float angularVelocity; //decide pivot later
+	private float stroke;
 
-    public float getWidth() {
-        return width;
-    }
+	public float getStroke() {
+		return stroke;
+	}
 
-    public void setWidth(float width) {
-        this.width = width;
-    }
+	public void setStroke(float stroke) {
+		this.stroke = stroke;
+	}
 
-    public float getHeight() {
-        return height;
-    }
+	public float getWidth() {
+		return width;
+	}
 
-    public void setHeight(float height) {
-        this.height = height;
-    }
+	public void setWidth(float width) {
+		this.width = width;
+	}
 
-    public float getAngularVelocity() {
-        return angularVelocity;
-    }
+	public float getHeight() {
+		return height;
+	}
 
-    public void setAngularVelocity(float angularVelocity) {
-        this.angularVelocity = angularVelocity;
-    }
+	public void setHeight(float height) {
+		this.height = height;
+	}
 
-    @Override
-    public boolean isCollision(Ball ball) {
-        return false;
-    }
+	public float getAngularVelocity() {
+		return angularVelocity;
+	}
+
+	public void setAngularVelocity(float angularVelocity) {
+		this.angularVelocity = angularVelocity;
+	}
+
+	@Override
+	public boolean isCollision(Ball ball) {
+		return false;
+	}
 }

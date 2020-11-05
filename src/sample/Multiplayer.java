@@ -16,6 +16,14 @@ public class Multiplayer extends Game {
 	public void saveGame() {
 
 	}
+
+	public void resumeGame(){
+
+	}
+
+	public void startGame(){
+
+	}
 	// serializes game for that player
 
 	// public static void serialize() throws IOException{

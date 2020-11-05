@@ -10,14 +10,14 @@ public class Player implements Serializable {
 	private ArrayList<Game> savedGames;
 	private int numberOfStars;
 	// save the stats of the player after every game
-	// private Game currentGame;
+	private Game currentGame;
 
-	public static void serialize() throws IOException {
-
+	public Game getCurrentGame() {
+		return currentGame;
 	}
 
-	public static void deserialize() throws IOException, ClassNotFoundException {
-
+	public void setCurrentGame(Game currentGame) {
+		this.currentGame = currentGame;
 	}
 
 	public String getName() {
@@ -52,4 +52,7 @@ public class Player implements Serializable {
 		this.savedGames.add(currentGame);
 	}
 
+	public void createNewGame(String mode){
+
+	}
 }

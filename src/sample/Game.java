@@ -82,4 +82,7 @@ public abstract class Game implements Serializable {
 	public abstract void saveGame();
 	// serializes game for that player
 
+	public abstract void resumeGame();
+
+	public abstract void startGame();
 }

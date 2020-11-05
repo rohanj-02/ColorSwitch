@@ -1,6 +1,8 @@
 package sample;
 
-public abstract class GameElement {
+import java.io.Serializable;
+
+public abstract class GameElement implements Serializable {
 	private Point position;
 
 	public float getPosX() {

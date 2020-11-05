@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainMenu implements Serializable {
+public class MainMenu {
 
 	protected String mode;
 	protected ArrayList<Player> listOfPlayers;
-	protected transient Player currentPlayer;
+	protected Player currentPlayer;
 
 	public static void serialize() throws IOException {
 
@@ -47,16 +47,17 @@ public class MainMenu implements Serializable {
 		this.currentPlayer = currentPlayer;
 	}
 
-	public Game newGame() {
+	public void newGame() {
 		//if else block to create a new Game object according to mode
-		return new Classic();
+		this.currentPlayer.createNewGame(mode);
+		this.currentPlayer.getCurrentGame().startGame();
 	}
 
-	public Game loadGame() {
+	public void loadGame(Game game) {
 		// Main menu screen shows a list of saved games and loads them
 		// initialise player
-		// will call showSavedGames -> javafx gui render-> select and give loaded game
-		return new Classic();
+		this.currentPlayer.setCurrentGame(game);
+		this.currentPlayer.getCurrentGame().resumeGame();
 	}
 
 	public List<Game> showSavedGames(Player player) {

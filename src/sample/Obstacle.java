@@ -2,7 +2,7 @@ package sample;
 
 import java.io.Serializable;
 
-public abstract class Obstacle extends GameElement implements Serializable, Collidable {
+public abstract class Obstacle extends GameElement implements Collidable {
 
 	static class SolidCircle extends GameElement {
 		private float radius;
