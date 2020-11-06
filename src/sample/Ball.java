@@ -3,7 +3,7 @@ package sample;
 import java.io.IOException;
 import java.io.Serializable;
 
-public class Ball extends GameElement implements Serializable {
+public class Ball extends GameElement {
 	private String colour;
 	private float jumpSize;
 	private float angularVelocity;
