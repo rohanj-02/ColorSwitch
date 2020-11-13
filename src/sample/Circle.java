@@ -2,33 +2,15 @@ package sample;
 
 public class Circle extends Obstacle {
 
-	private float radius;
-	private float stroke;
-	private float angularVelocity;
+	private double radius;
 
-	public float getRadius() {
+	public double getRadius() {
 
 		return radius;
 	}
 
-	public void setRadius(float radius) {
+	public void setRadius(double radius) {
 		this.radius = radius;
-	}
-
-	public float getStroke() {
-		return stroke;
-	}
-
-	public void setStroke(float stroke) {
-		this.stroke = stroke;
-	}
-
-	public float getAngularVelocity() {
-		return angularVelocity;
-	}
-
-	public void setAngularVelocity(float angularVelocity) {
-		this.angularVelocity = angularVelocity;
 	}
 
 	@Override

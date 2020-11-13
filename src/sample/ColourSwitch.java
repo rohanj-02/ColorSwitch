@@ -2,8 +2,7 @@ package sample;
 
 public class ColourSwitch extends GameElement implements Collidable {
 
-	// private float[] position;
-	private float radius;
+	private double radius;
 
 	/**
 	 * Returns whether the object has been collected or not
@@ -14,11 +13,11 @@ public class ColourSwitch extends GameElement implements Collidable {
 		return false;
 	}
 
-	public float getRadius() {
+	public double getRadius() {
 		return radius;
 	}
 
-	public void setRadius(float radius) {
+	public void setRadius(double radius) {
 		this.radius = radius;
 	}
 

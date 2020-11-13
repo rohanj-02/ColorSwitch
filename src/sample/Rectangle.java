@@ -2,20 +2,11 @@ package sample;
 
 public class Rectangle extends Obstacle {
 
-	private float width;
-	private float height;
-	private float angularVelocity; //decide pivot later
-	private float stroke;
+	private double width;
+	private double height;
 
-	public float getStroke() {
-		return stroke;
-	}
 
-	public void setStroke(float stroke) {
-		this.stroke = stroke;
-	}
-
-	public float getWidth() {
+	public double getWidth() {
 		return width;
 	}
 
@@ -23,20 +14,12 @@ public class Rectangle extends Obstacle {
 		this.width = width;
 	}
 
-	public float getHeight() {
+	public double getHeight() {
 		return height;
 	}
 
-	public void setHeight(float height) {
+	public void setHeight(double height) {
 		this.height = height;
-	}
-
-	public float getAngularVelocity() {
-		return angularVelocity;
-	}
-
-	public void setAngularVelocity(float angularVelocity) {
-		this.angularVelocity = angularVelocity;
 	}
 
 	@Override

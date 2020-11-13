@@ -2,6 +2,15 @@ package sample;
 
 public class Star extends GameElement implements Collidable {
 	// private int[] position;
+	private int amount;
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
 
 	/**
 	 * Returns whether the star has been collected or not

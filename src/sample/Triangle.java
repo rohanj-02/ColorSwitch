@@ -2,32 +2,15 @@ package sample;
 
 public class Triangle extends Obstacle {
 
-	private float sideLength;
-	private float angularVelocity;
-	private float stroke;
+	private double sideLength;
 
-	public float getStroke() {
-		return stroke;
-	}
 
-	public void setStroke(float stroke) {
-		this.stroke = stroke;
-	}
-
-	public float getSideLength() {
+	public double getSideLength() {
 		return sideLength;
 	}
 
-	public void setSideLength(float sideLength) {
+	public void setSideLength(double sideLength) {
 		this.sideLength = sideLength;
-	}
-
-	public float getAngularVelocity() {
-		return angularVelocity;
-	}
-
-	public void setAngularVelocity(float angularVelocity) {
-		this.angularVelocity = angularVelocity;
 	}
 
 	@Override

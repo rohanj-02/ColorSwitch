@@ -2,23 +2,15 @@ package sample;
 
 public class Plus extends Obstacle{
 
-    private float armLength;
-    private float angularVelocity;
+    private double armLength;
 
-    public float getArmLength() {
+
+    public double getArmLength() {
         return armLength;
     }
 
-    public void setArmLength(float armLength) {
+    public void setArmLength(double armLength) {
         this.armLength = armLength;
-    }
-
-    public float getAngularVelocity() {
-        return angularVelocity;
-    }
-
-    public void setAngularVelocity(float angularVelocity) {
-        this.angularVelocity = angularVelocity;
     }
 
     @Override

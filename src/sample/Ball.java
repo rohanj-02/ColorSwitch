@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 public class Ball extends GameElement {
 	private String colour;
-	private float jumpSize;
-	private float angularVelocity;
+	private double jumpSize;
+	private double angularVelocity;
 	// private int[] position;
 	private float radius;
 
@@ -16,7 +16,7 @@ public class Ball extends GameElement {
 	public static void deserialize() throws IOException, ClassNotFoundException {
 	}
 
-	public float getAngularVelocity() {
+	public double getAngularVelocity() {
 		return angularVelocity;
 	}
 
@@ -28,7 +28,7 @@ public class Ball extends GameElement {
 		this.colour = colour;
 	}
 
-	public float getJumpSize() {
+	public double getJumpSize() {
 		return jumpSize;
 	}
 

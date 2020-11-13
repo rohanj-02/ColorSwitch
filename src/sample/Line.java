@@ -2,23 +2,14 @@ package sample;
 
 public class Line extends Obstacle {
 
-	private float width;
-	private float linearVelocity;
+	private double width;
 
-	public float getWidth() {
+	public double getWidth() {
 		return width;
 	}
 
-	public void setWidth(float width) {
+	public void setWidth(double width) {
 		this.width = width;
-	}
-
-	public float getLinearVelocity() {
-		return linearVelocity;
-	}
-
-	public void setLinearVelocity(float linearVelocity) {
-		this.linearVelocity = linearVelocity;
 	}
 
 	@Override
