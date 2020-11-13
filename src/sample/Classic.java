@@ -2,6 +2,11 @@ package sample;
 
 public class Classic extends Game {
 
+    @Override
+    public void checkCollision() {
+
+    }
+
     /**
      * pause button click handles
      */

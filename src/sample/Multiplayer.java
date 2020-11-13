@@ -7,6 +7,11 @@ public class Multiplayer extends Game {
 	// Can be 2 classic or 2 compass or 2 ocean associated with each player
 
 	@Override
+	public void checkCollision() {
+
+	}
+
+	@Override
 	public void pauseGame() {
 
 	}
