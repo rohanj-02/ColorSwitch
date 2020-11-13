@@ -3,6 +3,11 @@ package sample;
 public class Compass extends Game {
 
 
+	@Override
+	public void checkCollision() {
+
+	}
+
 	/**
 	 * pause button click handles
 	 */

@@ -66,9 +66,9 @@ public abstract class Game implements Serializable {
 	/**
 	 * Check collision of ball with any game element
 	 */
-	public void checkCollision() {
+	public abstract void checkCollision();
 
-	}
+
 
 	/**
 	 * pause button click handles
