@@ -20,4 +20,12 @@ public abstract class GameElement implements Serializable {
 	public void setPosY(double _y) {
 		this.position.setY(_y);
 	}
+
+	public Point getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point position) {
+		this.position = position;
+	}
 }

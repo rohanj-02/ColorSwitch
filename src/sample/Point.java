@@ -19,4 +19,9 @@ public class Point {
     public void setY(double _y){
         this.y = _y;
     }
+
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 }
