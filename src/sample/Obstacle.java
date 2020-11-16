@@ -1,13 +1,42 @@
 package sample;
 
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
+
 import java.io.Serializable;
+import java.util.Arrays;
 
 public abstract class Obstacle extends GameElement implements Collidable {
 
 	static class SolidCircle extends GameElement {
 		private float radius;
-		private String colour;
+		private Color colour;
+		private Circle element;
+		public Group solidCircleRoot;
 
+		// Solid Circle changed but needs to be changed a lot depending on PathObstacle that we create
+		public SolidCircle(Point centre, Color color){
+			this.setPosition(centre);
+			this.colour = color;
+			this.radius = 5;
+			this.element = new Circle(centre.getX(), centre.getY(), this.radius);
+			this.element.setFill(color);
+			this.solidCircleRoot = new Group();
+			this.solidCircleRoot.getChildren().add(element);
+		}
+
+
+		public void renderCircle(Group root) {
+			if (this.solidCircleRoot.getChildren().contains(this.element)) {
+				this.solidCircleRoot.getChildren().remove(this.element);
+				root.getChildren().removeAll(this.solidCircleRoot);
+			} else {
+				this.solidCircleRoot.getChildren().add(this.element);
+				root.getChildren().addAll(this.solidCircleRoot);
+			}
+		}
 		public float getRadius() {
 			return radius;
 		}
@@ -16,11 +45,11 @@ public abstract class Obstacle extends GameElement implements Collidable {
 			this.radius = radius;
 		}
 
-		public String getColour() {
+		public Color getColour() {
 			return colour;
 		}
 
-		public void setColour(String colour) {
+		public void setColour(Color colour) {
 			this.colour = colour;
 		}
 	}
