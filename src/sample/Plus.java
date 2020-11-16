@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 import java.util.Arrays;
 
-public class Plus extends Obstacle{
+public class Plus extends Obstacle {
 
     private double armLength;
     private final Line[] armList;
@@ -36,14 +36,14 @@ public class Plus extends Obstacle{
         setCoordinateOfArm(armBottom, this.getPosX(), this.getPosY(), this.getPosX(), this.getPosY() + armLength);
         setCoordinateOfArm(armRight, this.getPosX(), this.getPosY(), this.getPosX() + armLength, this.getPosY());
         setCoordinateOfArm(armTop, this.getPosX(), this.getPosY(), this.getPosX(), this.getPosY() - armLength);
-        setCoordinateOfArm(armLeft, this.getPosX(), this.getPosY(), this.getPosX() -armLength, this.getPosY());
+        setCoordinateOfArm(armLeft, this.getPosX(), this.getPosY(), this.getPosX() - armLength, this.getPosY());
 
         this.armList[0] = armBottom;
         this.armList[1] = armRight;
         this.armList[2] = armTop;
         this.armList[3] = armLeft;
 
-        for(int i = 0; i<armList.length;i++){
+        for (int i = 0; i < armList.length; i++) {
             armList[i].setStroke(Constants.COLOUR_PALETTE[i]);
             armList[i].setStrokeWidth(10.0);
             armList[i].setStrokeLineCap(StrokeLineCap.ROUND);
@@ -59,7 +59,7 @@ public class Plus extends Obstacle{
 
     }
 
-    public void setCoordinateOfArm(Line line,double startX, double startY, double endX, double endY){
+    public void setCoordinateOfArm(Line line, double startX, double startY, double endX, double endY) {
         line.setStartX(startX);
         line.setStartY(startY);
         line.setEndX(endX);
