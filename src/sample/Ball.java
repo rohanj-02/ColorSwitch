@@ -1,5 +1,12 @@
 package sample;
 
+import javafx.animation.*;
+import javafx.scene.Node;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Translate;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -8,7 +15,22 @@ public class Ball extends GameElement {
 	private double jumpSize;
 	private double angularVelocity;
 	// private int[] position;
-	private float radius;
+	private double radius;
+	public Circle root;
+	private TranslateTransition gravity;
+
+
+	public Ball(Point position){
+		this.setPosition(position);
+		this.radius = 10;
+		this.root = new Circle(this.getPosX(), this.getPosY(), 5);
+		this.root.setFill(Constants.COLOUR_PALETTE[0]);
+		this.gravity = new TranslateTransition(Duration.millis(1500000), this.root);
+		this.gravity.interpolatorProperty().set(Interpolator.EASE_IN);
+		this.gravity.setByY(100000000);
+		this.gravity.setCycleCount(Animation.INDEFINITE);
+		this.gravity.play();
+	}
 
 	public static void serialize() throws IOException {
 	}
@@ -40,11 +62,11 @@ public class Ball extends GameElement {
 		this.angularVelocity = angularVelocity;
 	}
 
-	public float getRadius() {
+	public double getRadius() {
 		return radius;
 	}
 
-	public void setRadius(float radius) {
+	public void setRadius(double radius) {
 		this.radius = radius;
 	}
 
@@ -52,7 +74,20 @@ public class Ball extends GameElement {
 	 * Makes the ball jump according to the jumpSize of the ball
 	 */
 	public void jump() {
-		this.setPosY(this.getPosY() + jumpSize);
+		TranslateTransition jump = new TranslateTransition(Duration.millis(200), this.root);
+		jump.interpolatorProperty().set(Interpolator.EASE_IN);
+		jump.setByY(-30000);
+//		jump.play();
+		Node dummyNode = new Rectangle();
+		this.gravity.setNode(dummyNode);
+		this.gravity = new TranslateTransition(Duration.millis(1500000), this.root);
+		this.gravity.interpolatorProperty().set(Interpolator.EASE_IN);
+		this.gravity.setByY(100000000);
+		this.gravity.setCycleCount(Animation.INDEFINITE);
+		ParallelTransition seqT = new ParallelTransition(this.root, jump, this.gravity);
+
+//		this.setPosY(this.getPosY() + jumpSize);
+		seqT.play();
 	}
 
 	/**
