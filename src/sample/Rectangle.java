@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
@@ -49,6 +50,7 @@ public class Rectangle extends Obstacle {
 		for(int i = 0; i<lineList.length;i++){
 			lineList[i].setStroke(Constants.COLOUR_PALETTE[i]);
 			lineList[i].setStrokeWidth(10.0);
+			lineList[i].setStrokeLineCap(StrokeLineCap.ROUND);
 
 			rotAnimation[i] = new Rotate(0, this.getPosX(), this.getPosY());
 			this.rotAnimation[i].setAxis(Rotate.Z_AXIS);
