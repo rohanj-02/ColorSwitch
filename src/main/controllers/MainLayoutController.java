@@ -3,6 +3,7 @@ package main.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -15,6 +16,20 @@ public class MainLayoutController extends AnchorPane implements Initializable {
 	private AnchorPane landing;
 	@FXML
 	private LandingController landingController;
+	@FXML
+	private AnchorPane login;
+	@FXML
+	private LoginController loginController;
+	@FXML
+	private AnchorPane mainMenu;
+	@FXML
+	private MainMenuController mainMenuController;
+
+	@FXML
+	private AnchorPane loadGame;
+	@FXML
+	private LoadGameController loadGameController;
+
 
 //	public MainLayoutController() {
 //		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
