@@ -42,9 +42,11 @@ public class Main extends Application {
 //        primaryStage.setTitle("Here are Tico and Teco!");
 //        primaryStage.setScene(scene);
 //        primaryStage.show();
-        Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/MainLayout.fxml"));
-        primaryStage.setScene(new Scene(root, 500, 700));
+//        Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/MainLayout.fxml"));
+        MainLayoutController mainLayoutController = new MainLayoutController();
+        primaryStage.setScene(new Scene(mainLayoutController));
         primaryStage.show();
+//        mainLayoutController.setStage(2);
         //myTriangle.rotate();
     }
     //

@@ -1,4 +1,4 @@
 package main.controllers;
 
-public class LoadGameController {
+public class LoadGameController extends LayoutController {
 }

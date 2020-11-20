@@ -21,7 +21,7 @@
         </VBox>
         <VBox alignment="CENTER" layoutX="10.0" layoutY="97.0" prefHeight="68.0" prefWidth="500.0"
               GridPane.rowIndex="2">
-            <Button fx:id="actionButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0"
+            <Button fx:id="actionButton" onMouseClicked="#increaseStage" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0"
                     style="-fx-background-radius: 50;" text="Signup"/>
         </VBox>
     </GridPane>
