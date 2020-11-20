@@ -2,10 +2,11 @@ package main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import main.controllers.MainLayoutController;
 
 public class Main extends Application {
 
@@ -16,8 +17,8 @@ public class Main extends Application {
     // * JAVAFX Boilerplate
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/sample.fxml"));
-        Group rootTemp = FXMLLoader.load(getClass().getResource("../resources/fxml/sample.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/MainLayout.fxml"));
+//        Group rootTemp = FXMLLoader.load(getClass().getResource("../resources/fxml/sample.fxml"));
         // Add circle object
 //        Group root = new Group();
 //        Circle myCircle = new Circle(new Point(100,100), 30);
@@ -33,7 +34,15 @@ public class Main extends Application {
 //        root.getChildren().add(button2);
 //        root.getChildren().add(button);
 //        root.getChildren().add(line.getLineRoot());
-        primaryStage.setTitle("Hello World");
+//        AnchorPane root = new AnchorPane();
+//        MainLayoutController mainLayoutController = new MainLayoutController();
+//        root.getChildren().add(mainLayoutController);
+//        primaryStage.setTitle("Hello World");
+//        Scene scene = new Scene(new MainLayoutController());
+//        primaryStage.setTitle("Here are Tico and Teco!");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/MainLayout.fxml"));
         primaryStage.setScene(new Scene(root, 500, 700));
         primaryStage.show();
         //myTriangle.rotate();
