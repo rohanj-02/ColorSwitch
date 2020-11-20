@@ -16,8 +16,8 @@ public class Main extends Application {
     // * JAVAFX Boilerplate
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Group rootTemp = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/sample.fxml"));
+        Group rootTemp = FXMLLoader.load(getClass().getResource("../resources/fxml/sample.fxml"));
         // Add circle object
 //        Group root = new Group();
 //        Circle myCircle = new Circle(new Point(100,100), 30);
