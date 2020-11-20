@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,8 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenuController">
    <children>
       <GridPane prefHeight="700.0" prefWidth="498.0">
         <columnConstraints>
@@ -39,7 +39,7 @@
                            <children>
                               <ImageView fitHeight="236.0" fitWidth="381.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@ColorSwitchLogo.jpg" />
+                                    <Image url="@../../../Downloads/ColorSwitchLogo.jpg" />
                                  </image>
                               </ImageView>
                            </children>
@@ -63,12 +63,20 @@
                      <children>
                         <VBox alignment="CENTER" GridPane.rowIndex="1">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="199.0" style="-fx-background-radius: 50;" text="Login" />
+                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="199.0" style="-fx-background-radius: 50;" text="Login">
+                                 <styleClass>
+                                    <String fx:value="button" />
+                                    <String fx:value="login_button" />
+                                 </styleClass></Button>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" layoutX="10.0" layoutY="97.0" prefHeight="68.0" prefWidth="500.0" GridPane.rowIndex="2">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50;" text="Signup" />
+                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50;" text="Signup">
+                                 <styleClass>
+                                    <String fx:value="button" />
+                                    <String fx:value="signup_button" />
+                                 </styleClass></Button>
                            </children>
                         </VBox>
                      </children>
