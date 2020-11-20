@@ -1,19 +1,21 @@
-package sample;
+package main.gui.obstacles;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-import javafx.scene.shape.Arc;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import main.gui.Ball;
+import main.Constants;
+import main.gui.Point;
 
 import java.util.Arrays;
 
-public class Rectangle extends Obstacle {
+public class RectangleObstacle extends Obstacle {
 
     private double width;
     private double height;
@@ -23,7 +25,7 @@ public class Rectangle extends Obstacle {
     public Group rectangleRoot;
 
 
-    public Rectangle(Point center, double width, double height) {
+    public RectangleObstacle(Point center, double width, double height) {
         this.width = width;
         this.height = height;
         this.setPosition(center);

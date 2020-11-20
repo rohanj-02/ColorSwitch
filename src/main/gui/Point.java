@@ -1,4 +1,4 @@
-package sample;
+package main.gui;
 
 public class Point {
     private double x;

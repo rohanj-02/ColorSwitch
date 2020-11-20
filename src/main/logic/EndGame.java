@@ -1,4 +1,4 @@
-package sample;
+package main.logic;
 
 public class EndGame {
 	/**

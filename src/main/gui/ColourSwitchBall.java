@@ -1,6 +1,6 @@
-package sample;
+package main.gui;
 
-public class ColourSwitch extends GameElement implements Collidable {
+public class ColourSwitchBall extends GameElement implements Collidable {
 
 	private double radius;
 

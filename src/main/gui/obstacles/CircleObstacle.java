@@ -1,4 +1,4 @@
-package sample;
+package main.gui.obstacles;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -9,11 +9,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import main.gui.Ball;
+import main.Constants;
+import main.gui.Point;
 
 import java.util.Arrays;
 
 
-public class Circle extends Obstacle {
+public class CircleObstacle extends Obstacle {
 
 	private final double strokeWidth = 10;
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
@@ -23,7 +26,7 @@ public class Circle extends Obstacle {
 	public Group circleRoot;
 	private double radius;
 
-	public Circle(Point center, double radius) {
+	public CircleObstacle(Point center, double radius) {
 		this.radius = radius;
 		this.setPosition(center);
 		int length = Constants.COLOUR_PALETTE.length;

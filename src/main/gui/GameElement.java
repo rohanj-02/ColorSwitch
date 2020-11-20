@@ -1,4 +1,6 @@
-package sample;
+package main.gui;
+
+import main.gui.Point;
 
 import java.io.Serializable;
 

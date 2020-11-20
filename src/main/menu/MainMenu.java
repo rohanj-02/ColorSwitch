@@ -1,7 +1,9 @@
-package sample;
+package main.menu;
+
+import main.logic.Game;
+import main.logic.Player;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

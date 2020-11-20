@@ -1,9 +1,12 @@
-package sample;
+package main.gui.obstacles;
 
 import javafx.animation.*;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
+import main.gui.Ball;
+import main.Constants;
+import main.gui.Point;
 
 public class LineObstacle extends Obstacle {
 

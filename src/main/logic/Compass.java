@@ -1,4 +1,6 @@
-package sample;
+package main.logic;
+
+import main.logic.Game;
 
 public class Compass extends Game {
 

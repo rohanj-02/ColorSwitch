@@ -1,4 +1,6 @@
-package sample;
+package main.gui;
+
+import main.logic.Game;
 
 public class Star extends GameElement implements Collidable {
 	// private int[] position;

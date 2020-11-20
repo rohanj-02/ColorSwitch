@@ -1,4 +1,7 @@
-package sample;
+package main.logic;
+
+import main.logic.Game;
+import main.logic.Player;
 
 public class Multiplayer extends Game {
 	private Player player1;

@@ -1,4 +1,4 @@
-package sample;
+package main.gui.obstacles;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -9,10 +9,13 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import main.gui.Ball;
+import main.Constants;
+import main.gui.Point;
 
 import java.util.Arrays;
 
-public class Plus extends Obstacle {
+public class PlusObstacle extends Obstacle {
 
     private double armLength;
     private final Line[] armList;
@@ -21,7 +24,7 @@ public class Plus extends Obstacle {
     public Group plusRoot;
 
 
-    public Plus(Point center, double armLength) {
+    public PlusObstacle(Point center, double armLength) {
         this.armLength = armLength;
         this.setPosition(center);
         int length = Constants.COLOUR_PALETTE.length;

@@ -1,12 +1,11 @@
-package sample;
+package main.gui.obstacles;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-
-import java.io.Serializable;
-import java.util.Arrays;
+import main.gui.Collidable;
+import main.gui.GameElement;
+import main.gui.Point;
 
 public abstract class Obstacle extends GameElement implements Collidable {
 

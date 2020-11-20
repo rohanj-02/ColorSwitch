@@ -1,14 +1,13 @@
-package sample;
+package main.gui;
 
 import javafx.animation.*;
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Translate;
 import javafx.util.Duration;
+import main.Constants;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 public class Ball extends GameElement {
 	private String colour;

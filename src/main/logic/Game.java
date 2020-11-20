@@ -1,4 +1,9 @@
-package sample;
+package main.logic;
+
+import main.gui.ColourSwitchBall;
+import main.gui.Star;
+import main.gui.Ball;
+import main.gui.obstacles.Obstacle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,15 +16,15 @@ public abstract class Game implements Serializable {
 	// set Game.player = this to give reference of the player to Game object
 	private ArrayList<Obstacle> listOfObstacle;
 	private ArrayList<Star> listOfStar;
-	private ArrayList<ColourSwitch> listOfSwitch;
+	private ArrayList<ColourSwitchBall> listOfSwitch;
 	private Ball ball;
 	private int currentScore;
 
-	public ArrayList<ColourSwitch> getListOfSwitch() {
+	public ArrayList<ColourSwitchBall> getListOfSwitch() {
 		return listOfSwitch;
 	}
 
-	public void setListOfSwitch(ArrayList<ColourSwitch> listOfSwitch) {
+	public void setListOfSwitch(ArrayList<ColourSwitchBall> listOfSwitch) {
 		this.listOfSwitch = listOfSwitch;
 	}
 

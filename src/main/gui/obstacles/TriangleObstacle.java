@@ -1,4 +1,4 @@
-package sample;
+package main.gui.obstacles;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -10,10 +10,13 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import main.gui.Ball;
+import main.Constants;
+import main.gui.Point;
 
 import java.util.Arrays;
 
-public class Triangle extends Obstacle {
+public class TriangleObstacle extends Obstacle {
 
 	private double sideLength;
 	private Point[] vertices;
@@ -23,7 +26,7 @@ public class Triangle extends Obstacle {
 	private final Rotate[] rotAnimation;
 	public Group triangleRoot;
 
-	public Triangle(Point center, double sideLength){
+	public TriangleObstacle(Point center, double sideLength){
 
 		this.setPosition(center);
 		this.sideLength = sideLength;

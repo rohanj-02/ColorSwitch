@@ -1,6 +1,5 @@
-package sample;
+package main.logic;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
