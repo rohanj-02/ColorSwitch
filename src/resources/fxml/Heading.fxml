@@ -20,7 +20,7 @@
         <VBox alignment="CENTER" prefHeight="235.0" prefWidth="424.0" GridPane.columnIndex="1"
               GridPane.rowIndex="1">
             <ImageView fitHeight="236.0" fitWidth="381.0" pickOnBounds="true" preserveRatio="true">
-                <Image fx:id="logoImage" url="@../images/ColorSwitchLogo.jpg"/>
+                <Image fx:id="logoImage" url="@../images/ColorSwitchLogo.png"/>
             </ImageView>
         </VBox>
     </GridPane>

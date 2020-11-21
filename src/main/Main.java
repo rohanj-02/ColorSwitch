@@ -19,18 +19,20 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		// Add ball object
-        Group root = new Group();
-		PlayerBall ball = new PlayerBall(new Point(100,200));
-        Button button = new Button("Show Circle");
-        button.setOnMouseClicked(e -> ball.jump());
-        root.getChildren().add(ball.root);
-		root.getChildren().add(button);
-		primaryStage.setScene(new Scene(root, 500, 700));
-		primaryStage.show();
+//        Group root = new Group();
+//		PlayerBall ball = new PlayerBall(new Point(100,200));
+//        Button button = new Button("Show Circle");
+//        button.setLayoutX(100);
+//        button.setLayoutY(100);
+//        button.setOnMouseClicked(e -> ball.jump());
+//        root.getChildren().add(ball.root);
+//		root.getChildren().add(button);
+//		primaryStage.setScene(new Scene(root, 500, 700));
+//		primaryStage.show();
 
 		// MainMenu
-//		MainLayoutController mainLayoutController = new MainLayoutController();
-//		primaryStage.setScene(new Scene(mainLayoutController));
-//		primaryStage.show();
+		MainLayoutController mainLayoutController = new MainLayoutController();
+		primaryStage.setScene(new Scene(mainLayoutController));
+		primaryStage.show();
 	}
 }

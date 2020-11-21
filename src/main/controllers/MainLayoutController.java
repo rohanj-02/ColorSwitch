@@ -5,9 +5,13 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import main.Constants.GameStage;
+import main.gui.Point;
+import main.gui.obstacles.CircleObstacle;
 
 import java.io.IOException;
 
@@ -41,6 +45,7 @@ public class MainLayoutController extends AnchorPane {
 
 	public MainLayoutController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
+		this.addMovingO();
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
 		try {
@@ -50,6 +55,20 @@ public class MainLayoutController extends AnchorPane {
 		}
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
+	}
+
+	public void addMovingO(){
+		CircleObstacle circle1 = new CircleObstacle(new Point(325, 99), 37);
+		CircleObstacle circle2 = new CircleObstacle(new Point(190, 99), 37);
+		Group root1 = new Group();
+		circle1.renderCircle(root1);
+		Group root2 = new Group();
+		circle2.renderCircle(root2);
+		this.getChildren().add(root1);
+		this.getChildren().add(root2);
+		circle1.rotate();
+		circle2.rotate();
+
 	}
 
 	public boolean isLogin() {
