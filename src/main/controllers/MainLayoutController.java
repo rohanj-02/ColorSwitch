@@ -137,7 +137,7 @@ public class MainLayoutController extends AnchorPane {
 	 * and adds a fade-in fade-out transition to the slides
 	 *
 	 * @param name The name of the FXML file which contains the stage
-	 * @throws IOException on not finding the fxml file in resources/fxml/ directory
+	 * @throws IOException On not finding the fxml file in resources/fxml/ directory
 	 */
 	public void loadStage(String name) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));

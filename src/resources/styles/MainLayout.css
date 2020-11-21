@@ -4,8 +4,16 @@
 }
 
 Button {
-    -fx-background-color: #32e4ee;
+    -fx-background-color: #32d7e1;
     -fx-background-radius: 50;
+}
+
+Button:pressed {
+    -fx-background-color: #31c1cb;
+}
+
+Button:hover {
+    -fx-background-color: #34f5ff;
 }
 
 TextField {
