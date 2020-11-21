@@ -26,7 +26,7 @@ public class TriangleObstacle extends Obstacle {
 	private final Rotate[] rotAnimation;
 	public Group triangleRoot;
 
-	public TriangleObstacle(Point center, double sideLength) {
+	public TriangleObstacle(Point center, double sideLength, Boolean positiveDirection) {
 
 		this.setPosition(center);
 		this.sideLength = sideLength;
@@ -60,15 +60,21 @@ public class TriangleObstacle extends Obstacle {
 			this.rotAnimation[i].setAxis(Rotate.Z_AXIS);
 			this.edges[i].getTransforms().add(this.rotAnimation[i]);
 			this.rotAnimationTimeline[i] = new Timeline();
-			this.rotAnimationTimeline[i].getKeyFrames()
-					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
+			if(positiveDirection){
+				this.rotAnimationTimeline[i].getKeyFrames()
+						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
+			}else{
+				this.rotAnimationTimeline[i].getKeyFrames()
+						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), -360)));
+			}
+
 			this.rotAnimationTimeline[i].setCycleCount(Animation.INDEFINITE);
 
 		}
 	}
 
 
-	public void rotate() {
+	public void play() {
 		// Rotate all arcs.
 		for (int i = 0; i < this.edges.length; i++) {
 			if (rotAnimationTimeline[i].getStatus() == Animation.Status.PAUSED || rotAnimationTimeline[i].getStatus() == Animation.Status.STOPPED) {
@@ -79,7 +85,7 @@ public class TriangleObstacle extends Obstacle {
 		}
 	}
 
-	public void renderTriangle(Group root) {
+	public void render(Group root) {
 		if (this.triangleRoot.getChildren().containsAll(Arrays.asList(this.edges))) {
 			this.triangleRoot.getChildren().removeAll(this.edges);
 			root.getChildren().removeAll(this.triangleRoot);

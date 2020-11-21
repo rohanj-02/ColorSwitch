@@ -24,7 +24,7 @@ public class PlusObstacle extends Obstacle {
 	public Group plusRoot;
 
 
-	public PlusObstacle(Point center, double armLength) {
+	public PlusObstacle(Point center, double armLength, Boolean positiveDirection) {
 		this.armLength = armLength;
 		this.setPosition(center);
 		int length = Constants.COLOUR_PALETTE.length;
@@ -55,8 +55,13 @@ public class PlusObstacle extends Obstacle {
 			this.rotAnimation[i].setAxis(Rotate.Z_AXIS);
 			this.armList[i].getTransforms().add(this.rotAnimation[i]);
 			this.rotAnimationTimeline[i] = new Timeline();
-			this.rotAnimationTimeline[i].getKeyFrames()
-					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
+			if(positiveDirection){
+				this.rotAnimationTimeline[i].getKeyFrames()
+						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
+			}else{
+				this.rotAnimationTimeline[i].getKeyFrames()
+						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), -360)));
+			}
 			this.rotAnimationTimeline[i].setCycleCount(Animation.INDEFINITE);
 		}
 
@@ -69,7 +74,7 @@ public class PlusObstacle extends Obstacle {
 		line.setEndY(endY);
 	}
 
-	public void rotate() {
+	public void play() {
 		// Rotate all arcs.
 		for (int i = 0; i < this.armList.length; i++) {
 			if (rotAnimationTimeline[i].getStatus() == Animation.Status.PAUSED || rotAnimationTimeline[i].getStatus() == Animation.Status.STOPPED) {
@@ -80,7 +85,7 @@ public class PlusObstacle extends Obstacle {
 		}
 	}
 
-	public void renderPlus(Group root) {
+	public void render(Group root) {
 		if (this.plusRoot.getChildren().containsAll(Arrays.asList(this.armList))) {
 			this.plusRoot.getChildren().removeAll(this.armList);
 			root.getChildren().removeAll(this.plusRoot);

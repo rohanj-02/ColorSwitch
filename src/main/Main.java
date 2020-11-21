@@ -3,11 +3,13 @@ package main;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import main.controllers.MainLayoutController;
-import main.gui.PlayerBall;
+import main.controllers.StartGameController;
 import main.gui.Point;
+import main.gui.obstacles.LineObstacle;
+import main.gui.obstacles.Obstacle;
+import main.gui.obstacles.PlusObstacle;
+import main.gui.obstacles.RectangleObstacle;
 
 public class Main extends Application {
 
@@ -31,8 +33,14 @@ public class Main extends Application {
 //		primaryStage.show();
 
 		// MainMenu
-		MainLayoutController mainLayoutController = new MainLayoutController();
-		primaryStage.setScene(new Scene(mainLayoutController));
-		primaryStage.show();
+//		MainLayoutController mainLayoutController = new MainLayoutController();
+//		primaryStage.setScene(new Scene(mainLayoutController));
+//		primaryStage.show();
+
+
+		// Test
+		StartGameController startGameController = new StartGameController();
+
+
 	}
 }

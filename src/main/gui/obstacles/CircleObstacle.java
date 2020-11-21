@@ -26,7 +26,7 @@ public class CircleObstacle extends Obstacle {
 	public Group circleRoot;
 	private double radius;
 
-	public CircleObstacle(Point center, double radius) {
+	public CircleObstacle(Point center, double radius ,Boolean positiveDirection) {
 		this.radius = radius;
 		this.setPosition(center);
 		int length = Constants.COLOUR_PALETTE.length;
@@ -48,14 +48,20 @@ public class CircleObstacle extends Obstacle {
 			this.rotAnimation[i].setAxis(Rotate.Z_AXIS);
 			this.arcList[i].getTransforms().add(this.rotAnimation[i]);
 			this.rotAnimationTimeline[i] = new Timeline();
-			this.rotAnimationTimeline[i].getKeyFrames()
-					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
+			if(positiveDirection){
+				this.rotAnimationTimeline[i].getKeyFrames()
+						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
+			}else{
+				this.rotAnimationTimeline[i].getKeyFrames()
+						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), -360)));
+			}
+
 			this.rotAnimationTimeline[i].setCycleCount(Animation.INDEFINITE);
 		}
 
 	}
 
-	public void rotate() {
+	public void play() {
 		// Rotate all arcs.
 		for (int i = 0; i < this.arcList.length; i++) {
 			if (rotAnimationTimeline[i].getStatus() == Animation.Status.PAUSED || rotAnimationTimeline[i].getStatus() == Animation.Status.STOPPED) {
@@ -80,7 +86,7 @@ public class CircleObstacle extends Obstacle {
 		this.radius = radius;
 	}
 
-	public void renderCircle(Group root) {
+	public void render(Group root) {
 		if (this.circleRoot.getChildren().containsAll(Arrays.asList(this.arcList))) {
 			this.circleRoot.getChildren().removeAll(this.arcList);
 			root.getChildren().removeAll(this.circleRoot);

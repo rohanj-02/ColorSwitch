@@ -1,5 +1,6 @@
 package main.gui.obstacles;
 
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
@@ -8,6 +9,8 @@ import javafx.util.Duration;
 import main.Constants;
 import main.gui.PlayerBall;
 import main.gui.Point;
+
+import java.util.Arrays;
 
 public class LineObstacle extends Obstacle {
 
@@ -21,9 +24,12 @@ public class LineObstacle extends Obstacle {
 		return lineRoot;
 	}
 
-	public LineObstacle(Point start, double sceneLength) {
+	public LineObstacle(Point start, double sceneLength, Boolean positiveDirection) {
 		double length = sceneLength / Constants.COLOUR_PALETTE.length;
 		this.setPosition(start);
+		if(!positiveDirection){
+			this.setPosX(sceneLength - this.getPosX());
+		}
 		this.lineList = new Line[2 * Constants.COLOUR_PALETTE.length];
 		this.lineRoot = new Group();
 		int noOfSegments = Constants.COLOUR_PALETTE.length;
@@ -43,7 +49,11 @@ public class LineObstacle extends Obstacle {
 
 		for (int i = 0; i < 2 * noOfSegments; i++) {
 			this.translateTransitions[i] = new TranslateTransition();
-			this.translateTransitions[i].setByX(sceneLength);
+			if(positiveDirection){
+				this.translateTransitions[i].setByX(sceneLength);
+			}else{
+				this.translateTransitions[i].setByX(-sceneLength);
+			}
 			this.translateTransitions[i].setDuration(Duration.millis(10000));
 			this.translateTransitions[i].setInterpolator(Interpolator.LINEAR);
 			this.translateTransitions[i].setCycleCount(500);
@@ -60,13 +70,23 @@ public class LineObstacle extends Obstacle {
 	}
 
 	public void render(Group root) {
-		this.lineRoot.getChildren().addAll(this.lineList);
-		root.getChildren().addAll(this.lineRoot);
+
+		if (this.lineRoot.getChildren().containsAll(Arrays.asList(this.lineList))) {
+			this.lineRoot.getChildren().removeAll(this.lineList);
+			root.getChildren().removeAll(this.lineRoot);
+		} else {
+			this.lineRoot.getChildren().addAll(this.lineList);
+			root.getChildren().addAll(this.lineRoot);
+		}
 	}
 
 	public void play() {
 		for (int i = 0; i < this.lineList.length; i++) {
-			this.translateTransitions[i].play();
+			if (translateTransitions[i].getStatus() == Animation.Status.PAUSED || translateTransitions[i].getStatus() == Animation.Status.STOPPED) {
+				this.translateTransitions[i].play();
+			} else {
+				this.translateTransitions[i].pause();
+			}
 		}
 	}
 

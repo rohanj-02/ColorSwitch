@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="500.0" stylesheets="@../styles/MainLayout.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.StartGameController">
+   <children>
+      <Button fx:id="addObstacles" onMouseClicked="#onAddObstacles" layoutX="33.0" layoutY="505.0" mnemonicParsing="false" text="Render" />
+      <Button fx:id="animateObstacles" onMouseClicked="#onAnimateObstacles" layoutX="423.0" layoutY="505.0" mnemonicParsing="false" text="Play" />
+   </children>
+</AnchorPane>

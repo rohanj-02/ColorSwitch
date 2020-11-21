@@ -58,16 +58,16 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 	public void addMovingO(){
-		CircleObstacle circle1 = new CircleObstacle(new Point(325, 99), 37);
-		CircleObstacle circle2 = new CircleObstacle(new Point(190, 99), 37);
+		CircleObstacle circle1 = new CircleObstacle(new Point(325, 99), 37, true);
+		CircleObstacle circle2 = new CircleObstacle(new Point(190, 99), 37, true);
 		Group root1 = new Group();
-		circle1.renderCircle(root1);
+		circle1.render(root1);
 		Group root2 = new Group();
-		circle2.renderCircle(root2);
+		circle2.render(root2);
 		this.getChildren().add(root1);
 		this.getChildren().add(root2);
-		circle1.rotate();
-		circle2.rotate();
+		circle1.play();
+		circle2.play();
 
 	}
 
@@ -123,6 +123,10 @@ public class MainLayoutController extends AnchorPane {
 					break;
 				case SELECTSAVED:
 					this.loadStage("LoadGame.fxml");
+					break;
+				case STARTGAME:
+					this.loadStage("game.fxml");
+					this.getChildren().clear();
 					break;
 				default:
 					return;

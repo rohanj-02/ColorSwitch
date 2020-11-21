@@ -6,8 +6,15 @@ import javafx.scene.shape.Circle;
 import main.gui.Collidable;
 import main.gui.GameElement;
 import main.gui.Point;
+import main.logic.Game;
 
 public abstract class Obstacle extends GameElement implements Collidable {
+
+    public abstract void render(Group root);
+
+	public abstract void play();
+
+	protected Group obstacleRoot;
 
 	static class SolidCircle extends GameElement {
 		private float radius;
