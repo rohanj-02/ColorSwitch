@@ -45,7 +45,6 @@ public class MainLayoutController extends AnchorPane {
 
 	public MainLayoutController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
-		this.addMovingO();
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
 		try {
@@ -53,25 +52,12 @@ public class MainLayoutController extends AnchorPane {
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}
+		this.headingController.addMovingO();
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
 	}
 
-	public void addMovingO(){
-		CircleObstacle circle1 = new CircleObstacle(new Point(325, 99), 37, true);
-		CircleObstacle circle2 = new CircleObstacle(new Point(190, 99), 37, true);
-		Group root1 = new Group();
-		circle1.render(root1);
-//		Group root2 = new Group();
-		circle2.render(root1);
-		this.getChildren().add(root1);
-		circle1.setStrokeWidth(10);
-		circle2.setStrokeWidth(10);
-//		this.getChildren().add(root2);
-		circle1.play();
-		circle2.play();
 
-	}
 
 	public boolean isLogin() {
 		return isLogin;
