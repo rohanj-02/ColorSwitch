@@ -31,7 +31,7 @@ public class Star extends GameElement implements Collidable {
 	}
 
 	@Override
-	public boolean isCollision(Ball ball) {
+	public boolean isCollision(PlayerBall ball) {
 		return false;
 	}
 }

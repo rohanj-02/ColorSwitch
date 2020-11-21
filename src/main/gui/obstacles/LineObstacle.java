@@ -6,7 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import main.Constants;
-import main.gui.Ball;
+import main.gui.PlayerBall;
 import main.gui.Point;
 
 public class LineObstacle extends Obstacle {
@@ -80,7 +80,7 @@ public class LineObstacle extends Obstacle {
 	}
 
 	@Override
-	public boolean isCollision(Ball ball) {
+	public boolean isCollision(PlayerBall ball) {
 		return false;
 	}
 }

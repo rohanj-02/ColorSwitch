@@ -1,6 +1,6 @@
 package main.logic;
 
-import main.gui.Ball;
+import main.gui.PlayerBall;
 import main.gui.ColourSwitchBall;
 import main.gui.Star;
 import main.gui.obstacles.Obstacle;
@@ -17,7 +17,7 @@ public abstract class Game implements Serializable {
 	private ArrayList<Obstacle> listOfObstacle;
 	private ArrayList<Star> listOfStar;
 	private ArrayList<ColourSwitchBall> listOfSwitch;
-	private Ball ball;
+	private PlayerBall ball;
 	private int currentScore;
 
 	public ArrayList<ColourSwitchBall> getListOfSwitch() {
@@ -52,11 +52,11 @@ public abstract class Game implements Serializable {
 		this.listOfObstacle = listOfObstacle;
 	}
 
-	public Ball getBall() {
+	public PlayerBall getBall() {
 		return ball;
 	}
 
-	public void setBall(Ball ball) {
+	public void setBall(PlayerBall ball) {
 		this.ball = ball;
 	}
 

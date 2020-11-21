@@ -10,7 +10,7 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import main.Constants;
-import main.gui.Ball;
+import main.gui.PlayerBall;
 import main.gui.Point;
 
 import java.util.Arrays;
@@ -99,7 +99,7 @@ public class PlusObstacle extends Obstacle {
 	}
 
 	@Override
-	public boolean isCollision(Ball ball) {
+	public boolean isCollision(PlayerBall ball) {
 		return false;
 	}
 }

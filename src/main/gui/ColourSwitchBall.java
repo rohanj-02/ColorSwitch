@@ -24,13 +24,13 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 	/**
 	 * Changes the colour of the ball passed to it.
 	 */
-	public void changeColour(Ball ball) {
+	public void changeColour(PlayerBall ball) {
 		//Set enum or list of strings and change colour
 	}
 
 
 	@Override
-	public boolean isCollision(Ball ball) {
+	public boolean isCollision(PlayerBall ball) {
 		return false;
 	}
 }
