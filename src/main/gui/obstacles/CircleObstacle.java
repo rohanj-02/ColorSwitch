@@ -9,8 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import main.gui.Ball;
 import main.Constants;
+import main.gui.Ball;
 import main.gui.Point;
 
 import java.util.Arrays;

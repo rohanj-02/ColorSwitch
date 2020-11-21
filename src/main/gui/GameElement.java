@@ -1,7 +1,5 @@
 package main.gui;
 
-import main.gui.Point;
-
 import java.io.Serializable;
 
 public abstract class GameElement implements Serializable {
@@ -11,7 +9,7 @@ public abstract class GameElement implements Serializable {
 		return this.position.getX();
 	}
 
-	public void setPosX(double  _x) {
+	public void setPosX(double _x) {
 		this.position.setX(_x);
 	}
 

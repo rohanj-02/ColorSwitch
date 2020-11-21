@@ -1,8 +1,8 @@
 package main.logic;
 
+import main.gui.Ball;
 import main.gui.ColourSwitchBall;
 import main.gui.Star;
-import main.gui.Ball;
 import main.gui.obstacles.Obstacle;
 
 import java.io.Serializable;
@@ -72,7 +72,6 @@ public abstract class Game implements Serializable {
 	 * Check collision of ball with any game element
 	 */
 	public abstract void checkCollision();
-
 
 
 	/**

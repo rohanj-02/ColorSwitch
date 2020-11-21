@@ -1,7 +1,5 @@
 package main.logic;
 
-import main.logic.Game;
-
 public class Compass extends Game {
 
 
@@ -34,12 +32,12 @@ public class Compass extends Game {
 
 //     public static void deserialize() throws IOException, ClassNotFoundException{
 
-//     }
-	public void resumeGame(){
+	//     }
+	public void resumeGame() {
 
 	}
 
-	public void startGame(){
+	public void startGame() {
 
 	}
 }

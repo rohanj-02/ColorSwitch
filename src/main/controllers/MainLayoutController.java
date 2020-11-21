@@ -3,6 +3,7 @@ package main.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import main.Constants.GameStage;
 
 import java.io.IOException;
 
@@ -27,7 +28,8 @@ public class MainLayoutController extends AnchorPane {
 	private AnchorPane loadGame;
 	@FXML
 	private LoadGameController loadGameController;
-	private int stage;
+	private GameStage gameStage;
+	private boolean isLogin;
 
 	public MainLayoutController() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
@@ -38,52 +40,68 @@ public class MainLayoutController extends AnchorPane {
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}
-		this.stage = 0;
-		loadGame.setVisible(false);
-		login.setVisible(false);
-		mainMenu.setVisible(false);
+		this.setGameStage(GameStage.LANDING);
+		this.setLogin(false);
 		landingController.setParentController(this);
 		loginController.setParentController(this);
 		mainMenuController.setParentController(this);
 		loadGameController.setParentController(this);
 	}
 
-	public int getStage() {
-		return stage;
+	public boolean isLogin() {
+		return isLogin;
 	}
 
-	public void setStage(int stage) {
-		this.stage = stage;
-		switch (stage) {
-			case 0:
-				loadGame.setVisible(false);
-				login.setVisible(false);
+	public void setLogin(boolean login) {
+		isLogin = login;
+	}
+
+	public GameStage getGameStage() {
+		return gameStage;
+	}
+
+	public void setGameStage(GameStage gameStage) {
+		this.gameStage = gameStage;
+		switch (gameStage) {
+			case LANDING:
 				landing.setVisible(true);
+				login.setVisible(false);
 				mainMenu.setVisible(false);
-				break;
-			case 1:
 				loadGame.setVisible(false);
+				break;
+			case LOGIN:
+				landing.setVisible(false);
 				login.setVisible(true);
 				mainMenu.setVisible(false);
-				landing.setVisible(false);
-				break;
-			case 2:
 				loadGame.setVisible(false);
+				this.loginController.setButtonText(this.isLogin() ? "Login" : "Signup");
+				break;
+			case MAINMENU:
+				landing.setVisible(false);
 				login.setVisible(false);
 				mainMenu.setVisible(true);
-				landing.setVisible(false);
+				loadGame.setVisible(false);
 				break;
-			case 3:
-				loadGame.setVisible(true);
+			case SELECTSAVED:
+				landing.setVisible(false);
 				login.setVisible(false);
 				mainMenu.setVisible(false);
-				landing.setVisible(false);
+				loadGame.setVisible(true);
 				break;
 		}
 	}
 
-	public void increaseStage() {
-		this.setStage(this.getStage() + 1);
+	public void increaseGameStage() {
+		boolean flag = false;
+		for (GameStage iter : GameStage.values()) {
+			if (flag) {
+				this.setGameStage(iter);
+				break;
+			}
+			if (iter == this.getGameStage()) {
+				flag = true;
+			}
+		}
 	}
 
 }

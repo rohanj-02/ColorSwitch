@@ -1,8 +1,5 @@
 package main.logic;
 
-import main.logic.Game;
-import main.logic.Player;
-
 public class Multiplayer extends Game {
 	private Player player1;
 	private Player player2;
@@ -25,11 +22,11 @@ public class Multiplayer extends Game {
 
 	}
 
-	public void resumeGame(){
+	public void resumeGame() {
 
 	}
 
-	public void startGame(){
+	public void startGame() {
 
 	}
 	// serializes game for that player

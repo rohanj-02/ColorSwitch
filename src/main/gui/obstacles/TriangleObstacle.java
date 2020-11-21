@@ -10,8 +10,8 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import main.gui.Ball;
 import main.Constants;
+import main.gui.Ball;
 import main.gui.Point;
 
 import java.util.Arrays;
@@ -19,14 +19,14 @@ import java.util.Arrays;
 public class TriangleObstacle extends Obstacle {
 
 	private double sideLength;
-	private Point[] vertices;
+	private final Point[] vertices;
 	private final double strokeWidth = 10;
-	private javafx.scene.shape.Line[] edges;
+	private final javafx.scene.shape.Line[] edges;
 	private final Timeline[] rotAnimationTimeline;
 	private final Rotate[] rotAnimation;
 	public Group triangleRoot;
 
-	public TriangleObstacle(Point center, double sideLength){
+	public TriangleObstacle(Point center, double sideLength) {
 
 		this.setPosition(center);
 		this.sideLength = sideLength;
@@ -34,9 +34,9 @@ public class TriangleObstacle extends Obstacle {
 		this.edges = new javafx.scene.shape.Line[3];
 
 		//Set edges and vertices
-		this.vertices[0] = new Point(center.getX() - sideLength/2, center.getY() - sideLength/(2*Math.sqrt(3)));
-		this.vertices[1] = new Point(center.getX() + sideLength/2, center.getY() - sideLength/(2*Math.sqrt(3)));
-		this.vertices[2] = new Point(center.getX() , center.getY() + sideLength/Math.sqrt(3));
+		this.vertices[0] = new Point(center.getX() - sideLength / 2, center.getY() - sideLength / (2 * Math.sqrt(3)));
+		this.vertices[1] = new Point(center.getX() + sideLength / 2, center.getY() - sideLength / (2 * Math.sqrt(3)));
+		this.vertices[2] = new Point(center.getX(), center.getY() + sideLength / Math.sqrt(3));
 		this.edges[0] = new Line(this.vertices[0].getX(), this.vertices[0].getY(), this.vertices[1].getX(), this.vertices[1].getY());
 		this.edges[1] = new Line(this.vertices[1].getX(), this.vertices[1].getY(), this.vertices[2].getX(), this.vertices[2].getY());
 		this.edges[2] = new Line(this.vertices[2].getX(), this.vertices[2].getY(), this.vertices[0].getX(), this.vertices[0].getY());
@@ -47,7 +47,7 @@ public class TriangleObstacle extends Obstacle {
 		this.rotAnimation = new Rotate[length];
 		this.triangleRoot = new Group();
 
-		for(int i = 0; i < edges.length; i++){
+		for (int i = 0; i < edges.length; i++) {
 
 			//Remove fill and set stroke
 			this.edges[i].setFill(Color.rgb(0, 0, 0, 0));

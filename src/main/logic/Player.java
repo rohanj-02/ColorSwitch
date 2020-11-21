@@ -51,7 +51,7 @@ public class Player implements Serializable {
 		this.savedGames.add(currentGame);
 	}
 
-	public void createNewGame(String mode){
+	public void createNewGame(String mode) {
 
 	}
 }

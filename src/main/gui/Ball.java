@@ -1,6 +1,9 @@
 package main.gui;
 
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -19,7 +22,7 @@ public class Ball extends GameElement {
 	private TranslateTransition gravity;
 
 
-	public Ball(Point position){
+	public Ball(Point position) {
 		this.setPosition(position);
 		this.radius = 10;
 		this.root = new Circle(this.getPosX(), this.getPosY(), 5);

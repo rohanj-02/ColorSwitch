@@ -12,11 +12,11 @@ public abstract class Obstacle extends GameElement implements Collidable {
 	static class SolidCircle extends GameElement {
 		private float radius;
 		private Color colour;
-		private Circle element;
+		private final Circle element;
 		public Group solidCircleRoot;
 
 		// Solid Circle changed but needs to be changed a lot depending on PathObstacle that we create
-		public SolidCircle(Point centre, Color color){
+		public SolidCircle(Point centre, Color color) {
 			this.setPosition(centre);
 			this.colour = color;
 			this.radius = 5;
@@ -36,6 +36,7 @@ public abstract class Obstacle extends GameElement implements Collidable {
 				root.getChildren().addAll(this.solidCircleRoot);
 			}
 		}
+
 		public float getRadius() {
 			return radius;
 		}

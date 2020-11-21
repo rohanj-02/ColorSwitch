@@ -1,7 +1,5 @@
 package main.controllers;
 
-import javafx.scene.input.MouseEvent;
-
 public abstract class LayoutController {
 
 	protected MainLayoutController parentController;
@@ -10,8 +8,11 @@ public abstract class LayoutController {
 		this.parentController = parentController;
 	}
 
-	public void increaseStage(MouseEvent mouseEvent) {
-		this.parentController.increaseStage();
+	public void increaseStage() {
+		this.parentController.increaseGameStage();
 	}
 
+	public MainLayoutController getParentController() {
+		return parentController;
+	}
 }

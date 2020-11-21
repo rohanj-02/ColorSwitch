@@ -17,21 +17,20 @@
             <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES"/>
         </rowConstraints>
         <VBox alignment="CENTER" GridPane.rowIndex="1">
-            <Button onMouseClicked="#increaseStage" mnemonicParsing="false" prefHeight="40.0" prefWidth="199.0"
-                    style="-fx-background-radius: 50;" text="Login" fx:id="loginButton">
+            <Button onMouseClicked="#onLoginClick" mnemonicParsing="false" prefHeight="40.0" prefWidth="199.0"
+                    text="Login" fx:id="loginButton">
                 <styleClass>
-                    <String fx:value="button"/>
-                    <String fx:value="login_button"/>
+                    <String fx:value="login-button"/>
                 </styleClass>
             </Button>
         </VBox>
         <VBox alignment="CENTER" layoutX="10.0" layoutY="97.0" prefHeight="68.0" prefWidth="500.0"
               GridPane.rowIndex="2">
-            <Button fx:id="signUpButton" onMouseClicked="#increaseStage" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0"
-                    style="-fx-background-radius: 50;" text="Signup">
+            <Button fx:id="signUpButton" onMouseClicked="#onSignUpClick" mnemonicParsing="false" prefHeight="40.0"
+                    prefWidth="200.0"
+                    text="Signup">
                 <styleClass>
-                    <String fx:value="button"/>
-                    <String fx:value="signup_button"/>
+                    <String fx:value="signup-button"/>
                 </styleClass>
             </Button>
         </VBox>
