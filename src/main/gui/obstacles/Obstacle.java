@@ -10,7 +10,17 @@ import main.logic.Game;
 
 public abstract class Obstacle extends GameElement implements Collidable {
 
-    public abstract void render(Group root);
+	protected double strokeWidth = 15;
+
+	public double getStrokeWidth() {
+		return strokeWidth;
+	}
+
+	public void setStrokeWidth(double strokeWidth) {
+		this.strokeWidth = strokeWidth;
+	}
+
+	public abstract void render(Group root);
 
 	public abstract void play();
 

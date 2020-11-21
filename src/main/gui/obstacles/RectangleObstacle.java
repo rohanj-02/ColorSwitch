@@ -47,7 +47,7 @@ public class RectangleObstacle extends Obstacle {
 
 		for (int i = 0; i < lineList.length; i++) {
 			lineList[i].setStroke(Constants.COLOUR_PALETTE[i]);
-			lineList[i].setStrokeWidth(10.0);
+			lineList[i].setStrokeWidth(this.strokeWidth);
 			lineList[i].setStrokeLineCap(StrokeLineCap.ROUND);
 
 			rotAnimation[i] = new Rotate(0, this.getPosX(), this.getPosY());

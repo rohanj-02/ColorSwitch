@@ -20,7 +20,6 @@ public class TriangleObstacle extends Obstacle {
 
 	private double sideLength;
 	private final Point[] vertices;
-	private final double strokeWidth = 10;
 	private final javafx.scene.shape.Line[] edges;
 	private final Timeline[] rotAnimationTimeline;
 	private final Rotate[] rotAnimation;

@@ -18,7 +18,6 @@ import java.util.Arrays;
 
 public class CircleObstacle extends Obstacle {
 
-	private final double strokeWidth = 10;
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
 	private final Arc[] arcList;
 	private final Timeline[] rotAnimationTimeline;

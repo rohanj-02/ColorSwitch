@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.controllers.MainLayoutController;
 import main.controllers.StartGameController;
 import main.gui.Point;
 import main.gui.obstacles.LineObstacle;
@@ -33,14 +34,15 @@ public class Main extends Application {
 //		primaryStage.show();
 
 		// MainMenu
-//		MainLayoutController mainLayoutController = new MainLayoutController();
-//		primaryStage.setScene(new Scene(mainLayoutController));
-//		primaryStage.show();
-
+		MainLayoutController mainLayoutController = new MainLayoutController();
+		primaryStage.setScene(new Scene(mainLayoutController));
+		primaryStage.show();
 
 		// Test
-		StartGameController startGameController = new StartGameController();
+//		StartGameController startGameController = new StartGameController();
 
+		primaryStage.setResizable(false);
+		primaryStage.setTitle("Color Switch");
 
 	}
 }

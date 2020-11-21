@@ -62,10 +62,12 @@ public class MainLayoutController extends AnchorPane {
 		CircleObstacle circle2 = new CircleObstacle(new Point(190, 99), 37, true);
 		Group root1 = new Group();
 		circle1.render(root1);
-		Group root2 = new Group();
-		circle2.render(root2);
+//		Group root2 = new Group();
+		circle2.render(root1);
 		this.getChildren().add(root1);
-		this.getChildren().add(root2);
+		circle1.setStrokeWidth(10);
+		circle2.setStrokeWidth(10);
+//		this.getChildren().add(root2);
 		circle1.play();
 		circle2.play();
 

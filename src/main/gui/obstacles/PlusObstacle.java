@@ -48,7 +48,7 @@ public class PlusObstacle extends Obstacle {
 
 		for (int i = 0; i < armList.length; i++) {
 			armList[i].setStroke(Constants.COLOUR_PALETTE[i]);
-			armList[i].setStrokeWidth(10.0);
+			armList[i].setStrokeWidth(this.strokeWidth);
 			armList[i].setStrokeLineCap(StrokeLineCap.ROUND);
 
 			rotAnimation[i] = new Rotate(0, this.getPosX(), this.getPosY());

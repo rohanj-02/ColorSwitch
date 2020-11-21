@@ -15,7 +15,6 @@ import java.util.Arrays;
 public class LineObstacle extends Obstacle {
 
 	private final Group lineRoot;
-	private double width;
 
 	private final TranslateTransition[] translateTransitions;
 	private final Line[] lineList;
@@ -38,13 +37,13 @@ public class LineObstacle extends Obstacle {
 			this.lineList[i] = new Line();
 			setCoordinateOfLine(this.lineList[i], this.getPosX() + (i - noOfSegments + 1) * length, this.getPosY(), this.getPosX() + (i - noOfSegments) * length, this.getPosY());
 			this.lineList[i].setStroke(Constants.COLOUR_PALETTE[i]);
-			this.lineList[i].setStrokeWidth(10.0);
+			this.lineList[i].setStrokeWidth(this.strokeWidth);
 		}
 		for (int i = noOfSegments; i < 2 * noOfSegments; i++) {
 			this.lineList[i] = new Line();
 			setCoordinateOfLine(this.lineList[i], this.getPosX() + (i - noOfSegments) * length, this.getPosY(), this.getPosX() + (i - noOfSegments + 1) * length, this.getPosY());
 			this.lineList[i].setStroke(Constants.COLOUR_PALETTE[i - noOfSegments]);
-			this.lineList[i].setStrokeWidth(10.0);
+			this.lineList[i].setStrokeWidth(this.strokeWidth);
 		}
 
 		for (int i = 0; i < 2 * noOfSegments; i++) {
@@ -91,12 +90,12 @@ public class LineObstacle extends Obstacle {
 	}
 
 
-	public double getWidth() {
-		return width;
+	public double getStrokeWidth() {
+		return strokeWidth;
 	}
 
-	public void setWidth(double width) {
-		this.width = width;
+	public void setStrokeWidth(double strokeWidth) {
+		this.strokeWidth = strokeWidth;
 	}
 
 	@Override
