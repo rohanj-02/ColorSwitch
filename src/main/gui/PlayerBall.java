@@ -15,7 +15,7 @@ public class PlayerBall extends GameElement {
 	private double angularVelocity;
 	private double radius;
 	public Circle root;
-	public double maxDisplacement = this.getPosY();
+//	public double maxDisplacement = this.getPosY();
 	private Interpolator gravityInterpolator = new Interpolator() {
 		@Override
 		protected double curve(double t) {
