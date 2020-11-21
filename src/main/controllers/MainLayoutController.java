@@ -5,13 +5,11 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants.GameStage;
-import main.gui.Point;
-import main.gui.obstacles.CircleObstacle;
 
 import java.io.IOException;
 
@@ -42,8 +40,10 @@ public class MainLayoutController extends AnchorPane {
 	 * isLogin specifies the choice the user made on the landing screen. true for login and false for signup
 	 */
 	private boolean isLogin;
+	private Stage primaryStage;
 
-	public MainLayoutController() {
+	public MainLayoutController(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
@@ -56,8 +56,6 @@ public class MainLayoutController extends AnchorPane {
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
 	}
-
-
 
 	public boolean isLogin() {
 		return isLogin;
@@ -113,13 +111,14 @@ public class MainLayoutController extends AnchorPane {
 					this.loadStage("LoadGame.fxml");
 					break;
 				case STARTGAME:
-					this.loadStage("game.fxml");
-					this.getChildren().clear();
+					this.loadGame("game.fxml");
 					break;
 				default:
 					return;
 			}
-			bottomPaneController.setParentController(this);
+			if(gameStage != GameStage.STARTGAME){
+				bottomPaneController.setParentController(this);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -182,5 +181,16 @@ public class MainLayoutController extends AnchorPane {
 			this.setBottomAnchorPane(newRoot);
 		});
 		timeline.play();
+	}
+
+	public void loadGame(String name) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
+		AnchorPane newRoot = fxmlLoader.load();
+		((StartGameController)fxmlLoader.getController()).addStylesheet("@../../resources/styles/Game.css");
+		Scene scene = this.getScene();
+		this.primaryStage = (Stage)scene.getWindow();
+		this.primaryStage.setScene(new Scene(newRoot));
+		this.primaryStage.show();
+//		this.bottomAnchorPaneContainer.getChildren().add(newRoot);
 	}
 }

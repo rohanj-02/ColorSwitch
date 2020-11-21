@@ -1,7 +1,9 @@
 package main;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.controllers.MainLayoutController;
@@ -34,12 +36,16 @@ public class Main extends Application {
 //		primaryStage.show();
 
 		// MainMenu
-		MainLayoutController mainLayoutController = new MainLayoutController();
+		MainLayoutController mainLayoutController = new MainLayoutController(primaryStage);
 		primaryStage.setScene(new Scene(mainLayoutController));
 		primaryStage.show();
 
 		// Test
-//		StartGameController startGameController = new StartGameController();
+//		StartGameController startGameController = new StartGameController(primaryStage);
+//		Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/game.fxml"));
+//
+//		primaryStage.setScene(new Scene(root));
+//		primaryStage.show();
 
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Color Switch");

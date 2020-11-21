@@ -1,0 +1,8 @@
+Text{
+    -fx-text-fill: ghostwhite;
+}
+
+.text {
+    -fx-text-fill: ghostwhite;
+    -fx-highlight-text-fill: ghostwhite;
+}
