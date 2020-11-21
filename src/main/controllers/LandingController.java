@@ -10,27 +10,16 @@ public class LandingController extends LayoutController {
 	@FXML
 	private Button signUpButton;
 
+	@FXML
 	public void onLoginClick(MouseEvent mouseEvent) {
 		this.getParentController().setLogin(true);
 		this.increaseStage();
 	}
 
+	@FXML
 	public void onSignUpClick(MouseEvent mouseEvent) {
 		this.getParentController().setLogin(false);
 		this.increaseStage();
 	}
-
-	//	public LandingController() {
-//		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/Landing.fxml"));
-////		fxmlLoader.setRoot(this);
-////		fxmlLoader.setController(this);
-//
-//		try {
-//			fxmlLoader.load();
-//		} catch (IOException exception) {
-//			throw new RuntimeException(exception);
-//		}
-//	}
-
 
 }

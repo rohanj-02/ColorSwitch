@@ -14,11 +14,13 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="0">
             <fx:include fx:id="heading" source="Heading.fxml"/>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1">
-            <fx:include fx:id="loadGame" source="LoadGame.fxml"/>
-            <fx:include fx:id="mainMenu" source="MainMenu.fxml"/>
-            <fx:include fx:id="login" source="Login.fxml"/>
-            <fx:include fx:id="landing" source="Landing.fxml"/>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="1"
+                    fx:id="bottomAnchorPaneContainer">
+            <!--            <fx:include fx:id="loadGame" source="LoadGame.fxml"/>-->
+            <!--            <fx:include fx:id="mainMenu" source="MainMenu.fxml"/>-->
+            <!--            <fx:include fx:id="login" source="Login.fxml"/>-->
+            <!--            <fx:include fx:id="landing" source="Landing.fxml"/>-->
+            <AnchorPane fx:id="bottomAnchorPane"/>
         </AnchorPane>
     </GridPane>
 </fx:root>

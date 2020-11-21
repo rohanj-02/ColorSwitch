@@ -1,8 +1,12 @@
 package main.controllers;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import main.Constants.GameStage;
 
 import java.io.IOException;
@@ -12,23 +16,27 @@ public class MainLayoutController extends AnchorPane {
 	private AnchorPane heading;
 	@FXML
 	private HeadingController headingController;
+	/**
+	 * The container for bottomAnchorPane object in this class
+	 */
 	@FXML
-	private AnchorPane landing;
+	private AnchorPane bottomAnchorPaneContainer;
+	/**
+	 * The pane that is changed to simulate different stages on the menu
+	 */
 	@FXML
-	private LandingController landingController;
-	@FXML
-	private AnchorPane login;
-	@FXML
-	private LoginController loginController;
-	@FXML
-	private AnchorPane mainMenu;
-	@FXML
-	private MainMenuController mainMenuController;
-	@FXML
-	private AnchorPane loadGame;
-	@FXML
-	private LoadGameController loadGameController;
+	private AnchorPane bottomAnchorPane;
+	/**
+	 * It specifies the controller for the bottomAnchorPane object
+	 */
+	private LayoutController bottomPaneController;
+	/**
+	 * Current gameStage
+	 */
 	private GameStage gameStage;
+	/**
+	 * isLogin specifies the choice the user made on the landing screen. true for login and false for signup
+	 */
 	private boolean isLogin;
 
 	public MainLayoutController() {
@@ -42,10 +50,6 @@ public class MainLayoutController extends AnchorPane {
 		}
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
-		landingController.setParentController(this);
-		loginController.setParentController(this);
-		mainMenuController.setParentController(this);
-		loadGameController.setParentController(this);
 	}
 
 	public boolean isLogin() {
@@ -56,41 +60,65 @@ public class MainLayoutController extends AnchorPane {
 		isLogin = login;
 	}
 
+	public AnchorPane getBottomAnchorPaneContainer() {
+		return bottomAnchorPaneContainer;
+	}
+
+	public void setBottomAnchorPaneContainer(AnchorPane bottomAnchorPaneContainer) {
+		this.bottomAnchorPaneContainer = bottomAnchorPaneContainer;
+	}
+
+	public AnchorPane getBottomAnchorPane() {
+		return bottomAnchorPane;
+	}
+
+	public void setBottomAnchorPane(AnchorPane bottomAnchorPane) {
+		this.bottomAnchorPane = bottomAnchorPane;
+	}
+
+	public LayoutController getBottomPaneController() {
+		return bottomPaneController;
+	}
+
+	public void setBottomPaneController(LayoutController bottomPaneController) {
+		this.bottomPaneController = bottomPaneController;
+	}
+
 	public GameStage getGameStage() {
 		return gameStage;
 	}
 
 	public void setGameStage(GameStage gameStage) {
 		this.gameStage = gameStage;
-		switch (gameStage) {
-			case LANDING:
-				landing.setVisible(true);
-				login.setVisible(false);
-				mainMenu.setVisible(false);
-				loadGame.setVisible(false);
-				break;
-			case LOGIN:
-				landing.setVisible(false);
-				login.setVisible(true);
-				mainMenu.setVisible(false);
-				loadGame.setVisible(false);
-				this.loginController.setButtonText(this.isLogin() ? "Login" : "Signup");
-				break;
-			case MAINMENU:
-				landing.setVisible(false);
-				login.setVisible(false);
-				mainMenu.setVisible(true);
-				loadGame.setVisible(false);
-				break;
-			case SELECTSAVED:
-				landing.setVisible(false);
-				login.setVisible(false);
-				mainMenu.setVisible(false);
-				loadGame.setVisible(true);
-				break;
+		try {
+			switch (gameStage) {
+				case LANDING:
+					this.loadStage("Landing.fxml");
+					break;
+				case LOGIN:
+					this.loadStage("Login.fxml");
+					((LoginController) this.bottomPaneController).setButtonText(this.isLogin() ? "Login" : "Signup");
+					break;
+				case MAINMENU:
+					this.loadStage("MainMenu.fxml");
+					break;
+				case SELECTSAVED:
+					this.loadStage("LoadGame.fxml");
+					break;
+				default:
+					return;
+			}
+			bottomPaneController.setParentController(this);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Proceed to the next game stage. The next game stage is taken by the {@link GameStage} enum
+	 *
+	 * @see main.Constants.GameStage
+	 */
 	public void increaseGameStage() {
 		boolean flag = false;
 		for (GameStage iter : GameStage.values()) {
@@ -104,4 +132,44 @@ public class MainLayoutController extends AnchorPane {
 		}
 	}
 
+	/**
+	 * This method loads the given FXML file in the bottom layout of the MainLayout
+	 * and adds a fade-in fade-out transition to the slides
+	 *
+	 * @param name The name of the FXML file which contains the stage
+	 * @throws IOException on not finding the fxml file in resources/fxml/ directory
+	 */
+	public void loadStage(String name) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
+		AnchorPane newRoot = fxmlLoader.load();
+		this.setBottomPaneController(fxmlLoader.getController());
+		newRoot.setVisible(false);
+
+		this.bottomAnchorPaneContainer.getChildren().add(newRoot);
+
+		// Create fade animation of new gameStage and remove the old gameStage!
+		Timeline timeline = new Timeline();
+
+		//TODO Without definition of bottomAnchorPane when loading landing stage but still works without giving NullPointerException
+
+		KeyValue transparentPrevious = new KeyValue(this.bottomAnchorPane.opacityProperty(), 0.0);
+		KeyValue opaquePrevious = new KeyValue(this.bottomAnchorPane.opacityProperty(), 1.0);
+		KeyValue transparentNext = new KeyValue(newRoot.opacityProperty(), 0.0);
+		KeyValue opaqueNext = new KeyValue(newRoot.opacityProperty(), 1.0);
+
+		KeyFrame startFadeOut = new KeyFrame(Duration.ZERO, opaquePrevious);
+		KeyFrame endFadeOut = new KeyFrame(Duration.millis(250), transparentPrevious);
+		KeyFrame startFadeIn = new KeyFrame(Duration.millis(500), e -> {
+			newRoot.setVisible(true);
+		}, transparentNext);
+		KeyFrame endFadeIn = new KeyFrame(Duration.millis(750), opaqueNext);
+
+		timeline.getKeyFrames().addAll(startFadeOut, endFadeOut);
+		timeline.getKeyFrames().addAll(startFadeIn, endFadeIn);
+		timeline.setOnFinished(e -> {
+			this.bottomAnchorPaneContainer.getChildren().remove(this.bottomAnchorPane);
+			this.setBottomAnchorPane(newRoot);
+		});
+		timeline.play();
+	}
 }

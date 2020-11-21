@@ -24,6 +24,7 @@ public class LoginController extends LayoutController {
 		return this.usernameText.textProperty();
 	}
 
+	@FXML
 	public void onActionClick(MouseEvent mouseEvent) {
 		this.increaseStage();
 //		this.setButtonText(this.getUsername());
