@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="318.0" prefWidth="288.0" style="-fx-background-color: #272727#272727;" stylesheets="@../styles/popUp.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PopUpController">
+<AnchorPane prefHeight="318.0" prefWidth="288.0" style="-fx-background-color: #272727#272727;" stylesheets="@../styles/PopUp.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PopUpController">
    <children>
       <GridPane layoutX="-1.0" layoutY="-1.0" prefHeight="319.0" prefWidth="289.0">
         <columnConstraints>
