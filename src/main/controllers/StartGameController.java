@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import main.gui.ColourSwitchBall;
 import main.gui.PlayerBall;
 import main.gui.Point;
 import main.gui.obstacles.*;
@@ -44,15 +45,16 @@ public class StartGameController {
 	public StartGameController() throws IOException {
 		allObstacles = new Obstacle[6];
 		root = new Group();
+
+		//Pause popup code
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/PausePopUp.fxml"));
 		Parent popup = loader.load();
 		this.pausePopupController = loader.getController();
 		this.pausePopupController.setParentController(this);
 		this.pausePopup = this.pausePopupController.getPausePopup();
 		this.pausePopup.getContent().add(popup);
-//		this.pausePopup.setX(540);
-//		this.pausePopup.setY(220);
 
+		// End game popup code
 		FXMLLoader endGameLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/EndGame.fxml"));
 		Parent endPopup = endGameLoader.load();
 		this.endGameController = endGameLoader.getController();
@@ -62,10 +64,10 @@ public class StartGameController {
 		this.endGamePopup.setX(540);
 		this.endGamePopup.setY(220);
 
-//		show.setOnAction(event -> pausePopup.show(this.primaryStage));
-//		hide.setOnAction(event -> pausePopup.hide());
-
+		// Game elements
 		playerBall = new PlayerBall(new Point(250, 600));
+		ColourSwitchBall colourSwitchBall = new ColourSwitchBall(new Point(250, 270), 15);
+		root.getChildren().add(colourSwitchBall.root);
 		root.getChildren().add(playerBall.root);
 		allObstacles[0] = new LineObstacle(new Point(0, 100), 500, true);
 		allObstacles[1] = new LineObstacle(new Point(0, 130), 500, false);
