@@ -50,7 +50,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="68.0" prefWidth="354.0">
                      <children>
-                        <Text fill="#fffbfb" strokeType="OUTSIDE" strokeWidth="0.0" text="10 s" wrappingWidth="86.15794372558594">
+                        <Text fill="#fffbfb" strokeType="OUTSIDE" strokeWidth="0.0" text="10 s" textAlignment="CENTER" wrappingWidth="136.03416442871094">
                            <font>
                               <Font size="50.0" />
                            </font>
