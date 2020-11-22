@@ -41,7 +41,7 @@ public class EndGameController extends AnchorPane {
 	}
 
 	public void show(Stage primaryStage) {
-		this.endGamePopup.show(primaryStage);
+		this.endGamePopup.show(primaryStage, primaryStage.getX() + 83,primaryStage.getY() + 220);
 	}
 
 	public void setParentController(StartGameController parentController){

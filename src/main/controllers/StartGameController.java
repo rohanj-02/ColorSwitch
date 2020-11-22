@@ -49,8 +49,8 @@ public class StartGameController {
 		this.pausePopupController.setParentController(this);
 		this.pausePopup = this.pausePopupController.getPausePopup();
 		this.pausePopup.getContent().add(popup);
-		this.pausePopup.setX(540);
-		this.pausePopup.setY(220);
+//		this.pausePopup.setX(540);
+//		this.pausePopup.setY(220);
 
 		FXMLLoader endGameLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/EndGame.fxml"));
 		Parent endPopup = endGameLoader.load();
