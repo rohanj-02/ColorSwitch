@@ -1,18 +1,9 @@
 package main;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.controllers.MainLayoutController;
-import main.controllers.StartGameController;
-import main.gui.Point;
-import main.gui.obstacles.LineObstacle;
-import main.gui.obstacles.Obstacle;
-import main.gui.obstacles.PlusObstacle;
-import main.gui.obstacles.RectangleObstacle;
 
 public class Main extends Application {
 
@@ -42,7 +33,7 @@ public class Main extends Application {
 
 		// Test
 //		StartGameController startGameController = new StartGameController(primaryStage);
-//		Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/game.fxml"));
+//		Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/GameScreen.fxml"));
 //
 //		primaryStage.setScene(new Scene(root));
 //		primaryStage.show();

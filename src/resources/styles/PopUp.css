@@ -1,3 +1,6 @@
+AnchorPane{
+    -fx-background-color: #272727;
+}
 Button {
     -fx-background-color: #32d7e1;
     -fx-background-radius: 50;
@@ -10,3 +13,7 @@ Button:pressed {
 Button:hover {
     -fx-background-color: #34f5ff;
 }
+
+/*#close-button{*/
+/*    -fx-background-color: red;*/
+/*}*/

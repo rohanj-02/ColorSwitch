@@ -1,21 +1,20 @@
 package main.controllers;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.scene.control.Label;
-import javafx.scene.shape.Circle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import main.gui.PlayerBall;
 import main.gui.Point;
 import main.gui.obstacles.*;
+
+import java.io.IOException;
 
 public class StartGameController {
 
@@ -35,6 +34,8 @@ public class StartGameController {
 	private Group[] rootList;
 	private Stage primaryStage;
 	private Group root;
+	private final Popup pausePopup;
+	private final PopUpController pausePopupController;
 
 	public void addStylesheet(String path) {
 		rootPane.getStylesheets().add(path);
@@ -43,26 +44,15 @@ public class StartGameController {
 	public StartGameController() throws IOException {
 		Obstacle[] allObstacles = new Obstacle[6];
 		root = new Group();
-		popUpStage = new Stage();
-		Button show = new Button("Show");
-		Popup popup = new Popup();
-		show.setLayoutX(200);
-		show.setOnAction((EventHandler<ActionEvent>) event -> popup.show(primaryStage));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/PausePopUp.fxml"));
+		pausePopupController = new PopUpController();
+		this.pausePopup = this.pausePopupController.getPausePopup();
+		this.pausePopup.getContent().add(loader.load());
+		this.pausePopup.setX(540);
+		this.pausePopup.setY(220);
 
-		Button hide = new Button("Hide");
-		hide.setOnAction((EventHandler<ActionEvent>) event -> popup.hide());
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/PopUp.fxml"));
-		PopUpController popUpController = new PopUpController();
-		popup.getContent().add(loader.load());
-
-		popup.setX(540);
-		popup.setY(220);
-
-		root.getChildren().add(show);
-		root.getChildren().add(hide);
-
-		Obstacle[] allObstacles = new Obstacle[6];
+//		show.setOnAction(event -> pausePopup.show(this.primaryStage));
+//		hide.setOnAction(event -> pausePopup.hide());
 
 		PlayerBall ball = new PlayerBall(new Point(250, 600));
 		Button button = new Button("Jump");
@@ -86,6 +76,7 @@ public class StartGameController {
 	}
 
 	public void onPauseClick(MouseEvent mouseEvent) {
+		this.pausePopupController.show(this.primaryStage);
 	}
 
 	public void onAddObstacles(MouseEvent mouseEvent) {
@@ -93,6 +84,10 @@ public class StartGameController {
 	}
 
 	public void onAnimateObstacles(MouseEvent mouseEvent) {
+	}
+
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
 	}
 
 }
