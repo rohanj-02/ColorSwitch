@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import main.controllers.MainLayoutController;
 import main.controllers.StartGameController;
 import main.gui.Point;
+import main.gui.collisionBall;
 import main.gui.obstacles.LineObstacle;
 import main.gui.obstacles.Obstacle;
 import main.gui.obstacles.PlusObstacle;
@@ -47,8 +49,19 @@ public class Main extends Application {
 //		primaryStage.setScene(new Scene(root));
 //		primaryStage.show();
 
-		primaryStage.setResizable(false);
-		primaryStage.setTitle("Color Switch");
+		Group root = new Group();
+		collisionBall collisionBall = new collisionBall(new Point(250, 350), 10);
+		Button button = new Button("show");
+
+		collisionBall.render(root);
+		collisionBall.play();
+		root.getChildren().add(button);
+//		root.getChildren().add(collisionBall.ballRoot);
+		primaryStage.setScene(new Scene(root, 500, 700));
+		primaryStage.show();
+
+//		primaryStage.setResizable(false);
+//		primaryStage.setTitle("Color Switch");
 
 	}
 }
