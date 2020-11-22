@@ -26,6 +26,8 @@ public class StartGameController {
 	private ImageView starImage;
 	@FXML
 	private Text scoreText;
+
+	@FXML private Button endButton;
 	@FXML
 	private Button addObstaclesButton;
 	@FXML
@@ -35,7 +37,9 @@ public class StartGameController {
 	private Stage primaryStage;
 	private Group root;
 	private final Popup pausePopup;
+	private final Popup endGamePopup;
 	private final PopUpController pausePopupController;
+	private final EndGameController endGameController;
 
 	public void addStylesheet(String path) {
 		rootPane.getStylesheets().add(path);
@@ -50,6 +54,13 @@ public class StartGameController {
 		this.pausePopup.getContent().add(loader.load());
 		this.pausePopup.setX(540);
 		this.pausePopup.setY(220);
+
+		FXMLLoader endGameLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/EndGame.fxml"));
+		endGameController = new EndGameController();
+		this.endGamePopup = this.endGameController.getEndGamePopup();
+		this.endGamePopup.getContent().add(endGameLoader.load());
+		this.endGamePopup.setX(540);
+		this.endGamePopup.setY(220);
 
 //		show.setOnAction(event -> pausePopup.show(this.primaryStage));
 //		hide.setOnAction(event -> pausePopup.hide());
@@ -73,6 +84,10 @@ public class StartGameController {
 			allObstacle.render(root);
 			allObstacle.play();
 		}
+	}
+
+	public void onEndClick(MouseEvent mouseEvent){
+		this.endGameController.show(this.primaryStage);
 	}
 
 	public void onPauseClick(MouseEvent mouseEvent) {
