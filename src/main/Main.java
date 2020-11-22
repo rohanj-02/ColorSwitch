@@ -34,12 +34,12 @@ public class Main extends Application {
 //		primaryStage.show();
 
 		// MainMenu
-		MainLayoutController mainLayoutController = new MainLayoutController();
-		primaryStage.setScene(new Scene(mainLayoutController));
-		primaryStage.show();
+//		MainLayoutController mainLayoutController = new MainLayoutController();
+//		primaryStage.setScene(new Scene(mainLayoutController));
+//		primaryStage.show();
 
 		// Test
-//		StartGameController startGameController = new StartGameController();
+		StartGameController startGameController = new StartGameController();
 
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Color Switch");
