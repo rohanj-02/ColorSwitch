@@ -31,7 +31,7 @@
                <children>
                   <ImageView fitHeight="79.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../continue.png" />
+                        <Image url="@../images/continue.png" />
                      </image>
                   </ImageView>
                   <HBox alignment="CENTER" prefHeight="39.0" prefWidth="354.0">
