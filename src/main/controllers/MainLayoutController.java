@@ -117,7 +117,7 @@ public class MainLayoutController extends AnchorPane {
 				default:
 					return;
 			}
-			if(gameStage != GameStage.STARTGAME){
+			if (gameStage != GameStage.STARTGAME) {
 				bottomPaneController.setParentController(this);
 			}
 		} catch (IOException e) {
@@ -188,7 +188,7 @@ public class MainLayoutController extends AnchorPane {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
 		AnchorPane newRoot = fxmlLoader.load();
 //		((StartGameController) fxmlLoader.getController()).addStylesheet("@../../resources/styles/Game.css");
-		this.gameController = ((StartGameController) fxmlLoader.getController());
+		this.gameController = fxmlLoader.getController();
 		this.gameController.setPrimaryStage(this.primaryStage);
 		this.gameController.render();
 		Scene scene = this.getScene();

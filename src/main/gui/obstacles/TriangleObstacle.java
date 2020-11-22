@@ -59,10 +59,10 @@ public class TriangleObstacle extends Obstacle {
 			this.rotAnimation[i].setAxis(Rotate.Z_AXIS);
 			this.edges[i].getTransforms().add(this.rotAnimation[i]);
 			this.rotAnimationTimeline[i] = new Timeline();
-			if(positiveDirection){
+			if (positiveDirection) {
 				this.rotAnimationTimeline[i].getKeyFrames()
 						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
-			}else{
+			} else {
 				this.rotAnimationTimeline[i].getKeyFrames()
 						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), -360)));
 			}

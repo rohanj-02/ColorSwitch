@@ -33,10 +33,10 @@ public class PauseController extends AnchorPane {
 	}
 
 	public void show(Stage primaryStage) {
-		this.pausePopup.show(primaryStage, primaryStage.getX(),primaryStage.getY() + 100);
+		this.pausePopup.show(primaryStage, primaryStage.getX(), primaryStage.getY() + 100);
 	}
 
-	public void setParentController(StartGameController parentController){
+	public void setParentController(StartGameController parentController) {
 		this.parentController = parentController;
 	}
 }

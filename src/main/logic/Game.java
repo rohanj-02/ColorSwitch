@@ -1,7 +1,7 @@
 package main.logic;
 
-import main.gui.PlayerBall;
 import main.gui.ColourSwitchBall;
+import main.gui.PlayerBall;
 import main.gui.Star;
 import main.gui.obstacles.Obstacle;
 

@@ -15,17 +15,17 @@ public class PlayerBall extends GameElement {
 	private double angularVelocity;
 	private double radius;
 	public Circle root;
-//	public double maxDisplacement = this.getPosY();
-	private Interpolator gravityInterpolator = new Interpolator() {
+	//	public double maxDisplacement = this.getPosY();
+	private final Interpolator gravityInterpolator = new Interpolator() {
 		@Override
 		protected double curve(double t) {
-			return -t*2 + t*t*2;
+			return -t * 2 + t * t * 2;
 		}
 	};
 
-//	ut + 1/2 at^2
-	private TranslateTransition gravityTransition;
-	private ParallelTransition transitions;
+	//	ut + 1/2 at^2
+	private final TranslateTransition gravityTransition;
+	private final ParallelTransition transitions;
 	private TranslateTransition currentJump;
 
 	public PlayerBall(Point position) {

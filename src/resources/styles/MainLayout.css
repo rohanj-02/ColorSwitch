@@ -20,7 +20,8 @@ TextField {
     -fx-background-color: #393939;
     -fx-text-fill: ghostwhite;
 }
-AnchorPane{
+
+AnchorPane {
     -fx-background-color: #272727;
 }
 

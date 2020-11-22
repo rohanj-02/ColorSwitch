@@ -6,10 +6,11 @@ import javafx.scene.input.MouseEvent;
 
 public class LoadGameController extends LayoutController {
 
-    @FXML
-    private Button loadGameButton;
-    @FXML
-    public void onLoadGameClick(MouseEvent mouseEvent) {
-        this.increaseStage();
-    }
+	@FXML
+	private Button loadGameButton;
+
+	@FXML
+	public void onLoadGameClick(MouseEvent mouseEvent) {
+		this.increaseStage();
+	}
 }

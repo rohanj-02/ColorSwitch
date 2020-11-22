@@ -25,7 +25,7 @@ public class CircleObstacle extends Obstacle {
 	public Group circleRoot;
 	private double radius;
 
-	public CircleObstacle(Point center, double radius ,Boolean positiveDirection) {
+	public CircleObstacle(Point center, double radius, Boolean positiveDirection) {
 		this.radius = radius;
 		this.setPosition(center);
 		int length = Constants.COLOUR_PALETTE.length;
@@ -47,10 +47,10 @@ public class CircleObstacle extends Obstacle {
 			this.rotAnimation[i].setAxis(Rotate.Z_AXIS);
 			this.arcList[i].getTransforms().add(this.rotAnimation[i]);
 			this.rotAnimationTimeline[i] = new Timeline();
-			if(positiveDirection){
+			if (positiveDirection) {
 				this.rotAnimationTimeline[i].getKeyFrames()
 						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
-			}else{
+			} else {
 				this.rotAnimationTimeline[i].getKeyFrames()
 						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), -360)));
 			}

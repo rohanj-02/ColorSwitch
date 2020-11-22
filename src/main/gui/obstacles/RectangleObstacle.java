@@ -1,6 +1,9 @@
 package main.gui.obstacles;
 
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
@@ -54,10 +57,10 @@ public class RectangleObstacle extends Obstacle {
 			this.rotAnimation[i].setAxis(Rotate.Z_AXIS);
 			this.lineList[i].getTransforms().add(this.rotAnimation[i]);
 			this.rotAnimationTimeline[i] = new Timeline();
-			if(positiveDirection){
+			if (positiveDirection) {
 				this.rotAnimationTimeline[i].getKeyFrames()
 						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
-			}else{
+			} else {
 				this.rotAnimationTimeline[i].getKeyFrames()
 						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), -360)));
 			}
@@ -95,7 +98,7 @@ public class RectangleObstacle extends Obstacle {
 		}
 	}
 
-	public void moveDown(){
+	public void moveDown() {
 
 
 	}

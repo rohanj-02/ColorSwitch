@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            prefHeight="700.0" prefWidth="500.0" fx:controller="main.controllers.HeadingController" fx:id="headingContainer">
+            prefHeight="700.0" prefWidth="500.0" fx:controller="main.controllers.HeadingController"
+            fx:id="headingContainer">
     <GridPane prefHeight="312.0" prefWidth="500.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="40.0"/>

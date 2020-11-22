@@ -26,7 +26,7 @@ public class LineObstacle extends Obstacle {
 	public LineObstacle(Point start, double sceneLength, Boolean positiveDirection) {
 		double length = sceneLength / Constants.COLOUR_PALETTE.length;
 		this.setPosition(start);
-		if(!positiveDirection){
+		if (!positiveDirection) {
 			this.setPosX(sceneLength - this.getPosX());
 		}
 		this.lineList = new Line[2 * Constants.COLOUR_PALETTE.length];
@@ -48,9 +48,9 @@ public class LineObstacle extends Obstacle {
 
 		for (int i = 0; i < 2 * noOfSegments; i++) {
 			this.translateTransitions[i] = new TranslateTransition();
-			if(positiveDirection){
+			if (positiveDirection) {
 				this.translateTransitions[i].setByX(sceneLength);
-			}else{
+			} else {
 				this.translateTransitions[i].setByX(-sceneLength);
 			}
 			this.translateTransitions[i].setDuration(Duration.millis(10000));

@@ -6,7 +6,6 @@ import javafx.scene.shape.Circle;
 import main.gui.Collidable;
 import main.gui.GameElement;
 import main.gui.Point;
-import main.logic.Game;
 
 public abstract class Obstacle extends GameElement implements Collidable {
 

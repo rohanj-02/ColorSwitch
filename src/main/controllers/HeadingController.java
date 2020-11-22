@@ -13,7 +13,7 @@ public class HeadingController {
 	@FXML
 	private AnchorPane headingContainer;
 
-	public void addMovingO(){
+	public void addMovingO() {
 		CircleObstacle circle1 = new CircleObstacle(new Point(325, 99), 37, true);
 		CircleObstacle circle2 = new CircleObstacle(new Point(190, 99), 37, true);
 		Group root1 = new Group();

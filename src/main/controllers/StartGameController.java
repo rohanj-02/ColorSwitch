@@ -28,17 +28,18 @@ public class StartGameController {
 	@FXML
 	private Text scoreText;
 
-	@FXML private Button endButton;
+	@FXML
+	private Button endButton;
 
-	private Obstacle[] allObstacles;
+	private final Obstacle[] allObstacles;
 	private Group[] rootList;
 	private Stage primaryStage;
-	private Group root;
+	private final Group root;
 	private final Popup pausePopup;
 	private final Popup endGamePopup;
 	private final PauseController pausePopupController;
 	private final EndGameController endGameController;
-	private PlayerBall playerBall;
+	private final PlayerBall playerBall;
 
 	public StartGameController() throws IOException {
 		allObstacles = new Obstacle[6];
@@ -80,7 +81,7 @@ public class StartGameController {
 		}
 	}
 
-	public void onEndClick(MouseEvent mouseEvent){
+	public void onEndClick(MouseEvent mouseEvent) {
 		this.endGameController.show(this.primaryStage);
 	}
 
@@ -96,11 +97,11 @@ public class StartGameController {
 		this.playerBall.jump();
 	}
 
-	public void render(){
+	public void render() {
 		this.rootPane.getChildren().add(this.root);
 	}
 
-	public void refreshStage(){
+	public void refreshStage() {
 		this.primaryStage.show();
 	}
 }
