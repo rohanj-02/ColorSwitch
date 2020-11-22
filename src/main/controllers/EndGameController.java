@@ -11,7 +11,7 @@ public class EndGameController extends AnchorPane {
 
 	@FXML
 	public Button closeButton;
-
+	private StartGameController parentController;
 	private Popup endGamePopup;
 
 	public Button getCloseButton() {
@@ -32,8 +32,8 @@ public class EndGameController extends AnchorPane {
 
 	@FXML
 	public void onClose(MouseEvent mouseEvent) {
-		System.out.println("Close popup");
 		this.endGamePopup.hide();
+		this.parentController.refreshStage();
 	}
 
 	public EndGameController() {
@@ -42,5 +42,9 @@ public class EndGameController extends AnchorPane {
 
 	public void show(Stage primaryStage) {
 		this.endGamePopup.show(primaryStage);
+	}
+
+	public void setParentController(StartGameController parentController){
+		this.parentController = parentController;
 	}
 }

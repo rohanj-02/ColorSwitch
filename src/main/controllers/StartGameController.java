@@ -3,6 +3,7 @@ package main.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,50 +29,43 @@ public class StartGameController {
 	private Text scoreText;
 
 	@FXML private Button endButton;
-	@FXML
-	private Button addObstaclesButton;
-	@FXML
-	private Button animateObstaclesButton;
-	private LineObstacle[] allObstacles;
+
+	private Obstacle[] allObstacles;
 	private Group[] rootList;
 	private Stage primaryStage;
 	private Group root;
 	private final Popup pausePopup;
 	private final Popup endGamePopup;
-	private final PopUpController pausePopupController;
+	private final PauseController pausePopupController;
 	private final EndGameController endGameController;
-
-	public void addStylesheet(String path) {
-		rootPane.getStylesheets().add(path);
-	}
+	private PlayerBall playerBall;
 
 	public StartGameController() throws IOException {
-		Obstacle[] allObstacles = new Obstacle[6];
+		allObstacles = new Obstacle[6];
 		root = new Group();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/PausePopUp.fxml"));
-		pausePopupController = new PopUpController();
+		Parent popup = loader.load();
+		this.pausePopupController = loader.getController();
+		this.pausePopupController.setParentController(this);
 		this.pausePopup = this.pausePopupController.getPausePopup();
-		this.pausePopup.getContent().add(loader.load());
+		this.pausePopup.getContent().add(popup);
 		this.pausePopup.setX(540);
 		this.pausePopup.setY(220);
 
 		FXMLLoader endGameLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/EndGame.fxml"));
-		endGameController = new EndGameController();
+		Parent endPopup = endGameLoader.load();
+		this.endGameController = endGameLoader.getController();
+		this.endGameController.setParentController(this);
 		this.endGamePopup = this.endGameController.getEndGamePopup();
-		this.endGamePopup.getContent().add(endGameLoader.load());
+		this.endGamePopup.getContent().add(endPopup);
 		this.endGamePopup.setX(540);
 		this.endGamePopup.setY(220);
 
 //		show.setOnAction(event -> pausePopup.show(this.primaryStage));
 //		hide.setOnAction(event -> pausePopup.hide());
 
-		PlayerBall ball = new PlayerBall(new Point(250, 600));
-		Button button = new Button("Jump");
-		button.setLayoutX(250);
-		button.setLayoutY(650);
-		button.setOnMouseClicked(e -> ball.jump());
-		root.getChildren().add(ball.root);
-		root.getChildren().add(button);
+		playerBall = new PlayerBall(new Point(250, 600));
+		root.getChildren().add(playerBall.root);
 		allObstacles[0] = new LineObstacle(new Point(0, 100), 500, true);
 		allObstacles[1] = new LineObstacle(new Point(0, 130), 500, false);
 		CircleObstacle circleObstacle = new CircleObstacle(new Point(250, 400), 100, true);
@@ -94,15 +88,20 @@ public class StartGameController {
 		this.pausePopupController.show(this.primaryStage);
 	}
 
-	public void onAddObstacles(MouseEvent mouseEvent) {
-		rootPane.getChildren().add(root);
-	}
-
-	public void onAnimateObstacles(MouseEvent mouseEvent) {
-	}
-
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 	}
 
+	public void onJumpClick(MouseEvent mouseEvent) {
+		this.playerBall.jump();
+	}
+
+	public void render(){
+		this.rootPane.getChildren().add(this.root);
+	}
+
+	public void refreshStage(){
+		this.primaryStage.show();
+	}
 }
+

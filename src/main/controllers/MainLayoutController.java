@@ -41,6 +41,7 @@ public class MainLayoutController extends AnchorPane {
 	 */
 	private boolean isLogin;
 	private Stage primaryStage;
+	private StartGameController gameController;
 
 	public MainLayoutController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -186,11 +187,13 @@ public class MainLayoutController extends AnchorPane {
 	public void loadGame(String name) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
 		AnchorPane newRoot = fxmlLoader.load();
-		((StartGameController) fxmlLoader.getController()).addStylesheet("@../../resources/styles/Game.css");
-		((StartGameController) fxmlLoader.getController()).setPrimaryStage(this.primaryStage);
+//		((StartGameController) fxmlLoader.getController()).addStylesheet("@../../resources/styles/Game.css");
+		this.gameController = ((StartGameController) fxmlLoader.getController());
+		this.gameController.setPrimaryStage(this.primaryStage);
+		this.gameController.render();
 		Scene scene = this.getScene();
 		this.primaryStage = (Stage) scene.getWindow();
-		this.primaryStage.setScene(new Scene(newRoot));
+		this.primaryStage.setScene(new Scene(newRoot, 500, 700));
 		this.primaryStage.show();
 //		this.bottomAnchorPaneContainer.getChildren().add(newRoot);
 	}

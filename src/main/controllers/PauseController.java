@@ -7,20 +7,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-public class PopUpController extends AnchorPane {
+public class PauseController extends AnchorPane {
 
 	@FXML
 	public Button closeButton;
-
 	private Popup pausePopup;
+	private StartGameController parentController;
 
 	@FXML
 	public void onClose(MouseEvent mouseEvent) {
-		System.out.println("Close popup");
 		this.pausePopup.hide();
+		this.parentController.refreshStage();
 	}
 
-	public PopUpController() {
+	public PauseController() {
 		this.pausePopup = new Popup();
 	}
 
@@ -34,5 +34,9 @@ public class PopUpController extends AnchorPane {
 
 	public void show(Stage primaryStage) {
 		this.pausePopup.show(primaryStage);
+	}
+
+	public void setParentController(StartGameController parentController){
+		this.parentController = parentController;
 	}
 }
