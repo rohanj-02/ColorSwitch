@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="318.0" prefWidth="288.0"
+<AnchorPane prefHeight="318.0" prefWidth="288.0" styleClass="popup-shadow"
             stylesheets="@../styles/MainLayout.css" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.EndGameController">
    <GridPane layoutX="-1.0" layoutY="-1.0" prefHeight="319.0" prefWidth="289.0">
@@ -38,6 +38,9 @@
                     content="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5zM12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
  styleClass="color-white"/>
             <Text styleClass="color-white" strokeType="OUTSIDE" strokeWidth="0.0" text="831">
+               <font>
+                  <Font size="15.0"/>
+               </font>
                <HBox.margin>
                   <Insets left="10.0"/>
                </HBox.margin>

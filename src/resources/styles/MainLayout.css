@@ -24,11 +24,16 @@ AnchorPane{
     -fx-background-color: #272727;
 }
 
-.color-white{
+.color-white {
     -fx-fill: ghostwhite;
     -fx-text-fill: ghostwhite;
 }
 
-.bg-transparent{
+.bg-transparent {
     -fx-background-color: transparent;
+}
+
+.popup-shadow {
+    -fx-effect: dropshadow(gaussian, #373c35, 70, 0, 0, 0);
+    /*-fx-background-insets: 12;*/
 }
