@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<AnchorPane prefHeight="429.0" prefWidth="353.0"
+<AnchorPane prefHeight="429.0" prefWidth="353.0" styleClass="popup-shadow"
             stylesheets="@../styles/MainLayout.css" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PauseController">
    <GridPane prefHeight="431.0" prefWidth="353.0">
