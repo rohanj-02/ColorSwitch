@@ -3,9 +3,11 @@ package main.gui;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import main.Constants;
+import main.controllers.StartGameController;
 
 import java.io.IOException;
 
@@ -19,26 +21,28 @@ public class PlayerBall extends GameElement {
 	private final Interpolator gravityInterpolator = new Interpolator() {
 		@Override
 		protected double curve(double t) {
-			return -t * 2 + t * t * 2;
+			return  -t*4 * (1 - 2*t);
 		}
 	};
 
 	//	ut + 1/2 at^2
 	private final TranslateTransition gravityTransition;
-	private final ParallelTransition transitions;
+//	private final ParallelTransition transitions;
 	private TranslateTransition currentJump;
 
-	public PlayerBall(Point position) {
+	public PlayerBall(Point position, StartGameController gameController) {
 		this.setPosition(position);
 		this.radius = 10;
-		this.root = new Circle(this.getPosX(), this.getPosY(), 5);
+		this.root = new Circle(this.getPosX(), this.getPosY(), this.radius);
 		this.root.setFill(Constants.COLOUR_PALETTE[0]);
-		this.gravityTransition = new TranslateTransition(Duration.millis(4000), this.root);
-		this.gravityTransition.setInterpolator(this.gravityInterpolator);
-		this.gravityTransition.setByY(700f);
+		this.gravityTransition = new TranslateTransition(Duration.millis(10000), this.root);
+		this.gravityTransition.setByY(1000f);
 		this.gravityTransition.setCycleCount(1);
-		this.transitions = new ParallelTransition(this.root, this.gravityTransition);
-		this.transitions.play();
+		this.gravityTransition.setInterpolator(this.gravityInterpolator);
+//		this.transitions = new ParallelTransition(this.root, this.gravityTransition);
+//		this.transitions.play();
+		this.gravityTransition.setOnFinished(actionEvent -> gameController.simulateEnd());
+		this.gravityTransition.play();
 	}
 
 	public static void serialize() throws IOException {
@@ -83,18 +87,18 @@ public class PlayerBall extends GameElement {
 	 * Makes the ball jump according to the jumpSize of the ball
 	 */
 	public void jump() {
-		Duration time = this.transitions.getCurrentTime();
-		Duration jumpTime = Duration.millis(1000);
-		this.transitions.pause();
-		this.transitions.getChildren().remove(currentJump);
-		TranslateTransition jump = new TranslateTransition(jumpTime, this.root);
+//		Duration time = this.transitions.getCurrentTime();
+//		Duration jumpTime = Duration.millis(1000);
+//		this.transitions.pause();
+//		this.transitions.getChildren().remove(currentJump);
+		TranslateTransition jump = new TranslateTransition(Duration.millis(1000), this.root);
 		jump.setInterpolator(this.gravityInterpolator);
 		jump.setByY(100);
 		jump.setCycleCount(1);
 		jump.play();
 		currentJump = jump;
-		jump.setOnFinished(actionEvent -> this.transitions.playFrom(time.add(jumpTime)));
-		this.transitions.getChildren().add(jump);
+//		jump.setOnFinished(actionEvent -> this.transitions.playFrom(time.add(jumpTime)));
+//		this.transitions.getChildren().add(jump);
 	}
 
 	/**

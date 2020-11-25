@@ -10,7 +10,10 @@ import javafx.stage.Stage;
 public class EndGameController extends AnchorPane {
 
 	@FXML
-	public Button closeButton;
+	private Button closeButton;
+	@FXML private Button exitToMainMenuButton;
+	@FXML private  Button restartGameButton;
+	@FXML private Button reviveButton;
 	private StartGameController parentController;
 	private Popup endGamePopup;
 
@@ -46,5 +49,17 @@ public class EndGameController extends AnchorPane {
 
 	public void setParentController(StartGameController parentController) {
 		this.parentController = parentController;
+	}
+
+	public void revivePlayer(MouseEvent mouseEvent) {
+		this.parentController.initialiseGame();
+	}
+
+	public void restartGame(MouseEvent mouseEvent) {
+		this.parentController.initialiseGame();
+	}
+
+	public void exitToMainMenu(MouseEvent mouseEvent) {
+		this.parentController.initialiseGame();
 	}
 }

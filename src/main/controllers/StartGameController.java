@@ -3,6 +3,7 @@ package main.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -40,7 +41,7 @@ public class StartGameController {
 	private final Popup endGamePopup;
 	private final PauseController pausePopupController;
 	private final EndGameController endGameController;
-	private final PlayerBall playerBall;
+	private PlayerBall playerBall;
 
 	public StartGameController() throws IOException {
 		allObstacles = new Obstacle[6];
@@ -65,7 +66,20 @@ public class StartGameController {
 		this.endGamePopup.setY(220);
 
 		// Game elements
-		playerBall = new PlayerBall(new Point(250, 600));
+		this.initialiseGame();
+	}
+
+	public void initialiseGame(){
+
+		for(Node node : root.getChildren()){
+			if(node != pauseButton){
+				if(node != rootPane){
+//					System.out.println(node);
+					root.getChildren().remove(node);
+				}
+			}
+		}
+		playerBall = new PlayerBall(new Point(250, 600), this);
 		ColourSwitchBall colourSwitchBall = new ColourSwitchBall(new Point(250, 270), 15);
 		root.getChildren().add(colourSwitchBall.root);
 		root.getChildren().add(playerBall.root);
@@ -105,6 +119,10 @@ public class StartGameController {
 
 	public void refreshStage() {
 		this.primaryStage.show();
+	}
+
+	public void simulateEnd() {
+		this.endGameController.show(this.primaryStage);
 	}
 }
 
