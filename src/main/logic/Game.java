@@ -1,24 +1,70 @@
 package main.logic;
 
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
+import javafx.scene.Group;
+import javafx.util.Duration;
+import main.controllers.StartGameController;
 import main.gui.ColourSwitchBall;
 import main.gui.PlayerBall;
+import main.gui.Point;
 import main.gui.Star;
-import main.gui.obstacles.Obstacle;
+import main.gui.obstacles.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Game implements Serializable {
+public class Game implements Serializable {
 
 	private transient Player player;
 	// Player Game 2 way association maybe recursion in serialization
 	// When deserializing PLayer object, in savedGames() in a Game object
 	// set Game.player = this to give reference of the player to Game object
-	private ArrayList<Obstacle> listOfObstacle;
+	private ArrayList<Obstacle> listOfObstacles;
 	private ArrayList<Star> listOfStar;
 	private ArrayList<ColourSwitchBall> listOfSwitch;
-	private PlayerBall ball;
+	private PlayerBall playerBall;
 	private int currentScore;
+	private Group gameRoot;
+	private StartGameController gameController;
+
+	public Game(StartGameController gameController) {
+		this.listOfStar = new ArrayList<>();
+		this.listOfSwitch = new ArrayList<>();
+		this.gameController = gameController;
+		this.listOfObstacles = new ArrayList<>(6);
+		this.gameRoot = new Group();
+		this.playerBall = new PlayerBall(new Point(250, 600), this.gameController);
+		ColourSwitchBall colourSwitchBall = new ColourSwitchBall(new Point(250, 270), 15);
+		this.gameRoot.getChildren().add(colourSwitchBall.root);
+		this.gameRoot.getChildren().add(playerBall.root);
+		this.listOfObstacles.add(new LineObstacle(new Point(0, 100), 500, true));
+		this.listOfObstacles.add(new LineObstacle(new Point(0, 130), 500, false));
+		this.listOfObstacles.add( new PlusObstacle(new Point(200, 200), 50, true));
+		this.listOfObstacles.add( new PlusObstacle(new Point(300, 200), 50, false));
+		this.listOfObstacles.add( new RectangleObstacle(new Point(250, 400), 100, 100, false));
+		this.listOfObstacles.add( new CircleObstacle(new Point(250, 400), 100, true));
+		for (Obstacle obstacle : this.listOfObstacles) {
+			obstacle.render(this.gameRoot);
+			obstacle.play();
+		}
+	}
+
+	public StartGameController getGameController() {
+		return gameController;
+	}
+
+	public void setGameController(StartGameController gameController) {
+		this.gameController = gameController;
+	}
+
+	public Group getGameRoot() {
+		return gameRoot;
+	}
+
+	public void setGameRoot(Group gameRoot) {
+		this.gameRoot = gameRoot;
+	}
 
 	public ArrayList<ColourSwitchBall> getListOfSwitch() {
 		return listOfSwitch;
@@ -44,20 +90,20 @@ public abstract class Game implements Serializable {
 		this.player = player;
 	}
 
-	public ArrayList<Obstacle> getListOfObstacle() {
-		return listOfObstacle;
+	public ArrayList<Obstacle> getListOfObstacles() {
+		return listOfObstacles;
 	}
 
-	public void setListOfObstacle(ArrayList<Obstacle> listOfObstacle) {
-		this.listOfObstacle = listOfObstacle;
+	public void setListOfObstacles(ArrayList<Obstacle> listOfObstacles) {
+		this.listOfObstacles = listOfObstacles;
 	}
 
-	public PlayerBall getBall() {
-		return ball;
+	public PlayerBall getPlayerBall() {
+		return playerBall;
 	}
 
-	public void setBall(PlayerBall ball) {
-		this.ball = ball;
+	public void setPlayerBall(PlayerBall playerBall) {
+		this.playerBall = playerBall;
 	}
 
 	public int getCurrentScore() {
@@ -71,22 +117,68 @@ public abstract class Game implements Serializable {
 	/**
 	 * Check collision of ball with any game element
 	 */
-	public abstract void checkCollision();
+	public void checkCollision() {
+
+	}
 
 
 	/**
 	 * pause button click handles
 	 */
-	public abstract void pauseGame();
+	public void pauseGame() {
+
+	}
 	// pause button click handles
 
 	/**
 	 * serializes game for that player
 	 */
-	public abstract void saveGame();
+	public void saveGame() {
+
+	}
 	// serializes game for that player
 
-	public abstract void resumeGame();
+	public void resumeGame() {
 
-	public abstract void startGame();
+	}
+
+	public void startGame(){
+
+	}
+
+	public boolean isScrollRequired() {
+		return (this.getPlayerBall().root.getTranslateY() < -300);
+	}
+
+	public void scrollScreen() {
+		double lengthOfScroll = Math.abs(300 + this.playerBall.root.getTranslateY());
+		for(Obstacle obstacle: listOfObstacles){
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
+			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
+			scrollDown.setByY(lengthOfScroll);
+			scrollDown.setCycleCount(1);
+			scrollDown.play();
+		}
+		for(ColourSwitchBall colourSwitchBall : listOfSwitch){
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), colourSwitchBall.root);
+			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
+			scrollDown.setByY(lengthOfScroll);
+			scrollDown.setCycleCount(1);
+			scrollDown.play();
+		}
+		for(Star star: listOfStar){
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.root);
+			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
+			scrollDown.setByY(lengthOfScroll);
+			scrollDown.setCycleCount(1);
+			scrollDown.play();
+		}
+		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.root);
+		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
+		scrollDown.setByY(lengthOfScroll);
+		scrollDown.setCycleCount(1);
+		scrollDown.play();
+//		playerBall
+		System.out.println("Scroll");
+	}
 }

@@ -22,7 +22,6 @@ public class CircleObstacle extends Obstacle {
 	private final Arc[] arcList;
 	private final Timeline[] rotAnimationTimeline;
 	private final Rotate[] rotAnimation;
-	public Group circleRoot;
 	private double radius;
 
 	public CircleObstacle(Point center, double radius, Boolean positiveDirection) {
@@ -32,7 +31,7 @@ public class CircleObstacle extends Obstacle {
 		this.arcList = new Arc[length];
 		this.rotAnimationTimeline = new Timeline[length];
 		this.rotAnimation = new Rotate[length];
-		this.circleRoot = new Group();
+		this.obstacleRoot = new Group();
 
 		for (int i = 0; i < this.arcList.length; i++) {
 			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength, this.arcLength);
@@ -86,12 +85,12 @@ public class CircleObstacle extends Obstacle {
 	}
 
 	public void render(Group root) {
-		if (this.circleRoot.getChildren().containsAll(Arrays.asList(this.arcList))) {
-			this.circleRoot.getChildren().removeAll(this.arcList);
-			root.getChildren().removeAll(this.circleRoot);
+		if (this.obstacleRoot.getChildren().containsAll(Arrays.asList(this.arcList))) {
+			this.obstacleRoot.getChildren().removeAll(this.arcList);
+			root.getChildren().removeAll(this.obstacleRoot);
 		} else {
-			this.circleRoot.getChildren().addAll(this.arcList);
-			root.getChildren().addAll(this.circleRoot);
+			this.obstacleRoot.getChildren().addAll(this.arcList);
+			root.getChildren().addAll(this.obstacleRoot);
 		}
 	}
 

@@ -23,7 +23,6 @@ public class TriangleObstacle extends Obstacle {
 	private final javafx.scene.shape.Line[] edges;
 	private final Timeline[] rotAnimationTimeline;
 	private final Rotate[] rotAnimation;
-	public Group triangleRoot;
 
 	public TriangleObstacle(Point center, double sideLength, Boolean positiveDirection) {
 
@@ -44,7 +43,7 @@ public class TriangleObstacle extends Obstacle {
 		int length = 3;
 		this.rotAnimationTimeline = new Timeline[length];
 		this.rotAnimation = new Rotate[length];
-		this.triangleRoot = new Group();
+		this.obstacleRoot = new Group();
 
 		for (int i = 0; i < edges.length; i++) {
 
@@ -85,12 +84,12 @@ public class TriangleObstacle extends Obstacle {
 	}
 
 	public void render(Group root) {
-		if (this.triangleRoot.getChildren().containsAll(Arrays.asList(this.edges))) {
-			this.triangleRoot.getChildren().removeAll(this.edges);
-			root.getChildren().removeAll(this.triangleRoot);
+		if (this.obstacleRoot.getChildren().containsAll(Arrays.asList(this.edges))) {
+			this.obstacleRoot.getChildren().removeAll(this.edges);
+			root.getChildren().removeAll(this.obstacleRoot);
 		} else {
-			this.triangleRoot.getChildren().addAll(this.edges);
-			root.getChildren().addAll(this.triangleRoot);
+			this.obstacleRoot.getChildren().addAll(this.edges);
+			root.getChildren().addAll(this.obstacleRoot);
 		}
 	}
 

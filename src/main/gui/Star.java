@@ -1,10 +1,12 @@
 package main.gui;
 
+import javafx.scene.Group;
 import main.logic.Game;
 
 public class Star extends GameElement implements Collidable {
 	// private int[] position;
 	private int amount;
+	public Group root;
 
 	public int getAmount() {
 		return amount;

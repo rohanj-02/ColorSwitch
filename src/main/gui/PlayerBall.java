@@ -1,9 +1,8 @@
 package main.gui;
 
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
-import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import main.Constants;
@@ -42,7 +41,7 @@ public class PlayerBall extends GameElement {
 //		this.transitions = new ParallelTransition(this.root, this.gravityTransition);
 //		this.transitions.play();
 		this.gravityTransition.setOnFinished(actionEvent -> gameController.simulateEnd());
-		this.gravityTransition.play();
+//		this.gravityTransition.playFrom(Duration.millis(5000));
 	}
 
 	public static void serialize() throws IOException {
@@ -91,6 +90,9 @@ public class PlayerBall extends GameElement {
 //		Duration jumpTime = Duration.millis(1000);
 //		this.transitions.pause();
 //		this.transitions.getChildren().remove(currentJump);
+		if (this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
+			this.gravityTransition.playFrom(Duration.millis(5000));
+		}
 		TranslateTransition jump = new TranslateTransition(Duration.millis(1000), this.root);
 		jump.setInterpolator(this.gravityInterpolator);
 		jump.setByY(100);

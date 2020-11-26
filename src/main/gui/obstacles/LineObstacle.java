@@ -14,14 +14,8 @@ import java.util.Arrays;
 
 public class LineObstacle extends Obstacle {
 
-	private final Group lineRoot;
-
 	private final TranslateTransition[] translateTransitions;
 	private final Line[] lineList;
-
-	public Group getLineRoot() {
-		return lineRoot;
-	}
 
 	public LineObstacle(Point start, double sceneLength, Boolean positiveDirection) {
 		double length = sceneLength / Constants.COLOUR_PALETTE.length;
@@ -30,7 +24,7 @@ public class LineObstacle extends Obstacle {
 			this.setPosX(sceneLength - this.getPosX());
 		}
 		this.lineList = new Line[2 * Constants.COLOUR_PALETTE.length];
-		this.lineRoot = new Group();
+		this.obstacleRoot = new Group();
 		int noOfSegments = Constants.COLOUR_PALETTE.length;
 		this.translateTransitions = new TranslateTransition[2 * Constants.COLOUR_PALETTE.length];
 		for (int i = noOfSegments - 1; i >= 0; i--) {
@@ -70,12 +64,12 @@ public class LineObstacle extends Obstacle {
 
 	public void render(Group root) {
 
-		if (this.lineRoot.getChildren().containsAll(Arrays.asList(this.lineList))) {
-			this.lineRoot.getChildren().removeAll(this.lineList);
-			root.getChildren().removeAll(this.lineRoot);
+		if (this.obstacleRoot.getChildren().containsAll(Arrays.asList(this.lineList))) {
+			this.obstacleRoot.getChildren().removeAll(this.lineList);
+			root.getChildren().removeAll(this.obstacleRoot);
 		} else {
-			this.lineRoot.getChildren().addAll(this.lineList);
-			root.getChildren().addAll(this.lineRoot);
+			this.obstacleRoot.getChildren().addAll(this.lineList);
+			root.getChildren().addAll(this.obstacleRoot);
 		}
 	}
 

@@ -21,8 +21,6 @@ public class PlusObstacle extends Obstacle {
 	private final Line[] armList;
 	private final Timeline[] rotAnimationTimeline;
 	private final Rotate[] rotAnimation;
-	public Group plusRoot;
-
 
 	public PlusObstacle(Point center, double armLength, Boolean positiveDirection) {
 		this.armLength = armLength;
@@ -30,7 +28,7 @@ public class PlusObstacle extends Obstacle {
 		int length = Constants.COLOUR_PALETTE.length;
 		this.rotAnimationTimeline = new Timeline[length];
 		this.rotAnimation = new Rotate[length];
-		this.plusRoot = new Group();
+		this.obstacleRoot = new Group();
 		this.armList = new javafx.scene.shape.Line[length];
 		javafx.scene.shape.Line armBottom = new javafx.scene.shape.Line();
 		javafx.scene.shape.Line armRight = new javafx.scene.shape.Line();
@@ -86,12 +84,12 @@ public class PlusObstacle extends Obstacle {
 	}
 
 	public void render(Group root) {
-		if (this.plusRoot.getChildren().containsAll(Arrays.asList(this.armList))) {
-			this.plusRoot.getChildren().removeAll(this.armList);
-			root.getChildren().removeAll(this.plusRoot);
+		if (this.obstacleRoot.getChildren().containsAll(Arrays.asList(this.armList))) {
+			this.obstacleRoot.getChildren().removeAll(this.armList);
+			root.getChildren().removeAll(this.obstacleRoot);
 		} else {
-			this.plusRoot.getChildren().addAll(this.armList);
-			root.getChildren().addAll(this.plusRoot);
+			this.obstacleRoot.getChildren().addAll(this.armList);
+			root.getChildren().addAll(this.obstacleRoot);
 		}
 	}
 

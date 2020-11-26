@@ -22,8 +22,6 @@ public class RectangleObstacle extends Obstacle {
 	private final Line[] lineList;
 	private final Timeline[] rotAnimationTimeline;
 	private final Rotate[] rotAnimation;
-	public Group rectangleRoot;
-
 
 	public RectangleObstacle(Point center, double width, double height, Boolean positiveDirection) {
 		this.width = width;
@@ -32,7 +30,7 @@ public class RectangleObstacle extends Obstacle {
 		int length = Constants.COLOUR_PALETTE.length;
 		this.rotAnimationTimeline = new Timeline[length];
 		this.rotAnimation = new Rotate[length];
-		this.rectangleRoot = new Group();
+		this.obstacleRoot = new Group();
 		this.lineList = new Line[length];
 		Line lineBottom = new Line();
 		Line lineRight = new Line();
@@ -89,12 +87,12 @@ public class RectangleObstacle extends Obstacle {
 	}
 
 	public void render(Group root) {
-		if (this.rectangleRoot.getChildren().containsAll(Arrays.asList(this.lineList))) {
-			this.rectangleRoot.getChildren().removeAll(this.lineList);
-			root.getChildren().removeAll(this.rectangleRoot);
+		if (this.obstacleRoot.getChildren().containsAll(Arrays.asList(this.lineList))) {
+			this.obstacleRoot.getChildren().removeAll(this.lineList);
+			root.getChildren().removeAll(this.obstacleRoot);
 		} else {
-			this.rectangleRoot.getChildren().addAll(this.lineList);
-			root.getChildren().addAll(this.rectangleRoot);
+			this.obstacleRoot.getChildren().addAll(this.lineList);
+			root.getChildren().addAll(this.obstacleRoot);
 		}
 	}
 

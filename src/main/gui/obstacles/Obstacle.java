@@ -25,6 +25,14 @@ public abstract class Obstacle extends GameElement implements Collidable {
 
 	protected Group obstacleRoot;
 
+	public Group getObstacleRoot() {
+		return obstacleRoot;
+	}
+
+	public void setObstacleRoot(Group obstacleRoot) {
+		this.obstacleRoot = obstacleRoot;
+	}
+
 	static class SolidCircle extends GameElement {
 		private float radius;
 		private Color colour;
@@ -52,6 +60,7 @@ public abstract class Obstacle extends GameElement implements Collidable {
 				root.getChildren().addAll(this.solidCircleRoot);
 			}
 		}
+
 
 		public float getRadius() {
 			return radius;
