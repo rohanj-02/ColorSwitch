@@ -55,10 +55,11 @@ public class Game implements Serializable {
 
 					@Override
 					public void handle(Event event) {
-						for(Obstacle obstacle: listOfObstacles){
+						for (Obstacle obstacle : listOfObstacles) {
 							obstacle.isCollision(playerBall);
 						}
 					}
+				});
 		this.listOfStar.add(new Star(new Point(230, 370), 5));
 
 		this.listOfSwitch.add(new ColourSwitchBall(new Point(250, 270), 15));
