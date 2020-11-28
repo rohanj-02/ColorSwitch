@@ -6,6 +6,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
@@ -119,6 +120,19 @@ public class RectangleObstacle extends Obstacle {
 
 	@Override
 	public boolean isCollision(PlayerBall ball) {
-		return false;
+		boolean collisionDetected = false;
+
+		for(int i = 0 ; i <lineList.length;i++){
+			Shape intersect = Shape.intersect(lineList[i], ball.root);
+			if(lineList[i].getStroke() != ball.root.getFill()) {
+				if (intersect.getBoundsInLocal().getWidth() != -1) {
+					collisionDetected = true;
+				}
+			}
+		}
+		if(collisionDetected){
+			System.out.println("Collision Detected");
+		}
+		return collisionDetected;
 	}
 }

@@ -1,7 +1,8 @@
 package main.logic;
 
-import javafx.animation.Interpolator;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.util.Duration;
 import main.controllers.StartGameController;
@@ -32,7 +33,7 @@ public class Game implements Serializable {
 		this.listOfStar = new ArrayList<>();
 		this.listOfSwitch = new ArrayList<>();
 		this.gameController = gameController;
-		this.listOfObstacles = new ArrayList<>(6);
+		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(250, 600), this.gameController);
 		ColourSwitchBall colourSwitchBall = new ColourSwitchBall(new Point(250, 270), 15);
@@ -44,6 +45,25 @@ public class Game implements Serializable {
 		this.listOfObstacles.add( new PlusObstacle(new Point(300, 200), 50, false));
 		this.listOfObstacles.add( new RectangleObstacle(new Point(250, 400), 100, 100, false));
 		this.listOfObstacles.add( new CircleObstacle(new Point(250, 400), 100, true));
+
+		final Duration oneFrameAmt = Duration.millis(1000/60);
+		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
+				new EventHandler() {
+
+					@Override
+					public void handle(Event event) {
+						for(Obstacle obstacle: listOfObstacles){
+							obstacle.isCollision(playerBall);
+						}
+					}
+
+				}); // oneframe
+
+		// sets the game world's game loop (timeline)
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.getKeyFrames().add(oneFrame);
+		timeline.play();
 		for (Obstacle obstacle : this.listOfObstacles) {
 			obstacle.render(this.gameRoot);
 			obstacle.play();
