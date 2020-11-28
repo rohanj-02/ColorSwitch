@@ -49,20 +49,9 @@ public class Game implements Serializable {
 		this.listOfObstacles.add(new RectangleObstacle(new Point(250, 400), 100, 100, false));
 		this.listOfObstacles.add(new CircleObstacle(new Point(250, 400), 100, true));
 
-		final Duration oneFrameAmt = Duration.millis(1000 / 60);
-		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
-				new EventHandler() {
-
-					@Override
-					public void handle(Event event) {
-						for (Obstacle obstacle : listOfObstacles) {
-							obstacle.isCollision(playerBall);
-						}
-					}
-				});
 		this.listOfStar.add(new Star(new Point(230, 370), 5));
-
 		this.listOfSwitch.add(new ColourSwitchBall(new Point(250, 270), 15));
+
 		checkCollision();
 
 		for (Obstacle obstacle : this.listOfObstacles) {
@@ -155,17 +144,16 @@ public class Game implements Serializable {
 	 * Check collision of ball with any game element
 	 */
 	public void checkCollision() {
-		final Duration oneFrameAmt = Duration.millis(1000 / 60);
+		final Duration oneFrameAmt = Duration.millis((float) 1000 / 60);
 		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt, new EventHandler() {
 
 			@Override
 			public void handle(Event event) {
-				for (Obstacle obstacle : listOfObstacles) {
-					if (obstacle.isCollision(playerBall)) {
-						obstacle.play();
-
-					}
-				}
+//				for (Obstacle obstacle : listOfObstacles) {
+//					if (obstacle.isCollision(playerBall)) {
+////						obstacle.play();
+//					}
+//				}
 				for (Star star : listOfStar) {
 					if (star.isCollision(playerBall)) {
 						star.svgPath.setVisible(false);

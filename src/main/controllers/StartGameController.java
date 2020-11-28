@@ -2,25 +2,24 @@ package main.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import main.gui.ColourSwitchBall;
-import main.gui.PlayerBall;
-import main.gui.Point;
-import main.gui.obstacles.*;
 import main.logic.Game;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class StartGameController {
+public class StartGameController implements Initializable {
 
 	@FXML
 	private AnchorPane rootPane;
@@ -70,6 +69,17 @@ public class StartGameController {
 
 	}
 
+//	@Override
+//	public void initialize(URL location, Resources resources){
+//
+//		button.setOnAction(new EventHandler<ActionEvent>() {
+//		@Override
+//		public void handle(ActionEvent event) {
+//			System.out.println("You clicked me!");
+//		}
+//	});
+//}
+
 	public void onEndClick(MouseEvent mouseEvent) {
 		this.endGameController.show(this.primaryStage);
 	}
@@ -83,10 +93,7 @@ public class StartGameController {
 	}
 
 	public void onJumpClick(MouseEvent mouseEvent) {
-		if (this.game.isScrollRequired()) {
-			this.game.scrollScreen();
-		}
-		this.game.getPlayerBall().jump();
+		this.jump();
 	}
 
 	public void render() {
@@ -99,6 +106,30 @@ public class StartGameController {
 
 	public void simulateEnd() {
 		this.endGameController.show(this.primaryStage);
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+
+		System.out.println("Hello");
+//		this.rootPane.setOnKeyPressed(event -> {
+//			System.out.println("Space?");
+//			if(event.getCode() == KeyCode.SPACE){
+//				System.out.println("Hellooooo");
+//			}
+//		});
+		this.rootPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode() == KeyCode.SPACE) {
+				this.jump();
+			}
+		});
+	}
+
+	public void jump() {
+		if (this.game.isScrollRequired()) {
+			this.game.scrollScreen();
+		}
+		this.game.getPlayerBall().jump();
 	}
 }
 
