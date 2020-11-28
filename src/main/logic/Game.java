@@ -39,9 +39,7 @@ public class Game implements Serializable {
 		this.gameController = gameController;
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
-		this.playerBall = new PlayerBall(new Point(250, 600), this.gameController);
-		ColourSwitchBall colourSwitchBall = new ColourSwitchBall(new Point(250, 270), 15);
-		this.gameRoot.getChildren().add(colourSwitchBall.root);
+		this.playerBall = new PlayerBall(new Point(250, 700), this.gameController);
 		this.gameRoot.getChildren().add(playerBall.root);
 		this.topObstacle = new LineObstacle(new Point(0, 100), 500, true);
 		this.listOfObstacles.add(this.topObstacle);
@@ -61,18 +59,23 @@ public class Game implements Serializable {
 							obstacle.isCollision(playerBall);
 						}
 					}
+		this.listOfStar.add(new Star(new Point(230, 370), 5));
 
-				}); // oneframe
+		this.listOfSwitch.add(new ColourSwitchBall(new Point(250, 270), 15));
+		checkCollision();
 
-		// sets the game world's game loop (timeline)
-		Timeline timeline = new Timeline();
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.getKeyFrames().add(oneFrame);
-		timeline.play();
 		for (Obstacle obstacle : this.listOfObstacles) {
 			obstacle.render(this.gameRoot);
 			obstacle.play();
 		}
+		for (Star star : this.listOfStar) {
+			star.render(this.gameRoot);
+		}
+
+		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
+			colourSwitchBall.render(this.gameRoot);
+		}
+
 	}
 
 	public StartGameController getGameController() {
@@ -151,9 +154,38 @@ public class Game implements Serializable {
 	 * Check collision of ball with any game element
 	 */
 	public void checkCollision() {
+		final Duration oneFrameAmt = Duration.millis(1000 / 60);
+		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt, new EventHandler() {
 
+			@Override
+			public void handle(Event event) {
+				for (Obstacle obstacle : listOfObstacles) {
+					if (obstacle.isCollision(playerBall)) {
+						obstacle.play();
+
+					}
+				}
+				for (Star star : listOfStar) {
+					if (star.isCollision(playerBall)) {
+						star.svgPath.setVisible(false);
+						// star.increaseScore(player);
+					}
+				}
+
+				for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
+					if (colourSwitchBall.isCollision(playerBall)) {
+						colourSwitchBall.changeColour(playerBall);
+					}
+				}
+			}
+
+		});
+
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.getKeyFrames().add(oneFrame);
+		timeline.play();
 	}
-
 
 	/**
 	 * pause button click handles
@@ -180,21 +212,23 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Checks whether there is a need to scroll the screen down based on player position
+	 * Checks whether there is a need to scroll the screen down based on player
+	 * position
+	 * 
 	 * @return true when scroll is required
 	 */
 	public boolean isScrollRequired() {
 		return (this.getPlayerBall().root.getTranslateY() < -SCROLL_THRESHOLD);
 	}
 
-	public double getDistanceOfTop(){
+	public double getDistanceOfTop() {
 		System.out.println(this.topObstacle.getObstacleRoot().getTranslateY());
 		return this.topObstacle.getObstacleRoot().getTranslateY();
 	}
 
 	/**
-	 * Scrolls everything on the screen(obstacles, stars, player and colour switch balls)
-	 * The scroll length is determined by the y value of the player ball
+	 * Scrolls everything on the screen(obstacles, stars, player and colour switch
+	 * balls) The scroll length is determined by the y value of the player ball
 	 */
 	public void scrollScreen() {
 		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.root.getTranslateY());
@@ -217,7 +251,7 @@ public class Game implements Serializable {
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
 		}
-		for(Star star: listOfStar){
+		for (Star star : listOfStar) {
 			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.root);
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
@@ -229,12 +263,13 @@ public class Game implements Serializable {
 		scrollDown.setByY(lengthOfScroll);
 		scrollDown.setCycleCount(1);
 		scrollDown.play();
-//		playerBall
+		// playerBall
 		System.out.println("Scroll");
 	}
 
 	/**
-	 * Add obstacles to the game screen. Appends new obstacles to the listOfObstacles
+	 * Add obstacles to the game screen. Appends new obstacles to the
+	 * listOfObstacles
 	 */
 	public void generateObstacles() {
 		// Add fixed size and then size percentage
@@ -251,7 +286,8 @@ public class Game implements Serializable {
 				newObstacle = new TriangleObstacle(generationPoint, TRIANGLE_SIDE_LENGTH, direction);
 				break;
 			case 3:
-				newObstacle = new RectangleObstacle(generationPoint, RECTANGLE_WIDTH_LENGTH, RECTANGLE_HEIGHT_LENGTH, direction);
+				newObstacle = new RectangleObstacle(generationPoint, RECTANGLE_WIDTH_LENGTH, RECTANGLE_HEIGHT_LENGTH,
+						direction);
 				break;
 			case 4:
 				generationPoint.setX(generationPoint.getX() + PLUS_OFFSET);

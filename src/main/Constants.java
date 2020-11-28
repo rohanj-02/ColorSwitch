@@ -19,6 +19,9 @@ public class Constants {
 	public static final double PLUS_SIDE_LENGTH = 80;
 	public static final double PLUS_OFFSET = 50;
 
+	public static final Color bonusStar = Color.YELLOW;
+	public static final Color normalStar = Color.WHITE;
+
 	public enum GameStage {
 		LOADING, LANDING, LOGIN, MAINMENU, SELECTSAVED, STARTGAME
 	}
