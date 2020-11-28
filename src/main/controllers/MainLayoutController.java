@@ -10,8 +10,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants.GameStage;
+import main.menu.MainMenu;
 
 import java.io.IOException;
+
+import static main.Constants.SCREEN_SIZE_X;
+import static main.Constants.SCREEN_SIZE_Y;
 
 public class MainLayoutController extends AnchorPane {
 	@FXML
@@ -41,10 +45,13 @@ public class MainLayoutController extends AnchorPane {
 	 */
 	private boolean isLogin;
 	private Stage primaryStage;
+	private MainMenu mainMenu;
+//	private Player player;
 	private StartGameController gameController;
 
 	public MainLayoutController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+		this.mainMenu = new MainMenu();
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
@@ -112,7 +119,7 @@ public class MainLayoutController extends AnchorPane {
 					this.loadStage("LoadGame.fxml");
 					break;
 				case STARTGAME:
-					this.loadGame("GameScreen.fxml");
+					this.loadNewGame("GameScreen.fxml");
 					break;
 				default:
 					return;
@@ -123,6 +130,10 @@ public class MainLayoutController extends AnchorPane {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void createPlayer(String name){
+		this.mainMenu.createNewPlayer(name);
 	}
 
 	/**
@@ -184,17 +195,25 @@ public class MainLayoutController extends AnchorPane {
 		timeline.play();
 	}
 
-	public void loadGame(String name) throws IOException {
+	public void loadNewGame(String name) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
 		AnchorPane newRoot = fxmlLoader.load();
-//		((StartGameController) fxmlLoader.getController()).addStylesheet("@../../resources/styles/Game.css");
 		this.gameController = fxmlLoader.getController();
 		this.gameController.setPrimaryStage(this.primaryStage);
 		this.gameController.render();
 		Scene scene = this.getScene();
 		this.primaryStage = (Stage) scene.getWindow();
-		this.primaryStage.setScene(new Scene(newRoot, 500, 700));
+		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
 		this.primaryStage.show();
 //		this.bottomAnchorPaneContainer.getChildren().add(newRoot);
+	}
+
+	public void setCurrentPlayer(String name) {
+		this.mainMenu.setCurrentPlayer(name);
+	}
+
+	public void exitGame(){
+		this.primaryStage.close();
+		// Serializer code
 	}
 }

@@ -15,6 +15,7 @@ public class MainMenuController extends LayoutController {
 	@FXML
 	public void onNewGameClick(MouseEvent mouseEvent) {
 		this.increaseStage();
+		this.increaseStage();
 	}
 
 	@FXML
@@ -24,6 +25,6 @@ public class MainMenuController extends LayoutController {
 
 	@FXML
 	public void onExitGameClick(MouseEvent mouseEvent) {
-		this.increaseStage();
+		this.parentController.exitGame();
 	}
 }

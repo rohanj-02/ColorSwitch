@@ -63,6 +63,8 @@ public class EndGameController extends AnchorPane {
 	}
 
 	public void exitToMainMenu(MouseEvent mouseEvent) {
-		this.parentController.initialiseGame();
+		//TODO Change to main menu
+		this.parentController.closeGame();
 	}
+
 }

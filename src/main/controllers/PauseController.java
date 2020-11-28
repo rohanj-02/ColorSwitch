@@ -39,4 +39,21 @@ public class PauseController extends AnchorPane {
 	public void setParentController(StartGameController parentController) {
 		this.parentController = parentController;
 	}
+
+
+	public void onPlayClicked(MouseEvent mouseEvent) {
+		this.onClose(mouseEvent);
+	}
+
+	public void onRestartClicked(MouseEvent mouseEvent) {
+
+	}
+
+	public void onSaveClicked(MouseEvent mouseEvent) {
+		//serialization
+	}
+
+	public void onExitClicked(MouseEvent mouseEvent) {
+	this.parentController.closeGame();
+	}
 }

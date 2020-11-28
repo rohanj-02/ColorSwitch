@@ -69,17 +69,6 @@ public class StartGameController implements Initializable {
 
 	}
 
-//	@Override
-//	public void initialize(URL location, Resources resources){
-//
-//		button.setOnAction(new EventHandler<ActionEvent>() {
-//		@Override
-//		public void handle(ActionEvent event) {
-//			System.out.println("You clicked me!");
-//		}
-//	});
-//}
-
 	public void onEndClick(MouseEvent mouseEvent) {
 		this.endGameController.show(this.primaryStage);
 	}
@@ -112,12 +101,6 @@ public class StartGameController implements Initializable {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 
 		System.out.println("Hello");
-//		this.rootPane.setOnKeyPressed(event -> {
-//			System.out.println("Space?");
-//			if(event.getCode() == KeyCode.SPACE){
-//				System.out.println("Hellooooo");
-//			}
-//		});
 		this.rootPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.SPACE) {
 				this.jump();
@@ -130,6 +113,10 @@ public class StartGameController implements Initializable {
 			this.game.scrollScreen();
 		}
 		this.game.getPlayerBall().jump();
+	}
+
+	public void closeGame() {
+		this.primaryStage.close();
 	}
 }
 

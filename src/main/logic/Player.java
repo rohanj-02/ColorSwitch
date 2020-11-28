@@ -4,12 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Player implements Serializable {
-	private final String name = "user";
+	private final String name;
 	private int highScore;
 	private ArrayList<Game> savedGames;
 	private int numberOfStars = 0;
 	// save the stats of the player after every game
 	private Game currentGame;
+
+	public Player(String name){
+		this.name = name;
+	}
 
 	public Game getCurrentGame() {
 		return currentGame;

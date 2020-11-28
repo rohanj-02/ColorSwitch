@@ -22,6 +22,12 @@ public class MainMenu {
 
 	}
 
+	public MainMenu() {
+		// Implement serialisation here
+		this.listOfPlayers = new ArrayList<>();
+		this.currentPlayer = new Player("user");
+	}
+
 	public String getMode() {
 		return mode;
 	}
@@ -70,12 +76,21 @@ public class MainMenu {
 	/*
 		Creates a new player and adds it to the list of players
 	*/
-	public void createNewPlayer() {
-
+	public void createNewPlayer(String name) {
+		this.currentPlayer = new Player(name);
+		this.listOfPlayers.add(currentPlayer);
 	}
 
 	public void setPlayer(Player player) {
 		this.currentPlayer = player;
+	}
+
+	public void setCurrentPlayer(String name) {
+		for (Player p : this.listOfPlayers) {
+			if (name.equals(p.getName())){
+				this.currentPlayer = p;
+			}
+		}
 	}
 
 	public List<Player> getPlayerList() {
