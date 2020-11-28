@@ -40,7 +40,7 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 	 */
 	public void changeColour(PlayerBall ball) {
 		if (!colourChanged) {
-			ball.root.setFill(Constants.COLOUR_PALETTE[counter]);
+			ball.getBallRoot().setFill(Constants.COLOUR_PALETTE[counter]);
 			colourChanged = true;
 		}
 
@@ -83,7 +83,7 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 	public boolean isCollision(PlayerBall ball) {
 		boolean collisionDetected = false;
 
-		Shape intersect = Shape.intersect(arcList[0], ball.root);
+		Shape intersect = Shape.intersect(arcList[0], ball.getBallRoot());
 		if (intersect.getBoundsInLocal().getWidth() != -1) {
 			collisionDetected = true;
 		}

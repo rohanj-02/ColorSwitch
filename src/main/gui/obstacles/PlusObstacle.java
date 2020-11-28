@@ -107,8 +107,8 @@ public class PlusObstacle extends Obstacle {
 		boolean collisionDetected = false;
 
 		for (int i = 0; i < armList.length; i++) {
-			Shape intersect = Shape.intersect(armList[i], ball.root);
-			if (armList[i].getStroke() != ball.root.getFill()) {
+			Shape intersect = Shape.intersect(armList[i], ball.getBallRoot());
+			if (armList[i].getStroke() != ball.getBallRoot().getFill()) {
 				if (intersect.getBoundsInLocal().getWidth() != -1) {
 					collisionDetected = true;
 				}

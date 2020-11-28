@@ -10,14 +10,15 @@ public class Constants {
 	public static final double SCREEN_MIDPOINT_Y = 350;
 	public static final double SCREEN_SIZE_Y = 700;
 	public static final double SCREEN_SIZE_X = 500;
-	public static final double NEW_OBSTACLE_SCROLL_THRESHOLD = 150;
+	public static final double NEW_OBSTACLE_SCROLL_THRESHOLD = 300;
 	public static final double TRIANGLE_SIDE_LENGTH = 180;
-	public static final double OBSTACLE_GENERATE_START = -50;
 	public static final double CIRCLE_RADIUS = 80;
 	public static final double RECTANGLE_WIDTH_LENGTH = 150;
 	public static final double RECTANGLE_HEIGHT_LENGTH = 150;
-	public static final double PLUS_SIDE_LENGTH = 80;
-	public static final double PLUS_OFFSET = 50;
+	public static final double PLUS_SIDE_LENGTH = 100;
+	public static final double PLUS_OFFSET = 70;
+	public static final double OBSTACLE_DISTANCE = 400;
+	public static final double OBSTACLE_GENERATE_START = NEW_OBSTACLE_SCROLL_THRESHOLD - OBSTACLE_DISTANCE;
 
 	public static final Color bonusStar = Color.YELLOW;
 	public static final Color normalStar = Color.WHITE;

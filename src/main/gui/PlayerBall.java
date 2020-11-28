@@ -15,8 +15,8 @@ public class PlayerBall extends GameElement {
 	private final static double jumpSize = 100;
 	private double angularVelocity;
 	private final static double radius = 15;
-	public Circle root;
-	//	public double maxDisplacement = this.getPosY();
+	private Circle ballRoot;
+
 	private final Interpolator gravityInterpolator = new Interpolator() {
 		@Override
 		protected double curve(double t) {
@@ -26,14 +26,12 @@ public class PlayerBall extends GameElement {
 
 	//	ut + 1/2 at^2
 	private final TranslateTransition gravityTransition;
-	//	private final ParallelTransition transitions;
-	private TranslateTransition currentJump;
 
 	public PlayerBall(Point position, StartGameController gameController) {
 		this.setPosition(position);
-		this.root = new Circle(this.getPosX(), this.getPosY(), radius);
-		this.root.setFill(Constants.COLOUR_PALETTE[0]);
-		this.gravityTransition = new TranslateTransition(Duration.millis(10000), this.root);
+		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
+		this.ballRoot.setFill(Constants.COLOUR_PALETTE[0]);
+		this.gravityTransition = new TranslateTransition(Duration.millis(10000), this.ballRoot);
 		this.gravityTransition.setByY(1000f);
 		this.gravityTransition.setCycleCount(1);
 		this.gravityTransition.setInterpolator(this.gravityInterpolator);
@@ -65,6 +63,14 @@ public class PlayerBall extends GameElement {
 		return jumpSize;
 	}
 
+	public Circle getBallRoot() {
+		return ballRoot;
+	}
+
+	public void setBallRoot(Circle ballRoot) {
+		this.ballRoot = ballRoot;
+	}
+
 	public void setAngularVelocity(float angularVelocity) {
 		this.angularVelocity = angularVelocity;
 	}
@@ -80,12 +86,11 @@ public class PlayerBall extends GameElement {
 		if (this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
 			this.gravityTransition.playFrom(Duration.millis(5000));
 		}
-		TranslateTransition jump = new TranslateTransition(Duration.millis(1000), this.root);
+		TranslateTransition jump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		jump.setInterpolator(this.gravityInterpolator);
 		jump.setByY(jumpSize);
 		jump.setCycleCount(1);
 		jump.play();
-		currentJump = jump;
 	}
 
 	/**

@@ -4,10 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 import main.Constants;
-import main.logic.Game;
 import main.logic.Player;
-
-import java.awt.*;
 
 public class Star extends GameElement implements Collidable {
 	// private int[] position;
@@ -65,7 +62,7 @@ public class Star extends GameElement implements Collidable {
 	public boolean isCollision(PlayerBall ball) {
 		boolean collisionDetected = false;
 
-		javafx.scene.shape.Shape intersect = Shape.intersect(this.svgPath, ball.root);
+		javafx.scene.shape.Shape intersect = Shape.intersect(this.svgPath, ball.getBallRoot());
 
 		if (intersect.getBoundsInLocal().getWidth() != -1) {
 			collisionDetected = true;

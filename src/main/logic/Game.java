@@ -40,7 +40,7 @@ public class Game implements Serializable {
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(250, 700), this.gameController);
-		this.gameRoot.getChildren().add(playerBall.root);
+		this.gameRoot.getChildren().add(playerBall.getBallRoot());
 		this.topObstacle = new LineObstacle(new Point(0, 100), 500, true);
 		this.listOfObstacles.add(this.topObstacle);
 		this.listOfObstacles.add(new LineObstacle(new Point(0, 130), 500, false));
@@ -207,12 +207,12 @@ public class Game implements Serializable {
 	 * @return true when scroll is required
 	 */
 	public boolean isScrollRequired() {
-		return (this.getPlayerBall().root.getTranslateY() < -SCROLL_THRESHOLD);
+		return (this.getPlayerBall().getBallRoot().getTranslateY() < -SCROLL_THRESHOLD);
 	}
 
 	public double getDistanceOfTop() {
-		System.out.println(this.topObstacle.getObstacleRoot().getTranslateY());
-		return this.topObstacle.getObstacleRoot().getTranslateY();
+//		System.out.println(this.topObstacle.getObstacleRoot().getTranslateY());
+		return this.topObstacle.getObstacleRoot().getTranslateY() + this.topObstacle.getObstacleRoot().getLayoutY();
 	}
 
 	/**
@@ -220,9 +220,12 @@ public class Game implements Serializable {
 	 * balls) The scroll length is determined by the y value of the player ball
 	 */
 	public void scrollScreen() {
-		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.root.getTranslateY());
+		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallRoot().getTranslateY());
 
-		if (getDistanceOfTop() > NEW_OBSTACLE_SCROLL_THRESHOLD) {
+		// if distance of topobstacle from y = 0 is > new obstacle threshold then generate obstacle above topobstacle above OBSTACLE_DISTANCE.
+		// obstacle generated at -100 => top dist < new obstacle
+		double topDistance = getDistanceOfTop();
+		if (topDistance > NEW_OBSTACLE_SCROLL_THRESHOLD) {
 			this.generateObstacles();
 		}
 
@@ -247,13 +250,21 @@ public class Game implements Serializable {
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
 		}
-		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.root);
+		// playerBall
+		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
 		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 		scrollDown.setByY(lengthOfScroll);
 		scrollDown.setCycleCount(1);
 		scrollDown.play();
-		// playerBall
-		System.out.println("Scroll");
+
+	}
+
+	public void generateGameElements(){
+
+	}
+
+	public void DistanceOfTop(){
+
 	}
 
 	/**
@@ -262,8 +273,11 @@ public class Game implements Serializable {
 	 */
 	public void generateObstacles() {
 		// Add fixed size and then size percentage
+//		double topY =  this.topObstacle.getObstacleRoot().getTranslateY() + Math.abs(this.topObstacle.getObstacleRoot().getLayoutY());
 		int selection = (int) (Math.random() * 5 + 1);
-		double y = this.getMaxY();
+//		double OBSTACLE_GENERATE_Y = topY - OBSTACLE_DISTANCE;
+//		double OBSTACLE_GENERATE_Y = -100;
+//		System.out.println("Top y: " + topY + "\tNew Obstacle: " + OBSTACLE_GENERATE_Y);;
 		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START);
 		boolean direction = Math.random() < 0.5;
 		Obstacle newObstacle = new CircleObstacle(generationPoint, CIRCLE_RADIUS, direction);
@@ -283,7 +297,8 @@ public class Game implements Serializable {
 				newObstacle = new PlusObstacle(generationPoint, PLUS_SIDE_LENGTH, direction);
 				break;
 			case 5:
-				newObstacle = new LineObstacle(new Point(0, OBSTACLE_GENERATE_START), SCREEN_SIZE_X, direction);
+				generationPoint.setX(0);
+				newObstacle = new LineObstacle(generationPoint, SCREEN_SIZE_X, direction);
 				break;
 			default:
 				break;

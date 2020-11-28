@@ -9,7 +9,7 @@ import main.gui.Point;
 
 public abstract class Obstacle extends GameElement implements Collidable {
 
-	protected double strokeWidth = 15;
+	protected double strokeWidth = 20;
 
 	public double getStrokeWidth() {
 		return strokeWidth;
