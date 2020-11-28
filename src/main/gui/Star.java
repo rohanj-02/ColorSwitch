@@ -19,8 +19,8 @@ public class Star extends GameElement implements Collidable {
 		svgPath.setContent(path);
 		svgPath.setScaleX(1.5);
 		svgPath.setScaleY(1.5);
-		svgPath.setLayoutX(point.getX() - svgPath.getLayoutBounds().getWidth()/2);
-		svgPath.setLayoutY(point.getY() - svgPath.getLayoutBounds().getHeight()/2);
+		svgPath.setLayoutX(point.getX() - svgPath.getLayoutBounds().getWidth() / 2);
+		svgPath.setLayoutY(point.getY() - svgPath.getLayoutBounds().getHeight() / 2);
 		this.amount = amount;
 		if (amount >= 10) {
 			svgPath.setFill(Constants.BONUS_STAR);

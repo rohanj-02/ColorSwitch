@@ -32,7 +32,7 @@ public class StartGameController implements Initializable {
 	@FXML
 	private Button endButton;
 
-	private Game game;
+	private final Game game;
 	private Stage primaryStage;
 	private final Popup pausePopup;
 	private final Popup endGamePopup;

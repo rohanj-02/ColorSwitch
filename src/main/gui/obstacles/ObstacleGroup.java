@@ -5,7 +5,7 @@ import main.gui.PlayerBall;
 
 import java.util.ArrayList;
 
-public class ObstacleGroup extends Obstacle{
+public class ObstacleGroup extends Obstacle {
 
 	public ArrayList<? extends Obstacle> listOfObstacles;
 

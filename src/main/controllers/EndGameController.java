@@ -11,9 +11,12 @@ public class EndGameController extends AnchorPane {
 
 	@FXML
 	private Button closeButton;
-	@FXML private Button exitToMainMenuButton;
-	@FXML private  Button restartGameButton;
-	@FXML private Button reviveButton;
+	@FXML
+	private Button exitToMainMenuButton;
+	@FXML
+	private Button restartGameButton;
+	@FXML
+	private Button reviveButton;
 	private StartGameController parentController;
 	private Popup endGamePopup;
 

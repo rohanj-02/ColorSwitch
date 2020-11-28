@@ -284,7 +284,7 @@ public class Game implements Serializable {
 	 * Add colourSwitches to the game screen. Appends new colourSwitches to the listOfSwitches
 	 */
 	public void generateSwitches() {
-		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START - (NEW_OBSTACLE_SCROLL_THRESHOLD/2));
+		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START - (NEW_OBSTACLE_SCROLL_THRESHOLD / 2));
 		ColourSwitchBall newBall = new ColourSwitchBall(generationPoint, COLOUR_SWITCH_RADIUS);
 		this.listOfSwitch.add(newBall);
 		newBall.render(this.gameRoot);
