@@ -32,12 +32,13 @@ public class StartGameController implements Initializable {
 	@FXML
 	private Button endButton;
 
-	private final Game game;
+	private Game game;
 	private Stage primaryStage;
 	private final Popup pausePopup;
 	private final Popup endGamePopup;
 	private final PauseController pausePopupController;
 	private final EndGameController endGameController;
+	private MainLayoutController mainLayoutController;
 
 	public StartGameController() throws IOException {
 
@@ -61,12 +62,17 @@ public class StartGameController implements Initializable {
 		this.endGamePopup.setX(540);
 		this.endGamePopup.setY(220);
 
-		// Game elements
-		this.initialiseGame();
 	}
 
+	/**
+	 * Used for restarting the game
+	 */
 	public void initialiseGame() {
-
+		this.game.destroyGame();
+		this.game = new Game(this);
+		this.render();
+		this.pausePopupController.closePopup();
+		this.endGameController.closePopup();
 	}
 
 	public void onEndClick(MouseEvent mouseEvent) {
@@ -79,6 +85,14 @@ public class StartGameController implements Initializable {
 
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+	}
+
+	public MainLayoutController getMainLayoutController() {
+		return mainLayoutController;
+	}
+
+	public void setMainLayoutController(MainLayoutController mainLayoutController) {
+		this.mainLayoutController = mainLayoutController;
 	}
 
 	public void onJumpClick(MouseEvent mouseEvent) {
@@ -100,7 +114,6 @@ public class StartGameController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 
-		System.out.println("Hello");
 		this.rootPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.SPACE) {
 				this.jump();

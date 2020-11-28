@@ -140,6 +140,10 @@ public class Game implements Serializable {
 		this.maxY = maxY;
 	}
 
+	public void destroyGame(){
+		this.gameRoot.getChildren().clear();
+	}
+
 	/**
 	 * Check collision of ball with any game element
 	 */

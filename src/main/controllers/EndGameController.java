@@ -38,6 +38,10 @@ public class EndGameController extends AnchorPane {
 
 	@FXML
 	public void onClose(MouseEvent mouseEvent) {
+		this.closePopup();
+	}
+
+	public void closePopup(){
 		this.endGamePopup.hide();
 		this.parentController.refreshStage();
 	}
