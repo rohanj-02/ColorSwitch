@@ -66,7 +66,7 @@ public class StartGameController {
 		this.initialiseGame();
 	}
 
-	public void initialiseGame(){
+	public void initialiseGame() {
 
 	}
 
@@ -83,7 +83,7 @@ public class StartGameController {
 	}
 
 	public void onJumpClick(MouseEvent mouseEvent) {
-		if(this.game.isScrollRequired()){
+		if (this.game.isScrollRequired()) {
 			this.game.scrollScreen();
 		}
 		this.game.getPlayerBall().jump();

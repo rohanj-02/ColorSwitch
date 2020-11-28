@@ -122,15 +122,15 @@ public class RectangleObstacle extends Obstacle {
 	public boolean isCollision(PlayerBall ball) {
 		boolean collisionDetected = false;
 
-		for(int i = 0 ; i <lineList.length;i++){
+		for (int i = 0; i < lineList.length; i++) {
 			Shape intersect = Shape.intersect(lineList[i], ball.root);
-			if(lineList[i].getStroke() != ball.root.getFill()) {
+			if (lineList[i].getStroke() != ball.root.getFill()) {
 				if (intersect.getBoundsInLocal().getWidth() != -1) {
 					collisionDetected = true;
 				}
 			}
 		}
-		if(collisionDetected){
+		if (collisionDetected) {
 			System.out.println("Collision Detected");
 		}
 		return collisionDetected;

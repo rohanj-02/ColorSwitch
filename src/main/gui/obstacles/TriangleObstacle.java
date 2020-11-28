@@ -106,15 +106,15 @@ public class TriangleObstacle extends Obstacle {
 	public boolean isCollision(PlayerBall ball) {
 		boolean collisionDetected = false;
 
-		for(int i = 0 ; i <edges.length;i++){
+		for (int i = 0; i < edges.length; i++) {
 			Shape intersect = Shape.intersect(edges[i], ball.root);
-			if(edges[i].getStroke() != ball.root.getFill()) {
+			if (edges[i].getStroke() != ball.root.getFill()) {
 				if (intersect.getBoundsInLocal().getWidth() != -1) {
 					collisionDetected = true;
 				}
 			}
 		}
-		if(collisionDetected){
+		if (collisionDetected) {
 			System.out.println("Collision Detected");
 		}
 		return collisionDetected;

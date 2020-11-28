@@ -39,7 +39,7 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 	 * Changes the colour of the ball passed to it.
 	 */
 	public void changeColour(PlayerBall ball) {
-		if(colourChanged == false){
+		if (!colourChanged) {
 			ball.root.setFill(Constants.COLOUR_PALETTE[counter]);
 			colourChanged = true;
 		}

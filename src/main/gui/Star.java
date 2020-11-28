@@ -30,7 +30,7 @@ public class Star extends GameElement implements Collidable {
 		}
 	}
 
-	public void render(Group root){
+	public void render(Group root) {
 		this.root.getChildren().add(svgPath);
 		root.getChildren().addAll(this.root);
 	}

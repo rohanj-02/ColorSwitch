@@ -39,10 +39,10 @@ public class Game implements Serializable {
 		this.gameRoot.getChildren().add(playerBall.root);
 		this.listOfObstacles.add(new LineObstacle(new Point(0, 100), 500, true));
 		this.listOfObstacles.add(new LineObstacle(new Point(0, 130), 500, false));
-		this.listOfObstacles.add( new PlusObstacle(new Point(200, 200), 50, true));
-		this.listOfObstacles.add( new PlusObstacle(new Point(300, 200), 50, false));
-		this.listOfObstacles.add( new RectangleObstacle(new Point(250, 400), 100, 100, false));
-		this.listOfObstacles.add( new CircleObstacle(new Point(250, 400), 100, true));
+		this.listOfObstacles.add(new PlusObstacle(new Point(200, 200), 50, true));
+		this.listOfObstacles.add(new PlusObstacle(new Point(300, 200), 50, false));
+		this.listOfObstacles.add(new RectangleObstacle(new Point(250, 400), 100, 100, false));
+		this.listOfObstacles.add(new CircleObstacle(new Point(250, 400), 100, true));
 
 		this.listOfStar.add(new Star(new Point(230, 370), 5));
 
@@ -53,11 +53,11 @@ public class Game implements Serializable {
 			obstacle.render(this.gameRoot);
 			obstacle.play();
 		}
-		for(Star star: this.listOfStar){
+		for (Star star : this.listOfStar) {
 			star.render(this.gameRoot);
 		}
 
-		for(ColourSwitchBall colourSwitchBall: listOfSwitch){
+		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
 			colourSwitchBall.render(this.gameRoot);
 		}
 
@@ -131,27 +131,27 @@ public class Game implements Serializable {
 	 * Check collision of ball with any game element
 	 */
 	public void checkCollision() {
-		final Duration oneFrameAmt = Duration.millis(1000/60);
+		final Duration oneFrameAmt = Duration.millis(1000 / 60);
 		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
 				new EventHandler() {
 
 					@Override
 					public void handle(Event event) {
-						for(Obstacle obstacle: listOfObstacles){
-							if(obstacle.isCollision(playerBall)){
+						for (Obstacle obstacle : listOfObstacles) {
+							if (obstacle.isCollision(playerBall)) {
 								obstacle.play();
 
 							}
 						}
-						for(Star star: listOfStar){
-							if(star.isCollision(playerBall)){
+						for (Star star : listOfStar) {
+							if (star.isCollision(playerBall)) {
 								star.svgPath.setVisible(false);
 //								star.increaseScore(player);
 							}
 						}
 
-						for(ColourSwitchBall colourSwitchBall: listOfSwitch){
-							if(colourSwitchBall.isCollision(playerBall) ){
+						for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
+							if (colourSwitchBall.isCollision(playerBall)) {
 								colourSwitchBall.changeColour(playerBall);
 							}
 						}
@@ -186,7 +186,7 @@ public class Game implements Serializable {
 
 	}
 
-	public void startGame(){
+	public void startGame() {
 
 	}
 
@@ -196,21 +196,21 @@ public class Game implements Serializable {
 
 	public void scrollScreen() {
 		double lengthOfScroll = Math.abs(300 + this.playerBall.root.getTranslateY());
-		for(Obstacle obstacle: listOfObstacles){
+		for (Obstacle obstacle : listOfObstacles) {
 			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
 		}
-		for(ColourSwitchBall colourSwitchBall : listOfSwitch){
+		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
 			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), colourSwitchBall.root);
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
 		}
-		for(Star star: listOfStar){
+		for (Star star : listOfStar) {
 			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.root);
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
