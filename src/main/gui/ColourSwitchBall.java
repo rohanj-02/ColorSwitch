@@ -3,7 +3,10 @@ package main.gui;
 import javafx.scene.Group;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Shape;
 import main.Constants;
+
+import java.util.Arrays;
 
 public class ColourSwitchBall extends GameElement implements Collidable {
 
@@ -12,6 +15,8 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
 	private final Arc[] arcList;
 	public Group root;
+	private static int counter = 1;
+	public boolean colourChanged = false;
 
 	/**
 	 * Returns whether the object has been collected or not
@@ -34,7 +39,16 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 	 * Changes the colour of the ball passed to it.
 	 */
 	public void changeColour(PlayerBall ball) {
-		//Set enum or list of strings and change colour
+		if(colourChanged == false){
+			ball.root.setFill(Constants.COLOUR_PALETTE[counter]);
+			colourChanged = true;
+		}
+
+
+		counter++;
+		if (counter == 4) {
+			counter = 0;
+		}
 	}
 
 	public ColourSwitchBall(Point center, double radius) {
@@ -51,13 +65,31 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 			this.arcList[i].setFill(Constants.COLOUR_PALETTE[i]);
 			this.arcList[i].setStrokeWidth(0);
 			this.arcList[i].setStroke(Constants.COLOUR_PALETTE[i]);
-			root.getChildren().add(arcList[i]);
+		}
+	}
+
+	public void render(Group root) {
+		if (this.root.getChildren().containsAll(Arrays.asList(this.arcList))) {
+			this.root.getChildren().removeAll(this.arcList);
+			root.getChildren().removeAll(this.root);
+		} else {
+			this.root.getChildren().addAll(this.arcList);
+			root.getChildren().addAll(this.root);
 		}
 	}
 
 
 	@Override
 	public boolean isCollision(PlayerBall ball) {
-		return false;
+		boolean collisionDetected = false;
+
+		Shape intersect = Shape.intersect(arcList[0], ball.root);
+		if (intersect.getBoundsInLocal().getWidth() != -1) {
+			collisionDetected = true;
+		}
+		if (collisionDetected) {
+			System.out.println("Collision Detected");
+		}
+		return collisionDetected;
 	}
 }

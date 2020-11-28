@@ -7,7 +7,7 @@ public class Player implements Serializable {
 	private final String name = "user";
 	private int highScore;
 	private ArrayList<Game> savedGames;
-	private int numberOfStars;
+	private int numberOfStars = 0;
 	// save the stats of the player after every game
 	private Game currentGame;
 

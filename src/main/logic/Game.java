@@ -35,9 +35,7 @@ public class Game implements Serializable {
 		this.gameController = gameController;
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
-		this.playerBall = new PlayerBall(new Point(250, 600), this.gameController);
-		ColourSwitchBall colourSwitchBall = new ColourSwitchBall(new Point(250, 270), 15);
-		this.gameRoot.getChildren().add(colourSwitchBall.root);
+		this.playerBall = new PlayerBall(new Point(250, 700), this.gameController);
 		this.gameRoot.getChildren().add(playerBall.root);
 		this.listOfObstacles.add(new LineObstacle(new Point(0, 100), 500, true));
 		this.listOfObstacles.add(new LineObstacle(new Point(0, 130), 500, false));
@@ -46,28 +44,23 @@ public class Game implements Serializable {
 		this.listOfObstacles.add( new RectangleObstacle(new Point(250, 400), 100, 100, false));
 		this.listOfObstacles.add( new CircleObstacle(new Point(250, 400), 100, true));
 
-		final Duration oneFrameAmt = Duration.millis(1000/60);
-		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
-				new EventHandler() {
+		this.listOfStar.add(new Star(new Point(230, 370), 5));
 
-					@Override
-					public void handle(Event event) {
-						for(Obstacle obstacle: listOfObstacles){
-							obstacle.isCollision(playerBall);
-						}
-					}
+		this.listOfSwitch.add(new ColourSwitchBall(new Point(250, 270), 15));
+		checkCollision();
 
-				}); // oneframe
-
-		// sets the game world's game loop (timeline)
-		Timeline timeline = new Timeline();
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.getKeyFrames().add(oneFrame);
-		timeline.play();
 		for (Obstacle obstacle : this.listOfObstacles) {
 			obstacle.render(this.gameRoot);
 			obstacle.play();
 		}
+		for(Star star: this.listOfStar){
+			star.render(this.gameRoot);
+		}
+
+		for(ColourSwitchBall colourSwitchBall: listOfSwitch){
+			colourSwitchBall.render(this.gameRoot);
+		}
+
 	}
 
 	public StartGameController getGameController() {
@@ -138,7 +131,38 @@ public class Game implements Serializable {
 	 * Check collision of ball with any game element
 	 */
 	public void checkCollision() {
+		final Duration oneFrameAmt = Duration.millis(1000/60);
+		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt,
+				new EventHandler() {
 
+					@Override
+					public void handle(Event event) {
+						for(Obstacle obstacle: listOfObstacles){
+							if(obstacle.isCollision(playerBall)){
+								obstacle.play();
+
+							}
+						}
+						for(Star star: listOfStar){
+							if(star.isCollision(playerBall)){
+								star.svgPath.setVisible(false);
+//								star.increaseScore(player);
+							}
+						}
+
+						for(ColourSwitchBall colourSwitchBall: listOfSwitch){
+							if(colourSwitchBall.isCollision(playerBall) ){
+								colourSwitchBall.changeColour(playerBall);
+							}
+						}
+					}
+
+				});
+
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.getKeyFrames().add(oneFrame);
+		timeline.play();
 	}
 
 
