@@ -43,8 +43,6 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 			ball.getBallRoot().setFill(Constants.COLOUR_PALETTE[counter]);
 			colourChanged = true;
 		}
-
-
 		counter++;
 		if (counter == 4) {
 			counter = 0;

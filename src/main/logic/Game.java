@@ -160,16 +160,13 @@ public class Game implements Serializable {
 						// star.increaseScore(player);
 					}
 				}
-
 				for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
 					if (colourSwitchBall.isCollision(playerBall)) {
 						colourSwitchBall.changeColour(playerBall);
 					}
 				}
 			}
-
 		});
-
 		Timeline timeline = new Timeline();
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.getKeyFrames().add(oneFrame);
@@ -203,32 +200,36 @@ public class Game implements Serializable {
 	/**
 	 * Checks whether there is a need to scroll the screen down based on player
 	 * position
-	 * 
-	 * @return true when scroll is required
+	 *
+	 * @return boolean: true when scroll is required
 	 */
 	public boolean isScrollRequired() {
 		return (this.getPlayerBall().getBallRoot().getTranslateY() < -SCROLL_THRESHOLD);
 	}
 
+	/**
+	 * Computes the distance of the topObstacle from y = 0.
+	 *
+	 * @return double: the computed distance
+	 */
 	public double getDistanceOfTop() {
-//		System.out.println(this.topObstacle.getObstacleRoot().getTranslateY());
 		return this.topObstacle.getObstacleRoot().getTranslateY() + this.topObstacle.getObstacleRoot().getLayoutY();
 	}
 
 	/**
 	 * Scrolls everything on the screen(obstacles, stars, player and colour switch
-	 * balls) The scroll length is determined by the y value of the player ball
+	 * balls). The scroll length is determined by the y value of the player ball.
 	 */
 	public void scrollScreen() {
 		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallRoot().getTranslateY());
 
-		// if distance of topobstacle from y = 0 is > new obstacle threshold then generate obstacle above topobstacle above OBSTACLE_DISTANCE.
-		// obstacle generated at -100 => top dist < new obstacle
+		// Generate new game elements when they are above NEW_OBSTACLE_SCROLL_THRESHOLD
 		double topDistance = getDistanceOfTop();
 		if (topDistance > NEW_OBSTACLE_SCROLL_THRESHOLD) {
-			this.generateObstacles();
+			this.generateGameElements();
 		}
 
+		// Translate all obstacles
 		for (Obstacle obstacle : listOfObstacles) {
 			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
@@ -236,6 +237,7 @@ public class Game implements Serializable {
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
 		}
+		// Translate all colour switches
 		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
 			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), colourSwitchBall.root);
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
@@ -243,41 +245,57 @@ public class Game implements Serializable {
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
 		}
+		// Translate all stars
 		for (Star star : listOfStar) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.root);
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.starRoot);
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
 		}
-		// playerBall
+		// Translate the playerBall
 		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
 		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 		scrollDown.setByY(lengthOfScroll);
 		scrollDown.setCycleCount(1);
 		scrollDown.play();
-
-	}
-
-	public void generateGameElements(){
-
-	}
-
-	public void DistanceOfTop(){
-
 	}
 
 	/**
-	 * Add obstacles to the game screen. Appends new obstacles to the
-	 * listOfObstacles
+	 * Generates obstacles, stars and colourSwitches and adds them to the game screen.
+	 */
+	public void generateGameElements() {
+		this.generateObstacles();
+		this.generateStars();
+		this.generateSwitches();
+	}
+
+	/**
+	 * Add stars to the game screen. Appends new stars to the listOfStars
+	 */
+	public void generateStars() {
+		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START - 3); // 3 added for latency issues
+		Star newStar = new Star(generationPoint, STAR_POINTS);
+		this.listOfStar.add(newStar);
+		newStar.render(this.gameRoot);
+	}
+
+	/**
+	 * Add colourSwitches to the game screen. Appends new colourSwitches to the listOfSwitches
+	 */
+	public void generateSwitches() {
+		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START - (NEW_OBSTACLE_SCROLL_THRESHOLD/2));
+		ColourSwitchBall newBall = new ColourSwitchBall(generationPoint, COLOUR_SWITCH_RADIUS);
+		this.listOfSwitch.add(newBall);
+		newBall.render(this.gameRoot);
+	}
+
+	/**
+	 * Add obstacles to the game screen. Appends new obstacles to the listOfObstacles
 	 */
 	public void generateObstacles() {
 		// Add fixed size and then size percentage
-//		double topY =  this.topObstacle.getObstacleRoot().getTranslateY() + Math.abs(this.topObstacle.getObstacleRoot().getLayoutY());
 		int selection = (int) (Math.random() * 5 + 1);
-//		double OBSTACLE_GENERATE_Y = topY - OBSTACLE_DISTANCE;
-//		double OBSTACLE_GENERATE_Y = -100;
-//		System.out.println("Top y: " + topY + "\tNew Obstacle: " + OBSTACLE_GENERATE_Y);;
 		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START);
 		boolean direction = Math.random() < 0.5;
 		Obstacle newObstacle = new CircleObstacle(generationPoint, CIRCLE_RADIUS, direction);
