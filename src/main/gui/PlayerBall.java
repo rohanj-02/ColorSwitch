@@ -95,9 +95,24 @@ public class PlayerBall extends GameElement {
 		this.setPosY(this.getPosY() - n);
 	}
 
+	public void pause(){
+		this.setPosition();
+		this.gravityTransition.pause();
+		this.ballRoot.setVisible(false);
+	}
+
+	public void play(){
+		this.setPosition(this.getPosition());
+		this.ballRoot.setVisible(true);
+	}
+
+	public double getYPosition(){
+		return this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY();
+	}
+
 	@Override
 	public void setPosition() {
-		Point point = new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY());
+		Point point = new Point(SCREEN_MIDPOINT_X, this.getYPosition());
 		this.setPosition(point);
 	}
 

@@ -181,24 +181,11 @@ public class Game implements Serializable {
 	 * pause button click handles
 	 */
 	public void pauseGame() {
-
-	}
-	// pause button click handles
-
-	/**
-	 * serializes game for that player
-	 */
-	public void saveGame() {
-
-	}
-	// serializes game for that player
-
-	public void resumeGame() {
-
+		this.playerBall.pause();
 	}
 
-	public void startGame() {
-
+	public void playGame(){
+		this.playerBall.play();
 	}
 
 	/**

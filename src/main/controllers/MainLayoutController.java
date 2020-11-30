@@ -11,15 +11,12 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants.GameStage;
 import main.logic.Game;
-import main.logic.Player;
 import main.menu.MainMenu;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.awt.*;
+import java.io.*;
 
-import static main.Constants.SCREEN_SIZE_X;
-import static main.Constants.SCREEN_SIZE_Y;
+import static main.Constants.*;
 
 public class MainLayoutController extends AnchorPane {
 	@FXML
@@ -56,6 +53,14 @@ public class MainLayoutController extends AnchorPane {
 	public MainLayoutController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.mainMenu = new MainMenu();
+		try{
+			this.deserialize();
+		}catch(IOException | ClassNotFoundException | NullPointerException e){
+			System.out.println("Exception Encountered: ");
+			e.printStackTrace();
+			System.out.println("Could not load " + FILENAME);
+			this.mainMenu = new MainMenu();
+		}
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
@@ -67,6 +72,17 @@ public class MainLayoutController extends AnchorPane {
 		this.headingController.addMovingO();
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
+	}
+
+	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException{
+		ObjectInputStream in = null;
+		try{
+			in = new ObjectInputStream(new FileInputStream(FILENAME));
+			this.mainMenu = (MainMenu)in.readObject();
+		}
+		finally {
+			in.close();
+		}
 	}
 
 	public boolean isLogin() {
@@ -209,6 +225,7 @@ public class MainLayoutController extends AnchorPane {
 		this.primaryStage = (Stage) scene.getWindow();
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
 		this.primaryStage.show();
+		this.gameController.setMainLayoutController(this);
 		Game game = new Game(this.gameController);
 		this.gameController.setGame(game);
 		this.mainMenu.addGame(game);
@@ -246,7 +263,7 @@ public class MainLayoutController extends AnchorPane {
 		ObjectOutputStream out = null;
 		try {
 
-			out = new ObjectOutputStream(new FileOutputStream("mainMenu.ser"));
+			out = new ObjectOutputStream(new FileOutputStream(FILENAME));
 			out.writeObject(mainMenu);
 		} finally {
 			out.close();

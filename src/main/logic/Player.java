@@ -12,6 +12,7 @@ public class Player implements Serializable {
 	private transient Game currentGame;
 
 	public Player(String name){
+		this.savedGames = new ArrayList<>(5);
 		this.name = name;
 	}
 

@@ -20,6 +20,7 @@ public class PauseController extends AnchorPane {
 	}
 
 	public void closePopup(){
+		this.parentController.getGame().playGame();
 		this.pausePopup.hide();
 		this.parentController.refreshStage();
 	}

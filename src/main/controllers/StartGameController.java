@@ -87,6 +87,11 @@ public class StartGameController implements Initializable {
 
 	public void onPauseClick(MouseEvent mouseEvent) {
 		this.pausePopupController.show(this.primaryStage);
+		this.game.pauseGame();
+	}
+
+	public Game getGame() {
+		return game;
 	}
 
 	public void setPrimaryStage(Stage primaryStage) {
@@ -140,6 +145,12 @@ public class StartGameController implements Initializable {
 
 	public void addToSavedGames() {
 		this.mainLayoutController.getMainMenu().addToSavedGames(this.game);
+		try{
+			this.mainLayoutController.serialize();
+		}catch(IOException e){
+			e.printStackTrace();
+			System.out.println("Could not save the game!");
+		}
 	}
 }
 

@@ -2,11 +2,13 @@ package main.menu;
 
 import main.logic.Game;
 import main.logic.Player;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainMenu {
+public class MainMenu implements Serializable {
 
 	protected String mode;
 	protected ArrayList<Player> listOfPlayers;
@@ -45,18 +47,6 @@ public class MainMenu {
 		this.currentPlayer = currentPlayer;
 	}
 
-	public void newGame() {
-		//if else block to create a new Game object according to mode
-		this.currentPlayer.createNewGame(mode);
-		this.currentPlayer.getCurrentGame().startGame();
-	}
-
-	public void loadGame(Game game) {
-		// Main menu screen shows a list of saved games and loads them
-		// initialise player
-		this.currentPlayer.setCurrentGame(game);
-		this.currentPlayer.getCurrentGame().resumeGame();
-	}
 
 	public List<Game> showSavedGames(Player player) {
 		// Returns the list of saved games of a user
