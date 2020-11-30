@@ -21,9 +21,9 @@ public class TriangleObstacle extends Obstacle {
 
 	private double sideLength;
 	private final Point[] vertices;
-	private final Line[] edges;
-	private final Timeline rotAnimationTimeline;
-	private final Rotate rotAnimation;
+	transient private final Line[] edges;
+	transient private final Timeline rotAnimationTimeline;
+	transient private final Rotate rotAnimation;
 
 	public TriangleObstacle(Point center, double sideLength, Boolean positiveDirection) {
 

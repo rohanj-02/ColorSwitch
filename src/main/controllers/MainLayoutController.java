@@ -214,6 +214,21 @@ public class MainLayoutController extends AnchorPane {
 		this.mainMenu.addGame(game);
 	}
 
+	public void loadSavedGame(Game game) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/GameScreen.fxml"));
+		AnchorPane newRoot = fxmlLoader.load();
+		this.gameController = fxmlLoader.getController();
+		this.gameController.setPrimaryStage(this.primaryStage);
+		this.gameController.render();
+		Scene scene = this.getScene();
+		this.primaryStage = (Stage) scene.getWindow();
+		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
+		this.primaryStage.show();
+//		Game game = new Game(this.gameController);
+		this.gameController.setGame(game);
+		this.mainMenu.addGame(game);
+	}
+
 	public void setCurrentPlayer(String name) {
 		this.mainMenu.setCurrentPlayer(name);
 	}
@@ -227,14 +242,14 @@ public class MainLayoutController extends AnchorPane {
 		return this.mainMenu;
 	}
 
-//	public void serialize() throws IOException {
-//
-//		ObjectOutputStream out = null;
-//		try {
-//			out = new ObjectOutputStream(new FileOutputStream("mainMenu.ser"));
-//			out.writeObject(mainMenu);
-//		} finally {
-//			out.close();
-//		}
-//	}
+	public void serialize() throws IOException {
+		ObjectOutputStream out = null;
+		try {
+
+			out = new ObjectOutputStream(new FileOutputStream("mainMenu.ser"));
+			out.writeObject(mainMenu);
+		} finally {
+			out.close();
+		}
+	}
 }

@@ -20,9 +20,9 @@ public class RectangleObstacle extends Obstacle {
 
 	private double width;
 	private double height;
-	private final Line[] lineList;
-	private final Timeline rotAnimationTimeline;
-	private final Rotate rotAnimation;
+	transient private final Line[] lineList;
+	transient private final Timeline rotAnimationTimeline;
+	transient private final Rotate rotAnimation;
 
 	public RectangleObstacle(Point center, double width, double height, Boolean positiveDirection) {
 		this.width = width;

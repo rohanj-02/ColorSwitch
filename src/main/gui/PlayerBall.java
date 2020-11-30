@@ -7,9 +7,7 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import main.Constants;
 import main.controllers.StartGameController;
-
 import java.io.IOException;
-
 import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class PlayerBall extends GameElement {
@@ -17,9 +15,11 @@ public class PlayerBall extends GameElement {
 	private final static double jumpSize = 100;
 	private double angularVelocity;
 	private final static double radius = 15;
-	private Circle ballRoot;
+	transient private Circle ballRoot;
+	transient private final TranslateTransition gravityTransition;
 
-	private final Interpolator gravityInterpolator = new Interpolator() {
+	//TODO Add to deserialization
+	transient private final Interpolator gravityInterpolator = new Interpolator() {
 		@Override
 		protected double curve(double t) {
 			return -t * 4 * (1 - 2 * t);
@@ -27,7 +27,6 @@ public class PlayerBall extends GameElement {
 	};
 
 	//	ut + 1/2 at^2
-	private final TranslateTransition gravityTransition;
 
 	public PlayerBall(Point position, StartGameController gameController) {
 		this.setPosition(position);
@@ -41,12 +40,6 @@ public class PlayerBall extends GameElement {
 			System.out.println("Gravity finished");
 //			gameController.simulateEnd();
 		});
-	}
-
-	public static void serialize() throws IOException {
-	}
-
-	public static void deserialize() throws IOException, ClassNotFoundException {
 	}
 
 	public double getAngularVelocity() {

@@ -13,10 +13,9 @@ import static main.Constants.SCREEN_MIDPOINT_X;
 public class ColourSwitchBall extends GameElement implements Collidable {
 
 	private double radius;
-
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
-	private final Arc[] arcList;
-	public Group root;
+	transient private final Arc[] arcList;
+	transient public Group root;
 	private static int counter = 1;
 	public boolean colourChanged = false;
 

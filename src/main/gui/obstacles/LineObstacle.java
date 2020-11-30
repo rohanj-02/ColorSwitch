@@ -15,8 +15,8 @@ import java.util.Arrays;
 
 public class LineObstacle extends Obstacle {
 
-	private final TranslateTransition translateTransitions;
-	private final Line[] lineList;
+	transient private final TranslateTransition translateTransitions;
+	transient private final Line[] lineList;
 
 	public LineObstacle(Point start, double sceneLength, Boolean positiveDirection) {
 		double length = sceneLength / Constants.COLOUR_PALETTE.length;

@@ -22,9 +22,9 @@ import static main.Constants.SCREEN_MIDPOINT_X;
 public class CircleObstacle extends Obstacle {
 
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
-	private final Arc[] arcList;
-	private final Timeline rotAnimationTimeline;
-	private final Rotate rotAnimation;
+	transient private final Arc[] arcList;
+	transient private final Timeline rotAnimationTimeline;
+	transient private final Rotate rotAnimation;
 	private double radius;
 
 	//TODO Add functionality to change strokeWidth

@@ -2,8 +2,6 @@ package main.menu;
 
 import main.logic.Game;
 import main.logic.Player;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +11,6 @@ public class MainMenu {
 	protected String mode;
 	protected ArrayList<Player> listOfPlayers;
 	protected transient Player currentPlayer;
-
-	public static void serialize() throws IOException {
-
-	}
-
-	public static void deserialize() throws IOException, ClassNotFoundException {
-
-	}
 
 	public MainMenu() {
 		// Implement serialisation here
@@ -73,8 +63,8 @@ public class MainMenu {
 		return this.currentPlayer.getSavedGames();
 	}
 
-	/*
-		Creates a new player and adds it to the list of players
+	/**
+	*	Creates a new player and adds it to the list of players
 	*/
 	public void createNewPlayer(String name) {
 		this.currentPlayer = new Player(name);
@@ -104,22 +94,5 @@ public class MainMenu {
 	public void addToSavedGames(Game game) {
 		this.currentPlayer.addToSavedGames(game);
 	}
-//	another implementation
-//	abstract class obstacle
-//	interface motion
-//	see implementation of javafx snake game
-//	dynamic gui -> rotation
-//	motion -> scrollable and rotational
-//	ball composition in game list of game
-//	ball implements motion
-//	collectables switch and stars
-//	player to store score
-//	player has a list of games
-//	game and player serializable
-//	gameplay and game class
 
-//  SameNameException
-//  NotEnoughStarsException
-//  raise IOException
-//  
 }

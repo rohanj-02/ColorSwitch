@@ -11,8 +11,8 @@ import static main.Constants.SCREEN_MIDPOINT_X;
 public class Star extends GameElement implements Collidable {
 	// private int[] position;
 	private int amount;
-	public Group starRoot;
-	public SVGPath svgPath;
+	transient public Group starRoot;
+	transient public SVGPath svgPath;
 
 	public Star(Point point, int amount) {
 		starRoot = new Group();

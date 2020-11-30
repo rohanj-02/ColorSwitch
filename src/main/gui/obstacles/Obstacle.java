@@ -11,10 +11,6 @@ import static main.Constants.SCREEN_MIDPOINT_X;
 
 public abstract class Obstacle extends GameElement implements Collidable {
 
-	public Obstacle(){
-
-	}
-
 	protected double strokeWidth = 20;
 
 	public double getStrokeWidth() {

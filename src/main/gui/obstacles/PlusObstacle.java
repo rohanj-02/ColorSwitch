@@ -19,9 +19,9 @@ import java.util.Arrays;
 public class PlusObstacle extends Obstacle {
 
 	private double armLength;
-	private final Line[] armList;
-	private final Timeline rotAnimationTimeline;
-	private final Rotate rotAnimation;
+	transient private final Line[] armList;
+	transient private final Timeline rotAnimationTimeline;
+	transient private final Rotate rotAnimation;
 
 	public PlusObstacle(Point center, double armLength, Boolean positiveDirection) {
 		this.armLength = armLength;

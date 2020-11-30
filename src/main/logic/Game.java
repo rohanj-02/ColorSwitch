@@ -29,9 +29,9 @@ public class Game implements Serializable {
 	private ArrayList<ColourSwitchBall> listOfSwitch;
 	private PlayerBall playerBall;
 	private int currentScore;
-	private Group gameRoot;
+	transient private Group gameRoot;
 	private double maxY;
-	private StartGameController gameController;
+	transient private StartGameController gameController;
 
 	public Game(StartGameController gameController) {
 		this.listOfStar = new ArrayList<>();
