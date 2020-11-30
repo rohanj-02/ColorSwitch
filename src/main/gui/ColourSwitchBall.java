@@ -8,6 +8,8 @@ import main.Constants;
 
 import java.util.Arrays;
 
+import static main.Constants.SCREEN_MIDPOINT_X;
+
 public class ColourSwitchBall extends GameElement implements Collidable {
 
 	private double radius;
@@ -89,5 +91,16 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void setPosition() {
+		Point point = new Point(SCREEN_MIDPOINT_X, this.root.getTranslateY() + this.root.getLayoutY());
+		this.setPosition(point);
+	}
+
+	@Override
+	public void setOrientation() {
+		this.setOrientation(0);
 	}
 }

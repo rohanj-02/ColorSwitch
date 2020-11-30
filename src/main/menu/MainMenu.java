@@ -12,7 +12,7 @@ public class MainMenu {
 
 	protected String mode;
 	protected ArrayList<Player> listOfPlayers;
-	protected Player currentPlayer;
+	protected transient Player currentPlayer;
 
 	public static void serialize() throws IOException {
 
@@ -95,6 +95,14 @@ public class MainMenu {
 
 	public List<Player> getPlayerList() {
 		return this.listOfPlayers;
+	}
+
+	public void addGame(Game game) {
+		this.currentPlayer.setCurrentGame(game);
+	}
+
+	public void addToSavedGames(Game game) {
+		this.currentPlayer.addToSavedGames(game);
 	}
 //	another implementation
 //	abstract class obstacle

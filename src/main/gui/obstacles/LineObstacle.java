@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public class LineObstacle extends Obstacle {
 
-	private final TranslateTransition[] translateTransitions;
+	private final TranslateTransition translateTransitions;
 	private final Line[] lineList;
 
 	public LineObstacle(Point start, double sceneLength, Boolean positiveDirection) {
@@ -27,7 +27,7 @@ public class LineObstacle extends Obstacle {
 		this.lineList = new Line[2 * Constants.COLOUR_PALETTE.length];
 		this.obstacleRoot = new Group();
 		int noOfSegments = Constants.COLOUR_PALETTE.length;
-		this.translateTransitions = new TranslateTransition[2 * Constants.COLOUR_PALETTE.length];
+//		this.translateTransitions = new TranslateTransition[2 * Constants.COLOUR_PALETTE.length];
 		for (int i = noOfSegments - 1; i >= 0; i--) {
 			this.lineList[i] = new Line();
 			setCoordinateOfLine(this.lineList[i], this.getPosX() + (i - noOfSegments + 1) * length, this.getPosY(), this.getPosX() + (i - noOfSegments) * length, this.getPosY());
@@ -40,19 +40,16 @@ public class LineObstacle extends Obstacle {
 			this.lineList[i].setStroke(Constants.COLOUR_PALETTE[i - noOfSegments]);
 			this.lineList[i].setStrokeWidth(this.strokeWidth);
 		}
-
-		for (int i = 0; i < 2 * noOfSegments; i++) {
-			this.translateTransitions[i] = new TranslateTransition();
+		this.translateTransitions = new TranslateTransition();
 			if (positiveDirection) {
-				this.translateTransitions[i].setByX(sceneLength);
+				this.translateTransitions.setByX(sceneLength);
 			} else {
-				this.translateTransitions[i].setByX(-sceneLength);
+				this.translateTransitions.setByX(-sceneLength);
 			}
-			this.translateTransitions[i].setDuration(Duration.millis(10000));
-			this.translateTransitions[i].setInterpolator(Interpolator.LINEAR);
-			this.translateTransitions[i].setCycleCount(500);
-			this.translateTransitions[i].setNode(this.lineList[i]);
-		}
+			this.translateTransitions.setDuration(Duration.millis(10000));
+			this.translateTransitions.setInterpolator(Interpolator.LINEAR);
+			this.translateTransitions.setCycleCount(500);
+			this.translateTransitions.setNode(this.obstacleRoot);
 
 	}
 
@@ -75,13 +72,13 @@ public class LineObstacle extends Obstacle {
 	}
 
 	public void play() {
-		for (int i = 0; i < this.lineList.length; i++) {
-			if (translateTransitions[i].getStatus() == Animation.Status.PAUSED || translateTransitions[i].getStatus() == Animation.Status.STOPPED) {
-				this.translateTransitions[i].play();
+//		for (int i = 0; i < this.lineList.length; i++) {
+			if (translateTransitions.getStatus() == Animation.Status.PAUSED || translateTransitions.getStatus() == Animation.Status.STOPPED) {
+				this.translateTransitions.play();
 			} else {
-				this.translateTransitions[i].pause();
+				this.translateTransitions.pause();
 			}
-		}
+//		}
 	}
 
 

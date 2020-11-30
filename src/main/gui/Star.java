@@ -6,6 +6,8 @@ import javafx.scene.shape.Shape;
 import main.Constants;
 import main.logic.Player;
 
+import static main.Constants.SCREEN_MIDPOINT_X;
+
 public class Star extends GameElement implements Collidable {
 	// private int[] position;
 	private int amount;
@@ -74,5 +76,16 @@ public class Star extends GameElement implements Collidable {
 			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void setPosition() {
+		Point point = new Point(SCREEN_MIDPOINT_X, this.starRoot.getTranslateY() + this.starRoot.getLayoutY());
+		this.setPosition(point);
+	}
+
+	@Override
+	public void setOrientation() {
+		this.setOrientation(0);
 	}
 }

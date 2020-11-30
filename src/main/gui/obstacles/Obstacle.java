@@ -7,7 +7,13 @@ import main.gui.Collidable;
 import main.gui.GameElement;
 import main.gui.Point;
 
+import static main.Constants.SCREEN_MIDPOINT_X;
+
 public abstract class Obstacle extends GameElement implements Collidable {
+
+	public Obstacle(){
+
+	}
 
 	protected double strokeWidth = 20;
 
@@ -77,6 +83,17 @@ public abstract class Obstacle extends GameElement implements Collidable {
 		public void setColour(Color colour) {
 			this.colour = colour;
 		}
+
+		@Override
+		public void setPosition() {
+			Point point = new Point(SCREEN_MIDPOINT_X, this.solidCircleRoot.getTranslateY() + this.solidCircleRoot.getLayoutY());
+			this.setPosition(point);
+		}
+
+		@Override
+		public void setOrientation() {
+			this.setOrientation(0);
+		}
 	}
 
 	//	protected float[] position;
@@ -84,6 +101,15 @@ public abstract class Obstacle extends GameElement implements Collidable {
 	// public abstract static void serialize() throws IOException;
 
 	// public abstract static void deserialize() throws IOException, ClassNotFoundException;
+	@Override
+	public void setPosition() {
+		Point point = new Point(SCREEN_MIDPOINT_X, this.obstacleRoot.getTranslateY() + this.obstacleRoot.getLayoutY());
+		this.setPosition(point);
+	}
 
+	@Override
+	public void setOrientation() {
+		this.setOrientation(this.obstacleRoot.getRotate());
+	}
 
 }

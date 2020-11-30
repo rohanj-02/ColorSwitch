@@ -10,9 +10,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants.GameStage;
+import main.logic.Game;
+import main.logic.Player;
 import main.menu.MainMenu;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import static main.Constants.SCREEN_SIZE_X;
 import static main.Constants.SCREEN_SIZE_Y;
@@ -205,15 +209,32 @@ public class MainLayoutController extends AnchorPane {
 		this.primaryStage = (Stage) scene.getWindow();
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
 		this.primaryStage.show();
-//		this.bottomAnchorPaneContainer.getChildren().add(newRoot);
+		Game game = new Game(this.gameController);
+		this.gameController.setGame(game);
+		this.mainMenu.addGame(game);
 	}
 
 	public void setCurrentPlayer(String name) {
 		this.mainMenu.setCurrentPlayer(name);
 	}
 
-	public void exitGame(){
+	public void exitGame() {
 		this.primaryStage.close();
 		// Serializer code
 	}
+
+	public MainMenu getMainMenu() {
+		return this.mainMenu;
+	}
+
+//	public void serialize() throws IOException {
+//
+//		ObjectOutputStream out = null;
+//		try {
+//			out = new ObjectOutputStream(new FileOutputStream("mainMenu.ser"));
+//			out.writeObject(mainMenu);
+//		} finally {
+//			out.close();
+//		}
+//	}
 }

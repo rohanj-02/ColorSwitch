@@ -9,7 +9,7 @@ public class Player implements Serializable {
 	private ArrayList<Game> savedGames;
 	private int numberOfStars = 0;
 	// save the stats of the player after every game
-	private Game currentGame;
+	private transient Game currentGame;
 
 	public Player(String name){
 		this.name = name;

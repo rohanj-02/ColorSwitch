@@ -10,6 +10,8 @@ import main.controllers.StartGameController;
 
 import java.io.IOException;
 
+import static main.Constants.SCREEN_MIDPOINT_X;
+
 public class PlayerBall extends GameElement {
 	private String colour;
 	private final static double jumpSize = 100;
@@ -98,5 +100,16 @@ public class PlayerBall extends GameElement {
 	 */
 	public void decreaseHeight(int n) {
 		this.setPosY(this.getPosY() - n);
+	}
+
+	@Override
+	public void setPosition() {
+		Point point = new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY());
+		this.setPosition(point);
+	}
+
+	@Override
+	public void setOrientation() {
+		this.setOrientation(0);
 	}
 }

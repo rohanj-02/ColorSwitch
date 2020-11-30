@@ -64,6 +64,12 @@ public class StartGameController implements Initializable {
 
 	}
 
+	public void setGame(Game game) {
+		this.game.destroyGame();
+		this.game = game;
+		this.render();
+	}
+
 	/**
 	 * Used for restarting the game
 	 */
@@ -130,6 +136,10 @@ public class StartGameController implements Initializable {
 
 	public void closeGame() {
 		this.primaryStage.close();
+	}
+
+	public void addToSavedGames() {
+		this.mainLayoutController.getMainMenu().addToSavedGames(this.game);
 	}
 }
 

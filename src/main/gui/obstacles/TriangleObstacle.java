@@ -21,16 +21,16 @@ public class TriangleObstacle extends Obstacle {
 
 	private double sideLength;
 	private final Point[] vertices;
-	private final javafx.scene.shape.Line[] edges;
-	private final Timeline[] rotAnimationTimeline;
-	private final Rotate[] rotAnimation;
+	private final Line[] edges;
+	private final Timeline rotAnimationTimeline;
+	private final Rotate rotAnimation;
 
 	public TriangleObstacle(Point center, double sideLength, Boolean positiveDirection) {
 
 		this.setPosition(center);
 		this.sideLength = sideLength;
 		this.vertices = new Point[3];
-		this.edges = new javafx.scene.shape.Line[3];
+		this.edges = new Line[3];
 
 		//Set edges and vertices
 		this.vertices[0] = new Point(center.getX() - sideLength / 2, center.getY() - sideLength / (2 * Math.sqrt(3)));
@@ -42,8 +42,8 @@ public class TriangleObstacle extends Obstacle {
 
 		// Initialise other arrays
 		int length = 3;
-		this.rotAnimationTimeline = new Timeline[length];
-		this.rotAnimation = new Rotate[length];
+//		this.rotAnimationTimeline = new Timeline[length];
+//		this.rotAnimation = new Rotate[length];
 		this.obstacleRoot = new Group();
 
 		for (int i = 0; i < edges.length; i++) {
@@ -53,35 +53,33 @@ public class TriangleObstacle extends Obstacle {
 			this.edges[i].setStrokeWidth(this.strokeWidth);
 			this.edges[i].setStroke(Constants.COLOUR_PALETTE[i]);
 			this.edges[i].setStrokeLineCap(StrokeLineCap.ROUND);
-
+		}
 			// Add rotation mechanics
-			this.rotAnimation[i] = new Rotate(0, this.getPosX(), this.getPosY());
-			this.rotAnimation[i].setAxis(Rotate.Z_AXIS);
-			this.edges[i].getTransforms().add(this.rotAnimation[i]);
-			this.rotAnimationTimeline[i] = new Timeline();
+			this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
+			this.rotAnimation.setAxis(Rotate.Z_AXIS);
+			this.obstacleRoot.getTransforms().add(this.rotAnimation);
+			this.rotAnimationTimeline = new Timeline();
 			if (positiveDirection) {
-				this.rotAnimationTimeline[i].getKeyFrames()
-						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), 360)));
+				this.rotAnimationTimeline.getKeyFrames()
+						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), 360)));
 			} else {
-				this.rotAnimationTimeline[i].getKeyFrames()
-						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation[i].angleProperty(), -360)));
+				this.rotAnimationTimeline.getKeyFrames()
+						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), -360)));
 			}
 
-			this.rotAnimationTimeline[i].setCycleCount(Animation.INDEFINITE);
-
-		}
+			this.rotAnimationTimeline.setCycleCount(Animation.INDEFINITE);
 	}
 
 
 	public void play() {
 		// Rotate all arcs.
-		for (int i = 0; i < this.edges.length; i++) {
-			if (rotAnimationTimeline[i].getStatus() == Animation.Status.PAUSED || rotAnimationTimeline[i].getStatus() == Animation.Status.STOPPED) {
-				this.rotAnimationTimeline[i].play();
+//		for (int i = 0; i < this.edges.length; i++) {
+			if (rotAnimationTimeline.getStatus() == Animation.Status.PAUSED || rotAnimationTimeline.getStatus() == Animation.Status.STOPPED) {
+				this.rotAnimationTimeline.play();
 			} else {
-				this.rotAnimationTimeline[i].pause();
+				this.rotAnimationTimeline.pause();
 			}
-		}
+//		}
 	}
 
 	public void render(Group root) {
