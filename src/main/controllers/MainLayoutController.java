@@ -45,6 +45,7 @@ public class MainLayoutController extends AnchorPane {
 	 * isLogin specifies the choice the user made on the landing screen. true for login and false for signup
 	 */
 	private boolean isLogin;
+	private boolean isTransitioning;
 	private Stage primaryStage;
 	private MainMenu mainMenu;
 //	private Player player;
@@ -55,6 +56,7 @@ public class MainLayoutController extends AnchorPane {
 		this.mainMenu = new MainMenu();
 		try{
 			this.deserialize();
+			System.out.println("Deserialized Database!");
 		}catch(IOException | ClassNotFoundException | NullPointerException e){
 			System.out.println("Exception Encountered: ");
 			e.printStackTrace();
@@ -170,6 +172,11 @@ public class MainLayoutController extends AnchorPane {
 	 */
 	public void increaseGameStage() {
 		boolean flag = false;
+		if(this.isTransitioning){
+			return;
+		}else{
+			this.isTransitioning = true;
+		}
 		for (GameStage iter : GameStage.values()) {
 			if (flag) {
 				this.setGameStage(iter);
@@ -218,6 +225,7 @@ public class MainLayoutController extends AnchorPane {
 		timeline.setOnFinished(e -> {
 			this.bottomAnchorPaneContainer.getChildren().remove(this.bottomAnchorPane);
 			this.setBottomAnchorPane(newRoot);
+			this.isTransitioning = false;
 		});
 		timeline.play();
 	}

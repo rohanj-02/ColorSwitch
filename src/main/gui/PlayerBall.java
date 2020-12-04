@@ -114,6 +114,8 @@ public class PlayerBall extends GameElement {
 		this.ballRoot.setTranslateY(this.getPosY());
 		this.ballRoot.setVisible(true);
 		Timer t = new Timer();
+		// TODO Add alert that ball will fall after 3 seconds, else you can start jumping before that also
+		// TODO Maybe implement scroll so that game doesn't start with a jerk
 		t.schedule(
 				new TimerTask() {
 					@Override
