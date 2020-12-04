@@ -6,6 +6,8 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -70,6 +72,13 @@ public class MainLayoutController extends AnchorPane {
 		this.headingController.addMovingO();
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
+		this.bottomAnchorPaneContainer.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			System.out.println("Pressed");
+			if (event.getCode() == KeyCode.ENTER ) {
+				System.out.println("Enter Pressed");
+				this.increaseGameStage();
+			}
+		});
 	}
 
 	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException{

@@ -86,6 +86,10 @@ public class StartGameController implements Initializable {
 	}
 
 	public void onPauseClick(MouseEvent mouseEvent) {
+		this.pauseGame();
+	}
+
+	public void pauseGame(){
 		this.pausePopupController.show(this.primaryStage);
 		this.game.pauseGame();
 	}
@@ -128,6 +132,9 @@ public class StartGameController implements Initializable {
 		this.rootPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.SPACE) {
 				this.jump();
+			}
+			if(event.getCode() == KeyCode.P){
+				this.pauseGame();
 			}
 		});
 	}

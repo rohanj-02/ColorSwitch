@@ -7,7 +7,10 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import main.Constants;
 import main.controllers.StartGameController;
-import java.io.IOException;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class PlayerBall extends GameElement {
@@ -17,6 +20,7 @@ public class PlayerBall extends GameElement {
 	private final static double radius = 15;
 	transient private Circle ballRoot;
 	transient private final TranslateTransition gravityTransition;
+	transient private TranslateTransition currentJump;
 
 	//TODO Add to deserialization
 	transient private final Interpolator gravityInterpolator = new Interpolator() {
@@ -30,6 +34,7 @@ public class PlayerBall extends GameElement {
 
 	public PlayerBall(Point position, StartGameController gameController) {
 		this.setPosition(position);
+		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.ballRoot.setFill(Constants.COLOUR_PALETTE[0]);
 		this.gravityTransition = new TranslateTransition(Duration.millis(10000), this.ballRoot);
@@ -84,8 +89,11 @@ public class PlayerBall extends GameElement {
 		TranslateTransition jump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		jump.setInterpolator(this.gravityInterpolator);
 		jump.setByY(jumpSize);
+		// On for compass
+//		jump.setByX(jumpSize);
 		jump.setCycleCount(1);
 		jump.play();
+		this.currentJump = jump;
 	}
 
 	/**
@@ -95,17 +103,29 @@ public class PlayerBall extends GameElement {
 		this.setPosY(this.getPosY() - n);
 	}
 
-	public void pause(){
+	public void pause() {
+		this.currentJump.stop();
 		this.setPosition();
-		this.gravityTransition.pause();
+		this.gravityTransition.stop();
 		this.ballRoot.setVisible(false);
 	}
 
-	public void play(){
-		this.ballRoot.setLayoutX(this.getPosX());
-		this.ballRoot.setLayoutY(this.getPosY());
-		this.setPosition(this.getPosition());
+	public void play() {
+		this.ballRoot.setTranslateY(this.getPosY());
 		this.ballRoot.setVisible(true);
+		Timer t = new Timer();
+		t.schedule(
+				new TimerTask() {
+					@Override
+					public void run() {
+						if (PlayerBall.this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
+							PlayerBall.this.gravityTransition.playFrom(Duration.millis(5000));
+						}
+						t.cancel();
+					}
+				},
+				3000
+		);
 	}
 
 	public double getYPosition(){
@@ -114,6 +134,7 @@ public class PlayerBall extends GameElement {
 
 	@Override
 	public void setPosition() {
+		// Will have to change for compass
 		Point point = new Point(SCREEN_MIDPOINT_X, this.getYPosition());
 		this.setPosition(point);
 	}

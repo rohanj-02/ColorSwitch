@@ -30,10 +30,12 @@ public class Game implements Serializable {
 	private PlayerBall playerBall;
 	private int currentScore;
 	transient private Group gameRoot;
+	transient private ArrayList<TranslateTransition> scrollAnimations;
 	private double maxY;
 	transient private StartGameController gameController;
 
 	public Game(StartGameController gameController) {
+		this.scrollAnimations = new ArrayList<>();
 		this.listOfStar = new ArrayList<>();
 		this.listOfSwitch = new ArrayList<>();
 		this.gameController = gameController;
@@ -41,16 +43,14 @@ public class Game implements Serializable {
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(250, 700), this.gameController);
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
-		this.topObstacle = new LineObstacle(new Point(0, 100), 500, true);
+		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
+		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X,  -200), CIRCLE_RADIUS, true));
+		this.topObstacle = new CircleObstacle(new Point (SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
 		this.listOfObstacles.add(this.topObstacle);
-		this.listOfObstacles.add(new LineObstacle(new Point(0, 130), 500, false));
-		this.listOfObstacles.add(new PlusObstacle(new Point(200, 200), 50, true));
-		this.listOfObstacles.add(new PlusObstacle(new Point(300, 200), 50, false));
-		this.listOfObstacles.add(new RectangleObstacle(new Point(250, 400), 100, 100, false));
-		this.listOfObstacles.add(new CircleObstacle(new Point(250, 400), 100, true));
-
-		this.listOfStar.add(new Star(new Point(230, 370), 5));
-		this.listOfSwitch.add(new ColourSwitchBall(new Point(250, 270), 15));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), 5));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), 5));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), 5));
+		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), 15));
 
 		checkCollision();
 
@@ -161,7 +161,7 @@ public class Game implements Serializable {
 				for (Star star : listOfStar) {
 					if (star.isCollision(playerBall)) {
 						star.svgPath.setVisible(false);
-						// star.increaseScore(player);
+//						 star.increaseScore(player);
 					}
 				}
 				for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
@@ -182,6 +182,9 @@ public class Game implements Serializable {
 	 */
 	public void pauseGame() {
 		this.playerBall.pause();
+		for(TranslateTransition transition : this.scrollAnimations){
+			transition.pause();
+		}
 	}
 
 	public void playGame(){
@@ -227,6 +230,7 @@ public class Game implements Serializable {
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
+			scrollAnimations.add(scrollDown);
 		}
 		// Translate all colour switches
 		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
@@ -235,6 +239,7 @@ public class Game implements Serializable {
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
+			scrollAnimations.add(scrollDown);
 		}
 		// Translate all stars
 		for (Star star : listOfStar) {
@@ -243,6 +248,7 @@ public class Game implements Serializable {
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
 			scrollDown.play();
+			scrollAnimations.add(scrollDown);
 		}
 		// Translate the playerBall
 		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
@@ -250,6 +256,7 @@ public class Game implements Serializable {
 		scrollDown.setByY(lengthOfScroll);
 		scrollDown.setCycleCount(1);
 		scrollDown.play();
+		scrollAnimations.add(scrollDown);
 	}
 
 	/**
