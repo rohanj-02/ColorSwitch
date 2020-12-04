@@ -102,6 +102,8 @@ public class PlayerBall extends GameElement {
 	}
 
 	public void play(){
+		this.ballRoot.setLayoutX(this.getPosX());
+		this.ballRoot.setLayoutY(this.getPosY());
 		this.setPosition(this.getPosition());
 		this.ballRoot.setVisible(true);
 	}

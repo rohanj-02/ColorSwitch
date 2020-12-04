@@ -47,7 +47,6 @@ public class TriangleObstacle extends Obstacle {
 		this.obstacleRoot = new Group();
 
 		for (int i = 0; i < edges.length; i++) {
-
 			//Remove fill and set stroke
 			this.edges[i].setFill(Color.rgb(0, 0, 0, 0));
 			this.edges[i].setStrokeWidth(this.strokeWidth);

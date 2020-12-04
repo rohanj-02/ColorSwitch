@@ -12,8 +12,6 @@ import javafx.util.Duration;
 import main.Constants.GameStage;
 import main.logic.Game;
 import main.menu.MainMenu;
-
-import java.awt.*;
 import java.io.*;
 
 import static main.Constants.*;
