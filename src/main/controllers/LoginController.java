@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import main.exceptions.SameNameException;
 import main.exceptions.UserDoesNotExist;
 
 import java.net.URL;
@@ -68,8 +69,13 @@ public class LoginController extends LayoutController implements Initializable {
 				this.errorText.setText("Username cannot be empty!");
 				return;
 			}
-			this.parentController.createPlayer(name);
-			this.increaseStage();
+			try{
+				this.parentController.createPlayer(name);
+				this.increaseStage();
+			}
+			catch(SameNameException e){
+				this.errorText.setText("A user with this name already exists! ");
+			}
 		}
 	}
 

@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants.GameStage;
+import main.exceptions.SameNameException;
 import main.exceptions.UserDoesNotExist;
 import main.logic.Game;
 import main.menu.MainMenu;
@@ -130,7 +131,7 @@ public class MainLayoutController extends AnchorPane {
 
 	// PLAYER RELATED METHODS
 
-	public void createPlayer(String name){
+	public void createPlayer(String name) throws SameNameException {
 		this.mainMenu.createNewPlayer(name);
 	}
 
@@ -298,6 +299,5 @@ public class MainLayoutController extends AnchorPane {
 		this.primaryStage.close();
 		// Serializer code
 	}
-
 
 }

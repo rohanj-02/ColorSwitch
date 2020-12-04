@@ -1,5 +1,6 @@
 package main.menu;
 
+import main.exceptions.SameNameException;
 import main.exceptions.UserDoesNotExist;
 import main.logic.Game;
 import main.logic.Player;
@@ -57,7 +58,12 @@ public class MainMenu implements Serializable {
 	/**
 	*	Creates a new player and adds it to the list of players
 	*/
-	public void createNewPlayer(String name) {
+	public void createNewPlayer(String name) throws SameNameException {
+		for(Player i : this.listOfPlayers){
+			if(i.getName().equals(name)){
+				throw new SameNameException("Player already exists! ");
+			}
+		}
 		this.currentPlayer = new Player(name);
 		this.listOfPlayers.add(currentPlayer);
 	}

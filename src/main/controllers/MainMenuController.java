@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import main.Constants;
-
+//TODO Change exit buttons to MainMenu, Landing page and out of the game
 public class MainMenuController extends LayoutController {
 	@FXML
 	private Button loadGameButton;

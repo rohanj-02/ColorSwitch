@@ -25,7 +25,7 @@ public abstract class Obstacle extends GameElement implements Collidable {
 
 	public abstract void play();
 
-	protected Group obstacleRoot;
+	transient protected Group obstacleRoot;
 
 	public Group getObstacleRoot() {
 		return obstacleRoot;
