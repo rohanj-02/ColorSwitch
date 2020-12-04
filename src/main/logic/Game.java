@@ -330,17 +330,27 @@ public class Game implements Serializable {
 	 * Initialise game after serialization
 	 */
 	public void init() {
+		// TODO Game scroll not working for some reason?
+		// TODO Save the scroll distance and start on that only
+		// TODO After save game needs to be exited.
+		// TODO After saved game opened remove from savedGames list
 		this.gameRoot = new Group();
 		for(Obstacle obstacle: this.listOfObstacles){
 			obstacle.init();
+			obstacle.render(this.gameRoot);
+			obstacle.play();
 		}
 		for(ColourSwitchBall colourSwitchBall: listOfSwitch){
 			colourSwitchBall.init();
+			colourSwitchBall.render(this.gameRoot);
 		}
 		for(Star star: listOfStar){
 			star.init();
+			star.render(this.gameRoot);
 		}
 		this.playerBall.init();
+		this.playerBall.render(this.gameRoot);
 		this.scrollAnimations = new ArrayList<>();
+		checkCollision();
 	}
 }

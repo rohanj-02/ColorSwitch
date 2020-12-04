@@ -15,7 +15,7 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 	private double radius;
 	public static final long serialVersionUID = 10;
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
-	transient private final Arc[] arcList;
+	transient private Arc[] arcList;
 	transient public Group root;
 	private static int counter = 1;
 	public boolean colourChanged = false;
@@ -106,6 +106,17 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 
 	@Override
 	public void init() {
-//TODO
+		int length = Constants.COLOUR_PALETTE.length;
+		this.arcList = new Arc[length];
+		this.root = new Group();
+
+		for (int i = 0; i < this.arcList.length; i++) {
+			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength, this.arcLength);
+			// Remove fill and set stroke
+			this.arcList[i].setType(ArcType.ROUND);
+			this.arcList[i].setFill(Constants.COLOUR_PALETTE[i]);
+			this.arcList[i].setStrokeWidth(0);
+			this.arcList[i].setStroke(Constants.COLOUR_PALETTE[i]);
+		}
 	}
 }

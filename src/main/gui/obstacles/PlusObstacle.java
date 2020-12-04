@@ -20,9 +20,9 @@ public class PlusObstacle extends Obstacle {
 
 	private double armLength;
 	public static final long serialVersionUID = 7;
-	transient private final Line[] armList;
-	transient private final Timeline rotAnimationTimeline;
-	transient private final Rotate rotAnimation;
+	transient private Line[] armList;
+	transient private Timeline rotAnimationTimeline;
+	transient private Rotate rotAnimation;
 
 	public PlusObstacle(Point center, double armLength, Boolean positiveDirection) {
 		this.armLength = armLength;
@@ -31,11 +31,11 @@ public class PlusObstacle extends Obstacle {
 //		this.rotAnimationTimeline = new Timeline[length];
 //		this.rotAnimation = new Rotate[length];
 		this.obstacleRoot = new Group();
-		this.armList = new javafx.scene.shape.Line[length];
-		javafx.scene.shape.Line armBottom = new javafx.scene.shape.Line();
-		javafx.scene.shape.Line armRight = new javafx.scene.shape.Line();
-		javafx.scene.shape.Line armTop = new javafx.scene.shape.Line();
-		javafx.scene.shape.Line armLeft = new Line();
+		this.armList = new Line[length];
+		Line armBottom = new Line();
+		Line armRight = new Line();
+		Line armTop = new Line();
+		Line armLeft = new Line();
 		setCoordinateOfArm(armBottom, this.getPosX(), this.getPosY(), this.getPosX(), this.getPosY() + armLength);
 		setCoordinateOfArm(armRight, this.getPosX(), this.getPosY(), this.getPosX() + armLength, this.getPosY());
 		setCoordinateOfArm(armTop, this.getPosX(), this.getPosY(), this.getPosX(), this.getPosY() - armLength);
@@ -121,6 +121,43 @@ public class PlusObstacle extends Obstacle {
 
 	@Override
 	public void init() {
-	//TODO
+		int length = Constants.COLOUR_PALETTE.length;
+
+		this.obstacleRoot = new Group();
+		this.armList = new Line[length];
+		Line armBottom = new Line();
+		Line armRight = new Line();
+		Line armTop = new Line();
+		Line armLeft = new Line();
+		// TODO Need to change this for orientation
+		setCoordinateOfArm(armBottom, this.getPosX(), this.getPosY(), this.getPosX(), this.getPosY() + armLength);
+		setCoordinateOfArm(armRight, this.getPosX(), this.getPosY(), this.getPosX() + armLength, this.getPosY());
+		setCoordinateOfArm(armTop, this.getPosX(), this.getPosY(), this.getPosX(), this.getPosY() - armLength);
+		setCoordinateOfArm(armLeft, this.getPosX(), this.getPosY(), this.getPosX() - armLength, this.getPosY());
+
+		this.armList[0] = armBottom;
+		this.armList[1] = armRight;
+		this.armList[2] = armTop;
+		this.armList[3] = armLeft;
+
+		for (int i = 0; i < armList.length; i++) {
+			armList[i].setStroke(Constants.COLOUR_PALETTE[i]);
+			armList[i].setStrokeWidth(this.strokeWidth);
+			armList[i].setStrokeLineCap(StrokeLineCap.ROUND);
+		}
+
+		this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
+		this.rotAnimation.setAxis(Rotate.Z_AXIS);
+
+		this.obstacleRoot.getTransforms().add(this.rotAnimation);
+		this.rotAnimationTimeline = new Timeline();
+		if (positiveDirection) {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), 360)));
+		} else {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), -360)));
+		}
+		this.rotAnimationTimeline.setCycleCount(Animation.INDEFINITE);
 	}
 }

@@ -3,6 +3,7 @@ package main.gui;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
+import javafx.scene.Group;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import main.Constants;
@@ -21,11 +22,11 @@ public class PlayerBall extends GameElement {
 	private double angularVelocity;
 	private final static double radius = 15;
 	transient private Circle ballRoot;
-	transient private final TranslateTransition gravityTransition;
+	transient private TranslateTransition gravityTransition;
 	transient private TranslateTransition currentJump;
 
 	//TODO Add to deserialization
-	transient private final Interpolator gravityInterpolator = new Interpolator() {
+	transient private Interpolator gravityInterpolator = new Interpolator() {
 		@Override
 		protected double curve(double t) {
 			return -t * 4 * (1 - 2 * t);
@@ -36,8 +37,8 @@ public class PlayerBall extends GameElement {
 
 	public PlayerBall(Point position, StartGameController gameController) {
 		this.setPosition(position);
-		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
+		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		this.ballRoot.setFill(Constants.COLOUR_PALETTE[0]);
 		this.gravityTransition = new TranslateTransition(Duration.millis(10000), this.ballRoot);
 		this.gravityTransition.setByY(1000f);
@@ -150,6 +151,25 @@ public class PlayerBall extends GameElement {
 
 	@Override
 	public void init() {
-//TODO
+		this.gravityInterpolator = new Interpolator() {
+			@Override
+			protected double curve(double t) {
+				return -t * 4 * (1 - 2 * t);
+			}
+		};
+		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
+		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
+		this.ballRoot.setFill(Constants.COLOUR_PALETTE[0]);
+		this.gravityTransition = new TranslateTransition(Duration.millis(10000), this.ballRoot);
+		this.gravityTransition.setByY(1000f);
+		this.gravityTransition.setCycleCount(1);
+		this.gravityTransition.setInterpolator(this.gravityInterpolator);
+		this.gravityTransition.setOnFinished(actionEvent -> {
+			System.out.println("Gravity finished");
+		});
+	}
+
+	public void render(Group gameRoot) {
+		gameRoot.getChildren().add(this.ballRoot);
 	}
 }

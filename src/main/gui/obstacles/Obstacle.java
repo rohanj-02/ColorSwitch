@@ -13,6 +13,15 @@ public abstract class Obstacle extends GameElement implements Collidable {
 
 	protected double strokeWidth = 20;
 	public static final long serialVersionUID = 4;
+	protected boolean positiveDirection;
+
+	public boolean isPositiveDirection() {
+		return positiveDirection;
+	}
+
+	public void setPositiveDirection(boolean positiveDirection) {
+		this.positiveDirection = positiveDirection;
+	}
 
 	public double getStrokeWidth() {
 		return strokeWidth;
