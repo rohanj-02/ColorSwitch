@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants.GameStage;
+import main.exceptions.UserDoesNotExist;
 import main.logic.Game;
 import main.menu.MainMenu;
 import java.io.*;
@@ -45,10 +46,9 @@ public class MainLayoutController extends AnchorPane {
 	 * isLogin specifies the choice the user made on the landing screen. true for login and false for signup
 	 */
 	private boolean isLogin;
-	private boolean isTransitioning;
+	private boolean isTransitioning; // added to remove the 5 tap skip!
 	private Stage primaryStage;
 	private MainMenu mainMenu;
-//	private Player player;
 	private StartGameController gameController;
 
 	public MainLayoutController(Stage primaryStage) {
@@ -74,25 +74,23 @@ public class MainLayoutController extends AnchorPane {
 		this.headingController.addMovingO();
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
-		this.bottomAnchorPaneContainer.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-			System.out.println("Pressed");
-			if (event.getCode() == KeyCode.ENTER ) {
-				System.out.println("Enter Pressed");
-				this.increaseGameStage();
-			}
-		});
 	}
 
 	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException{
-		ObjectInputStream in = null;
-		try{
-			in = new ObjectInputStream(new FileInputStream(FILENAME));
-			this.mainMenu = (MainMenu)in.readObject();
-		}
-		finally {
-			in.close();
-		}
+		ObjectInputStream in;
+		in = new ObjectInputStream(new FileInputStream(FILENAME));
+		this.mainMenu = (MainMenu)in.readObject();
+		in.close();
+
 	}
+
+	public void serialize() throws IOException {
+		ObjectOutputStream out;
+		out = new ObjectOutputStream(new FileOutputStream(FILENAME));
+		out.writeObject(mainMenu);
+	}
+
+	// ACCESSORS
 
 	public boolean isLogin() {
 		return isLogin;
@@ -100,6 +98,10 @@ public class MainLayoutController extends AnchorPane {
 
 	public void setLogin(boolean login) {
 		isLogin = login;
+	}
+
+	public MainMenu getMainMenu() {
+		return this.mainMenu;
 	}
 
 	public AnchorPane getBottomAnchorPaneContainer() {
@@ -125,6 +127,18 @@ public class MainLayoutController extends AnchorPane {
 	public void setBottomPaneController(LayoutController bottomPaneController) {
 		this.bottomPaneController = bottomPaneController;
 	}
+
+	// PLAYER RELATED METHODS
+
+	public void createPlayer(String name){
+		this.mainMenu.createNewPlayer(name);
+	}
+
+	public void setCurrentPlayer(String name) throws UserDoesNotExist {
+		this.mainMenu.setCurrentPlayer(name);
+	}
+
+	// GAME STAGE RELATED METHODS
 
 	public GameStage getGameStage() {
 		return gameStage;
@@ -154,15 +168,11 @@ public class MainLayoutController extends AnchorPane {
 					return;
 			}
 			if (gameStage != GameStage.STARTGAME) {
-				bottomPaneController.setParentController(this);
+				this.bottomPaneController.setParentController(this);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void createPlayer(String name){
-		this.mainMenu.createNewPlayer(name);
 	}
 
 	/**
@@ -185,6 +195,27 @@ public class MainLayoutController extends AnchorPane {
 			if (iter == this.getGameStage()) {
 				flag = true;
 			}
+		}
+	}
+
+	/**
+	 * Proceed to the previous game stage. The previous game stage is taken by the {@link GameStage} enum
+	 *
+	 * @see main.Constants.GameStage
+	 */
+	public void decreaseGameStage() {
+
+		GameStage prev = GameStage.LANDING;
+		if(this.isTransitioning){
+			return;
+		}else{
+			this.isTransitioning = true;
+		}
+		for (GameStage iter : GameStage.values()) {
+			if (iter == this.getGameStage()) {
+				this.setGameStage(prev);
+			}
+			prev = iter;
 		}
 	}
 
@@ -230,6 +261,8 @@ public class MainLayoutController extends AnchorPane {
 		timeline.play();
 	}
 
+	// GAME RELATED METHODS
+
 	public void loadNewGame(String name) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
 		AnchorPane newRoot = fxmlLoader.load();
@@ -261,27 +294,10 @@ public class MainLayoutController extends AnchorPane {
 		this.mainMenu.addGame(game);
 	}
 
-	public void setCurrentPlayer(String name) {
-		this.mainMenu.setCurrentPlayer(name);
-	}
-
 	public void exitGame() {
 		this.primaryStage.close();
 		// Serializer code
 	}
 
-	public MainMenu getMainMenu() {
-		return this.mainMenu;
-	}
 
-	public void serialize() throws IOException {
-		ObjectOutputStream out = null;
-		try {
-
-			out = new ObjectOutputStream(new FileOutputStream(FILENAME));
-			out.writeObject(mainMenu);
-		} finally {
-			out.close();
-		}
-	}
 }

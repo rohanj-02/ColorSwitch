@@ -3,6 +3,7 @@ package main.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import main.Constants;
 
 public class MainMenuController extends LayoutController {
 	@FXML
@@ -14,8 +15,8 @@ public class MainMenuController extends LayoutController {
 
 	@FXML
 	public void onNewGameClick(MouseEvent mouseEvent) {
-		this.increaseStage();
-		this.increaseStage();
+//		this.increaseStage();
+		this.parentController.setGameStage(Constants.GameStage.STARTGAME);
 	}
 
 	@FXML

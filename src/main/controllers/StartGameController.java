@@ -50,6 +50,7 @@ public class StartGameController implements Initializable {
 		this.pausePopupController = loader.getController();
 		this.pausePopupController.setParentController(this);
 		this.pausePopup = this.pausePopupController.getPausePopup();
+		this.pausePopup.setHideOnEscape(false);
 		this.pausePopup.getContent().add(popup);
 
 		// End game popup code
@@ -58,6 +59,7 @@ public class StartGameController implements Initializable {
 		this.endGameController = endGameLoader.getController();
 		this.endGameController.setParentController(this);
 		this.endGamePopup = this.endGameController.getEndGamePopup();
+		this.endGamePopup.setHideOnEscape(false);
 		this.endGamePopup.getContent().add(endPopup);
 		this.endGamePopup.setX(540);
 		this.endGamePopup.setY(220);

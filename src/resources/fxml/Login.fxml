@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1"
+<AnchorPane prefHeight="700.0" fx:id="rootPane" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.LoginController">
     <GridPane prefHeight="377.0" prefWidth="500.0">
         <columnConstraints>

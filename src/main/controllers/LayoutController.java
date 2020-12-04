@@ -19,4 +19,8 @@ public abstract class LayoutController {
 		this.parentController.increaseGameStage();
 	}
 
+	public void decreaseStage() {
+		this.parentController.decreaseGameStage();
+	}
+
 }

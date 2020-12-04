@@ -5,13 +5,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import main.exceptions.UserDoesNotExist;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController extends LayoutController implements Initializable {
+
+	@FXML
+	private AnchorPane rootPane;
 	@FXML
 	private TextField usernameText;
 	@FXML
@@ -20,26 +27,40 @@ public class LoginController extends LayoutController implements Initializable {
 	private Text errorText;
 
 	public String getUsername() {
-		return this.textProperty().get();
+		return this.usernameTextProperty().get();
 	}
 
 	public void setUsername(String value) {
-		this.textProperty().set(value);
+		this.usernameTextProperty().set(value);
 	}
 
-	public StringProperty textProperty() {
+	public StringProperty usernameTextProperty() {
 		return this.usernameText.textProperty();
 	}
 
 	@FXML
 	public void onActionClick(MouseEvent mouseEvent) {
-		if(this.textProperty().toString().equals("Login")){
+		this.tryLogin();
+	}
+
+	public void setButtonText(String text) {
+		this.actionButton.setText(text);
+	}
+
+	public void tryLogin(){
+		if(this.actionButton.getText().equals("Login")){
 			String name = this.usernameText.getText();
 			if(name.equals("")){
 				this.errorText.setText("Username cannot be empty!");
 				return;
 			}
-			this.parentController.createPlayer(name);
+			// More error handling
+			try{
+				this.parentController.setCurrentPlayer(name);
+				this.increaseStage();
+			}catch(UserDoesNotExist e){
+				this.errorText.setText("This user does not exist! Please login from an existing user.");
+			}
 		}
 		else{
 			String name = this.usernameText.getText();
@@ -47,20 +68,21 @@ public class LoginController extends LayoutController implements Initializable {
 				this.errorText.setText("Username cannot be empty!");
 				return;
 			}
-			// More error handling
-			this.parentController.setCurrentPlayer(name);
+			this.parentController.createPlayer(name);
+			this.increaseStage();
 		}
-		this.increaseStage();
-//		this.setButtonText(this.getUsername());
 	}
-
-	public void setButtonText(String text) {
-		this.actionButton.setText(text);
-	}
-
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		this.errorText.setText("");
+		this.rootPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode() == KeyCode.ENTER ) {
+				this.tryLogin();
+			}
+			if(event.getCode() == KeyCode.ESCAPE){
+				this.decreaseStage();
+			}
+		});
 	}
 }
