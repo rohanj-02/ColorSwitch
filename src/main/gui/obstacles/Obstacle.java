@@ -12,6 +12,7 @@ import static main.Constants.SCREEN_MIDPOINT_X;
 public abstract class Obstacle extends GameElement implements Collidable {
 
 	protected double strokeWidth = 20;
+	public static final long serialVersionUID = 4;
 
 	public double getStrokeWidth() {
 		return strokeWidth;
@@ -89,6 +90,11 @@ public abstract class Obstacle extends GameElement implements Collidable {
 		@Override
 		public void setOrientation() {
 			this.setOrientation(0);
+		}
+
+		@Override
+		public void init() {
+			System.out.println("Solid Circle init");
 		}
 	}
 

@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Point implements Serializable {
 	private double x;
 	private double y;
+	public static final long serialVersionUID = 12;
 
 	public double getX() {
 		return this.x;

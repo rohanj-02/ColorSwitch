@@ -14,6 +14,8 @@ import java.util.TimerTask;
 import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class PlayerBall extends GameElement {
+
+	public static final long serialVersionUID = 11;
 	private String colour;
 	private final static double jumpSize = 100;
 	private double angularVelocity;
@@ -144,5 +146,10 @@ public class PlayerBall extends GameElement {
 	@Override
 	public void setOrientation() {
 		this.setOrientation(0);
+	}
+
+	@Override
+	public void init() {
+//TODO
 	}
 }

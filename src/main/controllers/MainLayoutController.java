@@ -6,14 +6,13 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants.GameStage;
+import main.exceptions.GameDoesNotExistException;
 import main.exceptions.SameNameException;
-import main.exceptions.UserDoesNotExist;
+import main.exceptions.UserDoesNotExistException;
 import main.logic.Game;
 import main.menu.MainMenu;
 import java.io.*;
@@ -61,7 +60,7 @@ public class MainLayoutController extends AnchorPane {
 		}catch(IOException | ClassNotFoundException | NullPointerException e){
 			System.out.println("Exception Encountered: ");
 			e.printStackTrace();
-			System.out.println("Could not load " + FILENAME);
+			System.out.println("Could not load " + DATABASE_FILENAME);
 			this.mainMenu = new MainMenu();
 		}
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
@@ -79,7 +78,7 @@ public class MainLayoutController extends AnchorPane {
 
 	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException{
 		ObjectInputStream in;
-		in = new ObjectInputStream(new FileInputStream(FILENAME));
+		in = new ObjectInputStream(new FileInputStream(DATABASE_FILENAME));
 		this.mainMenu = (MainMenu)in.readObject();
 		in.close();
 
@@ -87,7 +86,7 @@ public class MainLayoutController extends AnchorPane {
 
 	public void serialize() throws IOException {
 		ObjectOutputStream out;
-		out = new ObjectOutputStream(new FileOutputStream(FILENAME));
+		out = new ObjectOutputStream(new FileOutputStream(DATABASE_FILENAME));
 		out.writeObject(mainMenu);
 	}
 
@@ -135,7 +134,7 @@ public class MainLayoutController extends AnchorPane {
 		this.mainMenu.createNewPlayer(name);
 	}
 
-	public void setCurrentPlayer(String name) throws UserDoesNotExist {
+	public void setCurrentPlayer(String name) throws UserDoesNotExistException {
 		this.mainMenu.setCurrentPlayer(name);
 	}
 
@@ -160,7 +159,8 @@ public class MainLayoutController extends AnchorPane {
 					this.loadStage("MainMenu.fxml");
 					break;
 				case SELECTSAVED:
-					this.loadStage("LoadGame.fxml");
+					this.loadStage("LoadGame2.fxml");
+					((LoadGameController) this.bottomPaneController).setNumberOfGames(this.mainMenu.getNumberOfGames());
 					break;
 				case STARTGAME:
 					this.loadNewGame("GameScreen.fxml");
@@ -290,7 +290,6 @@ public class MainLayoutController extends AnchorPane {
 		this.primaryStage = (Stage) scene.getWindow();
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
 		this.primaryStage.show();
-//		Game game = new Game(this.gameController);
 		this.gameController.setGame(game);
 		this.mainMenu.addGame(game);
 	}
@@ -300,4 +299,15 @@ public class MainLayoutController extends AnchorPane {
 		// Serializer code
 	}
 
+	public void loadGame(int index) throws GameDoesNotExistException {
+		// TODO Load saved game code here and change stage
+		Game loadedGame = this.mainMenu.getGame(index);
+		this.gameStage = GameStage.STARTGAME;
+		try{
+			this.loadSavedGame(loadedGame);
+		} catch(IOException e){
+			System.out.println("Could not load FXML file. Exiting game!");
+			this.exitGame();
+		}
+	}
 }

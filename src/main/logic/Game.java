@@ -19,6 +19,7 @@ import static main.Constants.*;
 
 public class Game implements Serializable {
 
+	public static final long serialVersionUID = 3;
 	private transient Player player;
 	// Player Game 2 way association maybe recursion in serialization
 	// When deserializing PLayer object, in savedGames() in a Game object
@@ -41,16 +42,16 @@ public class Game implements Serializable {
 		this.gameController = gameController;
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
-		this.playerBall = new PlayerBall(new Point(250, 700), this.gameController);
+		this.playerBall = new PlayerBall(new Point(250, 600), this.gameController);
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
 		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
-		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X,  -200), CIRCLE_RADIUS, true));
+		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X,  -200), CIRCLE_RADIUS, false));
 		this.topObstacle = new CircleObstacle(new Point (SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
 		this.listOfObstacles.add(this.topObstacle);
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), 5));
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), 5));
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), 5));
-		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), 15));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
+		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
 
 		checkCollision();
 
@@ -323,5 +324,23 @@ public class Game implements Serializable {
 		this.listOfObstacles.add(newObstacle);
 		newObstacle.render(this.gameRoot);
 		newObstacle.play();
+	}
+
+	/**
+	 * Initialise game after serialization
+	 */
+	public void init() {
+		this.gameRoot = new Group();
+		for(Obstacle obstacle: this.listOfObstacles){
+			obstacle.init();
+		}
+		for(ColourSwitchBall colourSwitchBall: listOfSwitch){
+			colourSwitchBall.init();
+		}
+		for(Star star: listOfStar){
+			star.init();
+		}
+		this.playerBall.init();
+		this.scrollAnimations = new ArrayList<>();
 	}
 }

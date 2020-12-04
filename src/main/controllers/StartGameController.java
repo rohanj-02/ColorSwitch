@@ -72,6 +72,14 @@ public class StartGameController implements Initializable {
 		this.render();
 	}
 
+	public void setLoadedGame(Game game){
+		this.game.destroyGame();
+		this.game = game;
+		this.game.setGameController(this);
+		this.game.init();
+		this.render();
+	}
+
 	/**
 	 * Used for restarting the game
 	 */

@@ -5,6 +5,7 @@ import java.io.Serializable;
 public abstract class GameElement implements Serializable {
 	private Point position;
 	protected double orientation;
+	public static final long serialVersionUID = 14;
 
 	public double getPosX() {
 		return this.position.getX();
@@ -36,5 +37,6 @@ public abstract class GameElement implements Serializable {
 
 	abstract public void setPosition();
 	abstract public void setOrientation();
+	abstract public void init();
 
 }

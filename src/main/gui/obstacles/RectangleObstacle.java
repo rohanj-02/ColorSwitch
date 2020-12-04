@@ -20,6 +20,7 @@ public class RectangleObstacle extends Obstacle {
 
 	private double width;
 	private double height;
+	public static final long serialVersionUID = 8;
 	transient private final Line[] lineList;
 	transient private final Timeline rotAnimationTimeline;
 	transient private final Rotate rotAnimation;
@@ -133,5 +134,10 @@ public class RectangleObstacle extends Obstacle {
 			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void init() {
+		//TODO
 	}
 }

@@ -21,6 +21,7 @@ import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class CircleObstacle extends Obstacle {
 
+	public static final long serialVersionUID = 5;
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
 	transient private final Arc[] arcList;
 	transient private final Timeline rotAnimationTimeline;
@@ -107,5 +108,10 @@ public class CircleObstacle extends Obstacle {
 			System.out.println("Circle Obstacle Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void init() {
+//TODO
 	}
 }

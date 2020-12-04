@@ -13,6 +13,7 @@ public class Star extends GameElement implements Collidable {
 	private int amount;
 	transient public Group starRoot;
 	transient public SVGPath svgPath;
+	public static final long serialVersionUID = 13;
 
 	public Star(Point point, int amount) {
 		starRoot = new Group();
@@ -87,5 +88,10 @@ public class Star extends GameElement implements Collidable {
 	@Override
 	public void setOrientation() {
 		this.setOrientation(0);
+	}
+
+	@Override
+	public void init() {
+	//TODO
 	}
 }

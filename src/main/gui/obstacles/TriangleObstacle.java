@@ -20,6 +20,7 @@ import java.util.Arrays;
 public class TriangleObstacle extends Obstacle {
 
 	private double sideLength;
+	public static final long serialVersionUID = 9;
 	private final Point[] vertices;
 	transient private final Line[] edges;
 	transient private final Timeline rotAnimationTimeline;
@@ -115,5 +116,10 @@ public class TriangleObstacle extends Obstacle {
 			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void init() {
+	//TODO
 	}
 }

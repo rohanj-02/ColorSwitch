@@ -13,6 +13,7 @@ import static main.Constants.SCREEN_MIDPOINT_X;
 public class ColourSwitchBall extends GameElement implements Collidable {
 
 	private double radius;
+	public static final long serialVersionUID = 10;
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
 	transient private final Arc[] arcList;
 	transient public Group root;
@@ -101,5 +102,10 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 	@Override
 	public void setOrientation() {
 		this.setOrientation(0);
+	}
+
+	@Override
+	public void init() {
+//TODO
 	}
 }

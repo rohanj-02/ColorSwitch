@@ -19,6 +19,7 @@ import java.util.Arrays;
 public class PlusObstacle extends Obstacle {
 
 	private double armLength;
+	public static final long serialVersionUID = 7;
 	transient private final Line[] armList;
 	transient private final Timeline rotAnimationTimeline;
 	transient private final Rotate rotAnimation;
@@ -116,5 +117,10 @@ public class PlusObstacle extends Obstacle {
 			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void init() {
+	//TODO
 	}
 }

@@ -1,9 +1,12 @@
 package main.logic;
 
+import main.exceptions.GameDoesNotExistException;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Player implements Serializable {
+	public static final long serialVersionUID = 2;
 	private final String name;
 	private int highScore;
 	private ArrayList<Game> savedGames;
@@ -58,5 +61,19 @@ public class Player implements Serializable {
 
 	public void createNewGame(String mode) {
 
+	}
+
+	/**
+	 * Sets the currentGame to the index pointed in the list of savedGames and returns the game object
+	 * @param index the index of savedGames
+	 * @return Returns the game at index index
+	 * @throws GameDoesNotExistException on not finding the game
+	 */
+	public Game setCurrentGame(int index) throws GameDoesNotExistException {
+		if(index > this.savedGames.size()){
+			throw new GameDoesNotExistException("Index out of bounds");
+		}
+		this.setCurrentGame(this.savedGames.get(index));
+		return this.savedGames.get(index);
 	}
 }

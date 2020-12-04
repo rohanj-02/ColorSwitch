@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 public class LineObstacle extends Obstacle {
 
+	public static final long serialVersionUID = 6;
 	transient private final TranslateTransition translateTransitions;
 	transient private final Line[] lineList;
 
@@ -106,5 +107,10 @@ public class LineObstacle extends Obstacle {
 			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void init() {
+//TODO
 	}
 }

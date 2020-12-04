@@ -21,10 +21,10 @@ public class Constants {
 	public static final double OBSTACLE_GENERATE_START = NEW_OBSTACLE_SCROLL_THRESHOLD - OBSTACLE_DISTANCE;
 	public static final int STAR_POINTS = 5;
 	public static final double COLOUR_SWITCH_RADIUS = 15;
-	public static final String FILENAME = "database.ser";
+	public static final String DATABASE_FILENAME = "database.ser";
 	public static final Color BONUS_STAR = Color.YELLOW;
 	public static final Color NORMAL_STAR = Color.WHITE;
-
+	// MAX UID = 14 Game Element
 	public enum GameStage {
 		LOADING, LANDING, LOGIN, MAINMENU, SELECTSAVED, STARTGAME
 	}
