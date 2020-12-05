@@ -1,101 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="318.0" prefWidth="288.0" styleClass="popup-shadow"
-            stylesheets="@../styles/MainLayout.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.EndGameController">
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="318.0" prefWidth="288.0" styleClass="popup-shadow" stylesheets="@../styles/MainLayout.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.EndGameController">
     <GridPane layoutX="-1.0" layoutY="-1.0" prefHeight="319.0" prefWidth="289.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="26.62715721130371" vgrow="SOMETIMES"/>
-            <RowConstraints maxHeight="203.74664306640625" minHeight="10.0" prefHeight="95.781494140625"
-                            vgrow="SOMETIMES"/>
-            <RowConstraints maxHeight="159.2139129638672" minHeight="10.0" prefHeight="109.74317932128906"
-                            vgrow="SOMETIMES"/>
-            <RowConstraints maxHeight="118.39646911621094" minHeight="10.0" prefHeight="86.162109375"
-                            vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="26.62715721130371" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="203.74664306640625" minHeight="10.0" prefHeight="95.781494140625" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="159.2139129638672" minHeight="10.0" prefHeight="109.74317932128906" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="118.39646911621094" minHeight="10.0" prefHeight="86.162109375" vgrow="SOMETIMES" />
         </rowConstraints>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
             <ImageView fitHeight="79.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../images/Continue.png"/>
+                <Image url="@../images/Continue.png" />
             </ImageView>
             <HBox alignment="CENTER" prefHeight="39.0" prefWidth="354.0">
-                <SVGPath
-                        content="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5zM12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"
-                        styleClass="color-white"/>
-                <Text styleClass="color-white" strokeType="OUTSIDE" strokeWidth="0.0" text="831">
+                <SVGPath content="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5zM12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z" styleClass="color-white" />
+                <Text fx:id="scoreText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="color-white" text="831">
                     <font>
-                        <Font size="15.0"/>
+                        <Font size="15.0" />
                     </font>
                     <HBox.margin>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </HBox.margin>
                 </Text>
             </HBox>
         </VBox>
         <VBox alignment="CENTER" prefHeight="109.0" prefWidth="341.0" GridPane.rowIndex="2">
             <VBox alignment="CENTER" prefHeight="68.0" prefWidth="354.0">
-                <Text styleClass="color-white" strokeType="OUTSIDE" strokeWidth="0.0" text="10 s" textAlignment="CENTER"
-                      wrappingWidth="136.03416442871094">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="color-white" text="10 s" textAlignment="CENTER" wrappingWidth="136.03416442871094">
                     <font>
-                        <Font size="50.0"/>
+                        <Font size="50.0" />
                     </font>
                 </Text>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="90.0"
-                    text="100" fx:id="reviveButton" onMouseClicked="#revivePlayer">
+            <Button fx:id="reviveButton" mnemonicParsing="false" onMouseClicked="#revivePlayer" prefHeight="34.0" prefWidth="90.0" text="50">
                 <graphic>
-                    <SVGPath
-                            content="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5zM12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z"/>
+                    <SVGPath content="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5zM12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z" />
                 </graphic>
             </Button>
         </VBox>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
+            <Text fx:id="errorText" fill="WHITE"></Text>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="90.0" fx:id="restartGameButton"
-                        onMouseClicked="#restartGame">
+                <Button fx:id="restartGameButton" mnemonicParsing="false" onMouseClicked="#restartGame" prefHeight="34.0" prefWidth="90.0">
                     <graphic>
-                        <SVGPath
-                                content="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8zM12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                        <SVGPath content="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8zM12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
                     </graphic>
                     <HBox.margin>
-                        <Insets right="10.0"/>
+                        <Insets right="10.0" />
                     </HBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="90.0" fx:id="exitToMainMenuButton"
-                        onMouseClicked="#exitToMainMenu"
-                >
+                <Button fx:id="exitToMainMenuButton" mnemonicParsing="false" onMouseClicked="#exitToMainMenu" prefHeight="34.0" prefWidth="90.0">
                     <graphic>
-                        <SVGPath
-                                content="M10.79 16.29c.39.39 1.02.39 1.41 0l3.59-3.59c.39-.39.39-1.02 0-1.41L12.2 7.7a.9959.9959 0 00-1.41 0c-.39.39-.39 1.02 0 1.41L12.67 11H4c-.55 0-1 .45-1 1s.45 1 1 1h8.67l-1.88 1.88c-.39.39-.38 1.03 0 1.41zM19 3H5c-1.11 0-2 .9-2 2v3c0 .55.45 1 1 1s1-.45 1-1V6c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1v3c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM10.79 16.29c.39.39 1.02.39 1.41 0l3.59-3.59c.39-.39.39-1.02 0-1.41L12.2 7.7a.9959.9959 0 00-1.41 0c-.39.39-.39 1.02 0 1.41L12.67 11H4c-.55 0-1 .45-1 1s.45 1 1 1h8.67l-1.88 1.88c-.39.39-.38 1.03 0 1.41zM19 3H5c-1.11 0-2 .9-2 2v3c0 .55.45 1 1 1s1-.45 1-1V6c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1v3c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
+                        <SVGPath content="M10.79 16.29c.39.39 1.02.39 1.41 0l3.59-3.59c.39-.39.39-1.02 0-1.41L12.2 7.7a.9959.9959 0 00-1.41 0c-.39.39-.39 1.02 0 1.41L12.67 11H4c-.55 0-1 .45-1 1s.45 1 1 1h8.67l-1.88 1.88c-.39.39-.38 1.03 0 1.41zM19 3H5c-1.11 0-2 .9-2 2v3c0 .55.45 1 1 1s1-.45 1-1V6c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1v3c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM10.79 16.29c.39.39 1.02.39 1.41 0l3.59-3.59c.39-.39.39-1.02 0-1.41L12.2 7.7a.9959.9959 0 00-1.41 0c-.39.39-.39 1.02 0 1.41L12.67 11H4c-.55 0-1 .45-1 1s.45 1 1 1h8.67l-1.88 1.88c-.39.39-.38 1.03 0 1.41zM19 3H5c-1.11 0-2 .9-2 2v3c0 .55.45 1 1 1s1-.45 1-1V6c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v12c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1v3c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
                     </graphic>
                     <HBox.margin>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </HBox.margin>
                 </Button>
             </HBox>
         </VBox>
         <VBox alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="318.0">
             <VBox alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="353.0">
-                <Button alignment="BASELINE_RIGHT" mnemonicParsing="false" prefHeight="17.0" prefWidth="14.0"
-                        styleClass="bg-transparent" textFill="WHITE" textOverrun="CLIP" fx:id="closeButton"
-                        onMouseClicked="#onClose">
+                <Button fx:id="closeButton" alignment="BASELINE_RIGHT" mnemonicParsing="false" onMouseClicked="#onClose" prefHeight="17.0" prefWidth="14.0" styleClass="bg-transparent" textFill="WHITE" textOverrun="CLIP">
                     <VBox.margin>
-                        <Insets/>
+                        <Insets />
                     </VBox.margin>
                     <graphic>
-                        <SVGPath
-                                content="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12zM19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                                fill="WHITE" styleClass="color-white"/>
+                        <SVGPath content="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12zM19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="WHITE" styleClass="color-white" />
                     </graphic>
                 </Button>
             </VBox>

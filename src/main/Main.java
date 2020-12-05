@@ -2,9 +2,12 @@ package main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import main.controllers.MainLayoutController;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Main extends Application {

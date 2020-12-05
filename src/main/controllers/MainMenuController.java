@@ -16,16 +16,19 @@ public class MainMenuController extends LayoutController {
 	@FXML
 	public void onNewGameClick(MouseEvent mouseEvent) {
 //		this.increaseStage();
+		this.parentController.playClickSound();
 		this.parentController.setGameStage(Constants.GameStage.STARTGAME);
 	}
 
 	@FXML
 	public void onLoadGameClick(MouseEvent mouseEvent) {
+		this.parentController.playClickSound();
 		this.increaseStage();
 	}
 
 	@FXML
 	public void onExitGameClick(MouseEvent mouseEvent) {
+		this.parentController.playClickSound();
 		this.parentController.exitGame();
 	}
 }

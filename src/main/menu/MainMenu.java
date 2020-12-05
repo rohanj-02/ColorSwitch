@@ -92,6 +92,9 @@ public class MainMenu implements Serializable {
 		System.out.println(this.currentPlayer);
 		this.currentPlayer.setCurrentGame(game);
 	}
+	public void addPlayerToGame(Game game){
+		game.setPlayer(this.currentPlayer);
+	}
 
 	public void addToSavedGames(Game game) {
 		this.currentPlayer.addToSavedGames(game);

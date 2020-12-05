@@ -11,6 +11,7 @@ public class LoadGameController extends LayoutController {
 
 	@FXML
 	public void onLoadGameClick(MouseEvent mouseEvent) {
+		this.parentController.playClickSound();
 		this.increaseStage();
 	}
 }

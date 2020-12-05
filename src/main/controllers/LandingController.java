@@ -12,12 +12,15 @@ public class LandingController extends LayoutController {
 
 	@FXML
 	public void onLoginClick(MouseEvent mouseEvent) {
+		this.parentController.playClickSound();
 		this.getParentController().setLogin(true);
 		this.increaseStage();
+
 	}
 
 	@FXML
 	public void onSignUpClick(MouseEvent mouseEvent) {
+		this.parentController.playClickSound();
 		this.getParentController().setLogin(false);
 		this.increaseStage();
 	}

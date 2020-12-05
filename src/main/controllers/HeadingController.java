@@ -20,8 +20,8 @@ public class HeadingController {
 		circle1.render(root1);
 		circle2.render(root1);
 		this.headingContainer.getChildren().add(root1);
-		circle1.setStrokeWidth(10);
-		circle2.setStrokeWidth(10);
+		circle1.setStrokeWidth(0);
+		circle2.setStrokeWidth(0);
 		circle1.play();
 		circle2.play();
 

@@ -38,3 +38,6 @@ AnchorPane {
     -fx-effect: dropshadow(gaussian, #373c35, 70, 0, 0, 0);
     /*-fx-background-insets: 12;*/
 }
+.back{
+    -fx-background-color: #272727;
+}

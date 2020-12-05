@@ -17,7 +17,7 @@ public class PlayerBall extends GameElement {
 	private String colour;
 	private final static double jumpSize = 100;
 	private double angularVelocity;
-	private final static double radius = 15;
+	private final static double radius = 10;
 	transient private Circle ballRoot;
 	transient private final TranslateTransition gravityTransition;
 	transient private TranslateTransition currentJump;
@@ -112,6 +112,26 @@ public class PlayerBall extends GameElement {
 
 	public void play() {
 		this.ballRoot.setTranslateY(this.getPosY());
+		this.ballRoot.setVisible(true);
+		Timer t = new Timer();
+		// TODO Add alert that ball will fall after 3 seconds, else you can start jumping before that also
+		// TODO Maybe implement scroll so that game doesn't start with a jerk
+		t.schedule(
+				new TimerTask() {
+					@Override
+					public void run() {
+						if (PlayerBall.this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
+							PlayerBall.this.gravityTransition.playFrom(Duration.millis(5000));
+						}
+						t.cancel();
+					}
+				},
+				3000
+		);
+	}
+
+	public void usedStarPlay(double collisionY) {
+		this.ballRoot.setTranslateY(collisionY);
 		this.ballRoot.setVisible(true);
 		Timer t = new Timer();
 		// TODO Add alert that ball will fall after 3 seconds, else you can start jumping before that also

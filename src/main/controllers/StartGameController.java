@@ -10,11 +10,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import main.logic.Game;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,6 +39,8 @@ public class StartGameController implements Initializable {
 	private Stage primaryStage;
 	private final Popup pausePopup;
 	private final Popup endGamePopup;
+	private MediaPlayer gameSound;
+	private MediaPlayer clickSound;
 	private final PauseController pausePopupController;
 	private final EndGameController endGameController;
 	private MainLayoutController mainLayoutController;
@@ -76,11 +81,21 @@ public class StartGameController implements Initializable {
 	 * Used for restarting the game
 	 */
 	public void initialiseGame() {
+		this.playClickSound();
 		this.game.destroyGame();
 		this.game = new Game(this);
+		this.game.setCurrentScore(0);
 		this.render();
 		this.pausePopupController.closePopup();
 		this.endGameController.closePopup();
+	}
+
+	public Text getScoreText() {
+		return scoreText;
+	}
+
+	public void setScoreText(Text scoreText) {
+		this.scoreText = scoreText;
 	}
 
 	public void onEndClick(MouseEvent mouseEvent) {
@@ -96,12 +111,26 @@ public class StartGameController implements Initializable {
 		this.game.pauseGame();
 	}
 
+	public void endGame(){
+		this.endGameController.show(this.primaryStage);
+		this.endGameController.getScoreText().setText(Integer.toString(this.game.getCurrentScore()));
+		this.game.endGame();
+	}
+
 	public Game getGame() {
 		return game;
 	}
 
 	public void setPrimaryStage(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+	}
+
+	public PauseController getPausePopupController() {
+		return pausePopupController;
+	}
+
+	public EndGameController getEndGameController() {
+		return endGameController;
 	}
 
 	public MainLayoutController getMainLayoutController() {
@@ -160,6 +189,20 @@ public class StartGameController implements Initializable {
 			e.printStackTrace();
 			System.out.println("Could not save the game!");
 		}
+	}
+
+	public void playGameSound(){
+		String path = "src/resources/sounds/GameSound-1.mp3";
+		Media media = new Media(new File(path).toURI().toString());
+		MediaPlayer gameSound = new MediaPlayer(media);
+		gameSound.play();
+	}
+
+	public void playClickSound(){
+		String path = "src/resources/sounds/click.mp3";
+		Media media = new Media(new File(path).toURI().toString());
+		MediaPlayer clickSound = new MediaPlayer(media);
+		clickSound.play();
 	}
 }
 

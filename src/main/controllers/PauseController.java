@@ -12,6 +12,7 @@ public class PauseController extends AnchorPane {
 	@FXML
 	public Button closeButton;
 	private Popup pausePopup;
+	private boolean opened = false;
 	private StartGameController parentController;
 
 	@FXML
@@ -22,6 +23,7 @@ public class PauseController extends AnchorPane {
 	public void closePopup(){
 		this.parentController.getGame().playGame();
 		this.pausePopup.hide();
+		opened = false;
 		this.parentController.refreshStage();
 	}
 	public PauseController() {
@@ -38,6 +40,7 @@ public class PauseController extends AnchorPane {
 
 	public void show(Stage primaryStage) {
 		this.pausePopup.show(primaryStage, primaryStage.getX(), primaryStage.getY() + 100);
+		opened = true;
 	}
 
 	public void setParentController(StartGameController parentController) {
@@ -47,18 +50,30 @@ public class PauseController extends AnchorPane {
 
 	public void onPlayClicked(MouseEvent mouseEvent) {
 		this.onClose(mouseEvent);
+		this.parentController.playClickSound();
 	}
 
 	public void onRestartClicked(MouseEvent mouseEvent) {
 		this.parentController.initialiseGame();
+
+	}
+
+	public boolean isOpened() {
+		return opened;
+	}
+
+	public void setOpened(boolean opened) {
+		this.opened = opened;
 	}
 
 	public void onSaveClicked(MouseEvent mouseEvent) {
 		//serialization
+		this.parentController.playClickSound();
 		this.parentController.addToSavedGames();
 	}
 
 	public void onExitClicked(MouseEvent mouseEvent) {
-	this.parentController.closeGame();
+		this.parentController.playClickSound();
+		this.parentController.closeGame();
 	}
 }

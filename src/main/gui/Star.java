@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 import main.Constants;
+import main.logic.Game;
 import main.logic.Player;
 
 import static main.Constants.SCREEN_MIDPOINT_X;
@@ -11,8 +12,9 @@ import static main.Constants.SCREEN_MIDPOINT_X;
 public class Star extends GameElement implements Collidable {
 	// private int[] position;
 	private int amount;
-	transient public Group starRoot;
+	public transient Group starRoot;
 	transient public SVGPath svgPath;
+	private boolean isCollected;
 
 	public Star(Point point, int amount) {
 		starRoot = new Group();
@@ -29,12 +31,22 @@ public class Star extends GameElement implements Collidable {
 		} else {
 			svgPath.setFill(Constants.NORMAL_STAR);
 		}
+		this.isCollected = false;
+	}
+
+	public boolean isCollected() {
+		return isCollected;
+	}
+
+	public void setCollected(boolean collected) {
+		isCollected = collected;
 	}
 
 	public void render(Group root) {
 		this.starRoot.getChildren().add(svgPath);
 		root.getChildren().addAll(this.starRoot);
 	}
+
 
 
 	public int getAmount() {
@@ -45,22 +57,17 @@ public class Star extends GameElement implements Collidable {
 		this.amount = amount;
 	}
 
-	/**
-	 * Returns whether the star has been collected or not
-	 *
-	 * @return boolean
-	 */
-	public boolean isCollected() {
-		return false;
-	}
 
 	/**
 	 * Increase the score of the game
 	 */
-	public void increaseScore(Player player) {
-		int currentScore = player.getNumberOfStars();
-		player.setNumberOfStars(currentScore + this.amount);
+	public void increaseScore(Game game) {
+		int currentScore = game.getCurrentScore();
+		game.setCurrentScore(currentScore + this.amount);
+		this.isCollected = true;
 	}
+
+
 
 	@Override
 	public boolean isCollision(PlayerBall ball) {

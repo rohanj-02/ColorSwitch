@@ -1,14 +1,20 @@
 package main.controllers;
 
+import com.sun.jdi.request.DuplicateRequestException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants.GameStage;
@@ -46,11 +52,16 @@ public class MainLayoutController extends AnchorPane {
 	/**
 	 * isLogin specifies the choice the user made on the landing screen. true for login and false for signup
 	 */
+
+	@FXML
+	private SVGPath backButton;
+
 	private boolean isLogin;
 	private boolean isTransitioning; // added to remove the 5 tap skip!
 	private Stage primaryStage;
 	private MainMenu mainMenu;
 	private StartGameController gameController;
+
 
 	public MainLayoutController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -75,6 +86,7 @@ public class MainLayoutController extends AnchorPane {
 		this.headingController.addMovingO();
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
+		playGameSound();
 	}
 
 	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException{
@@ -89,6 +101,10 @@ public class MainLayoutController extends AnchorPane {
 		ObjectOutputStream out;
 		out = new ObjectOutputStream(new FileOutputStream(FILENAME));
 		out.writeObject(mainMenu);
+	}
+
+	public void onBackClick(MouseEvent mouseEvent){
+		this.decreaseGameStage();
 	}
 
 	// ACCESSORS
@@ -137,13 +153,17 @@ public class MainLayoutController extends AnchorPane {
 
 	public void setCurrentPlayer(String name) throws UserDoesNotExist {
 		this.mainMenu.setCurrentPlayer(name);
+		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
 	}
+
 
 	// GAME STAGE RELATED METHODS
 
 	public GameStage getGameStage() {
 		return gameStage;
 	}
+
+
 
 	public void setGameStage(GameStage gameStage) {
 		this.gameStage = gameStage;
@@ -278,6 +298,7 @@ public class MainLayoutController extends AnchorPane {
 		Game game = new Game(this.gameController);
 		this.gameController.setGame(game);
 		this.mainMenu.addGame(game);
+		this.mainMenu.addPlayerToGame(game);
 	}
 
 	public void loadSavedGame(Game game) throws IOException {
@@ -293,11 +314,28 @@ public class MainLayoutController extends AnchorPane {
 //		Game game = new Game(this.gameController);
 		this.gameController.setGame(game);
 		this.mainMenu.addGame(game);
+		this.mainMenu.addPlayerToGame(game);
 	}
 
 	public void exitGame() {
 		this.primaryStage.close();
 		// Serializer code
+	}
+
+	public void playGameSound(){
+		String path = "src/resources/sounds/GameSound-1.mp3";
+		Media media = new Media(new File(path).toURI().toString());
+		MediaPlayer gameSound = new MediaPlayer(media);
+//		gameSound.setAutoPlay(true);
+//		gameSound.
+
+	}
+
+	public void playClickSound(){
+		String path = "src/resources/sounds/click.mp3";
+		Media media = new Media(new File(path).toURI().toString());
+		MediaPlayer clickSound = new MediaPlayer(media);
+		clickSound.play();
 	}
 
 }

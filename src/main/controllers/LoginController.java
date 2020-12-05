@@ -49,6 +49,7 @@ public class LoginController extends LayoutController implements Initializable {
 	}
 
 	public void tryLogin(){
+		this.parentController.playClickSound();
 		if(this.actionButton.getText().equals("Login")){
 			String name = this.usernameText.getText();
 			if(name.equals("")){

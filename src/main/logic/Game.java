@@ -15,6 +15,7 @@ import main.gui.obstacles.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
 import static main.Constants.*;
 
 public class Game implements Serializable {
@@ -28,11 +29,12 @@ public class Game implements Serializable {
 	private ArrayList<Star> listOfStar;
 	private ArrayList<ColourSwitchBall> listOfSwitch;
 	private PlayerBall playerBall;
-	private int currentScore;
+	private int currentScore = 0;
 	transient private Group gameRoot;
 	transient private ArrayList<TranslateTransition> scrollAnimations;
 	private double maxY;
 	transient private StartGameController gameController;
+	private double collisionY = 0.0;
 
 	public Game(StartGameController gameController) {
 		this.scrollAnimations = new ArrayList<>();
@@ -153,15 +155,28 @@ public class Game implements Serializable {
 
 			@Override
 			public void handle(Event event) {
-//				for (Obstacle obstacle : listOfObstacles) {
-//					if (obstacle.isCollision(playerBall)) {
-////						obstacle.play();
-//					}
-//				}
+				gameController.getScoreText().setText(Integer.toString(currentScore));
+//				System.out.println(playerBall.getYPosition());
+				if(playerBall.getYPosition() > 0 && !gameController.getPausePopupController().isOpened()){
+					gameController.endGame();
+				}
+
+				for (Obstacle obstacle : listOfObstacles) {
+					if (obstacle.isCollision(playerBall)) {
+						gameController.endGame();
+						collisionY = playerBall.getBallRoot().getLayoutY();
+//						System.out.println(collisionY);
+					}
+				}
 				for (Star star : listOfStar) {
 					if (star.isCollision(playerBall)) {
-						star.svgPath.setVisible(false);
-//						 star.increaseScore(player);
+						if(!star.isCollected()){
+//							System.out.println(star.svgPath.getLayoutY());
+							star.increaseScore(player.getCurrentGame());
+							star.svgPath.setVisible(false);
+						}
+
+
 					}
 				}
 				for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
@@ -186,9 +201,20 @@ public class Game implements Serializable {
 			transition.pause();
 		}
 	}
+	public void endGame(){
+		this.playerBall.pause();
+		for(TranslateTransition transition : this.scrollAnimations){
+			transition.pause();
+		}
+	}
 
 	public void playGame(){
 		this.playerBall.play();
+	}
+
+	public void playGameAfterStar(){
+		System.out.println(collisionY);
+		this.playerBall.usedStarPlay(collisionY);
 	}
 
 	/**
