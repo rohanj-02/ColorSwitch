@@ -113,14 +113,14 @@ public class TriangleObstacle extends Obstacle {
 			}
 		}
 		if (collisionDetected) {
-			System.out.println("Collision Detected");
+//			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
 	}
 
 	@Override
 	public void init() {
-
+		System.out.println("Triangle Obstacle @ "+ this.getPosition());
 		this.vertices = new Point[3];
 		this.edges = new Line[3];
 		Point center = this.getPosition();

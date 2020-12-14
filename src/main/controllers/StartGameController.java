@@ -163,6 +163,7 @@ public class StartGameController implements Initializable {
 	public void addToSavedGames() {
 		this.mainLayoutController.getMainMenu().addToSavedGames(this.game);
 		try{
+			this.game.serialize();
 			this.mainLayoutController.serialize();
 		}catch(IOException e){
 			e.printStackTrace();

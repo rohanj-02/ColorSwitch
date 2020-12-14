@@ -114,7 +114,7 @@ public class PlusObstacle extends Obstacle {
 			}
 		}
 		if (collisionDetected) {
-			System.out.println("Collision Detected");
+//			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
 	}
@@ -122,7 +122,7 @@ public class PlusObstacle extends Obstacle {
 	@Override
 	public void init() {
 		int length = Constants.COLOUR_PALETTE.length;
-
+		System.out.println("Plus Obstacle @ "+ this.getPosition());
 		this.obstacleRoot = new Group();
 		this.armList = new Line[length];
 		Line armBottom = new Line();

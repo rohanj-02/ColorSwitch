@@ -12,6 +12,7 @@ import main.controllers.StartGameController;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static main.Constants.PLAYER_START;
 import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class PlayerBall extends GameElement {
@@ -151,12 +152,14 @@ public class PlayerBall extends GameElement {
 
 	@Override
 	public void init() {
+		System.out.println("Player Ball @ "+ this.getPosition());
 		this.gravityInterpolator = new Interpolator() {
 			@Override
 			protected double curve(double t) {
 				return -t * 4 * (1 - 2 * t);
 			}
 		};
+//		this.ballRoot = new Circle(this.getPosX(), PLAYER_START + this.getPosY(), radius);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		this.ballRoot.setFill(Constants.COLOUR_PALETTE[0]);

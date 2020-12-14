@@ -114,7 +114,7 @@ public class CircleObstacle extends Obstacle {
 		this.arcList = new Arc[length];
 		this.rotAnimationTimeline = new Timeline();
 		this.obstacleRoot = new Group();
-
+		System.out.println("Circle Obstacle @ "+ this.getPosition());
 		for (int i = 0; i < this.arcList.length; i++) {
 			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength + this.getOrientation(), this.arcLength);
 

@@ -106,7 +106,7 @@ public class LineObstacle extends Obstacle {
 			}
 		}
 		if (collisionDetected) {
-			System.out.println("Collision Detected");
+//			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
 	}
@@ -118,6 +118,7 @@ public class LineObstacle extends Obstacle {
 		if (!positiveDirection) {
 			this.setPosX(this.sceneLength - this.getPosX());
 		}
+		System.out.println("Line Obstacle @ "+ this.getPosition());
 		this.lineList = new Line[2 * Constants.COLOUR_PALETTE.length];
 		this.obstacleRoot = new Group();
 		int noOfSegments = Constants.COLOUR_PALETTE.length;

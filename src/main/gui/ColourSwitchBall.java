@@ -88,7 +88,7 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 			collisionDetected = true;
 		}
 		if (collisionDetected) {
-			System.out.println("Collision Detected");
+//			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
 	}

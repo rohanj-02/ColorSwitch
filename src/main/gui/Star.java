@@ -75,7 +75,7 @@ public class Star extends GameElement implements Collidable {
 		}
 
 		if (collisionDetected) {
-			System.out.println("Collision Detected");
+//			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
 	}

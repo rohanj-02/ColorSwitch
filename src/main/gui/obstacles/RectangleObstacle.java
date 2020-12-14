@@ -129,7 +129,7 @@ public class RectangleObstacle extends Obstacle {
 			}
 		}
 		if (collisionDetected) {
-			System.out.println("Collision Detected");
+//			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
 	}
@@ -137,6 +137,7 @@ public class RectangleObstacle extends Obstacle {
 	@Override
 	public void init() {
 		int length = Constants.COLOUR_PALETTE.length;
+		System.out.println("Rectangle Obstacle @ "+ this.getPosition());
 		this.obstacleRoot = new Group();
 		this.lineList = new Line[length];
 		Line lineBottom = new Line();

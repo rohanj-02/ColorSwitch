@@ -19,6 +19,8 @@ import java.io.*;
 
 import static main.Constants.*;
 
+// TODO Bug fix : Space + P: Ball disappears
+
 public class MainLayoutController extends AnchorPane {
 	@FXML
 	private AnchorPane heading;
