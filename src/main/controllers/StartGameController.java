@@ -25,6 +25,10 @@ import java.util.ResourceBundle;
 
 public class StartGameController implements Initializable {
 
+	private final Popup pausePopup;
+	private final Popup endGamePopup;
+	private final PauseController pausePopupController;
+	private final EndGameController endGamePopupController;
 	@FXML
 	private AnchorPane rootPane;
 	@FXML
@@ -35,15 +39,10 @@ public class StartGameController implements Initializable {
 	private Text scoreText;
 	@FXML
 	private Button endButton;
-
 	private Game game;
 	private Stage primaryStage;
-	private final Popup pausePopup;
-	private final Popup endGamePopup;
 	private MediaPlayer gameSound;
 	private MediaPlayer clickSound;
-	private final PauseController pausePopupController;
-	private final EndGameController endGamePopupController;
 	private MainLayoutController mainLayoutController;
 
 	public StartGameController() throws IOException {
@@ -72,13 +71,7 @@ public class StartGameController implements Initializable {
 
 	}
 
-	public void setGame(Game game) {
-		this.game.destroyGame();
-		this.game = game;
-		this.render();
-	}
-
-	public void setLoadedGame(Game game){
+	public void setLoadedGame(Game game) {
 		this.game.destroyGame();
 		this.game = game;
 		this.game.setGameController(this);
@@ -103,7 +96,7 @@ public class StartGameController implements Initializable {
 		this.endGamePopupController.closePopup();
 	}
 
-	public void destroyGame(){
+	public void destroyGame() {
 		this.game.destroyGame();
 		this.rootPane.getChildren().remove(this.game.getGameRoot());
 	}
@@ -124,12 +117,12 @@ public class StartGameController implements Initializable {
 		this.pauseGame();
 	}
 
-	public void pauseGame(){
+	public void pauseGame() {
 		this.pausePopupController.show(this.primaryStage);
 		this.game.pauseGame();
 	}
 
-	public void endGame(){
+	public void endGame() {
 		this.endGamePopupController.show(this.primaryStage);
 		this.endGamePopupController.getScoreText().setText(Integer.toString(this.game.getCurrentScore()));
 		this.game.endGame();
@@ -137,6 +130,12 @@ public class StartGameController implements Initializable {
 
 	public Game getGame() {
 		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game.destroyGame();
+		this.game = game;
+		this.render();
 	}
 
 	public void setPrimaryStage(Stage primaryStage) {
@@ -181,8 +180,7 @@ public class StartGameController implements Initializable {
 		this.rootPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.SPACE) {
 				this.jump();
-			}
-			else if(event.getCode() == KeyCode.P){
+			} else if (event.getCode() == KeyCode.P) {
 				this.pauseGame();
 			}
 		});
@@ -206,23 +204,23 @@ public class StartGameController implements Initializable {
 
 	public void addToSavedGames() {
 		this.mainLayoutController.getMainMenu().addToSavedGames(this.game);
-		try{
+		try {
 			this.game.serialize();
 			this.mainLayoutController.serialize();
-		}catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Could not save the game!");
 		}
 	}
 
-	public void playGameSound(){
+	public void playGameSound() {
 		String path = "src/resources/sounds/GameSound-1.mp3";
 		Media media = new Media(new File(path).toURI().toString());
 		MediaPlayer gameSound = new MediaPlayer(media);
 		gameSound.play();
 	}
 
-	public void playClickSound(){
+	public void playClickSound() {
 		String path = "src/resources/sounds/click.mp3";
 		Media media = new Media(new File(path).toURI().toString());
 		MediaPlayer clickSound = new MediaPlayer(media);

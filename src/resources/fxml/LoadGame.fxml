@@ -2,10 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.LoadGameController">
-    <GridPane fx:id="gridPane" alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="-6.0" prefHeight="383.0" prefWidth="501.0">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPane" prefHeight="700.0" prefWidth="500.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="main.controllers.LoadGameController">
+    <GridPane fx:id="gridPane" alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="-6.0" prefHeight="383.0"
+              prefWidth="501.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         </columnConstraints>

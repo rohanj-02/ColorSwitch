@@ -1,5 +1,6 @@
 package main.controllers;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -8,13 +9,21 @@ import javafx.stage.Stage;
 
 public class ConfirmExitController {
 
+	private final Popup popup;
+	@FXML
 	public Text scoreText;
-	public Text errorText;
-	public Button cancelExitButton;
-	public Button exitButton;
-	private Popup popup;
+	@FXML
+	private Text errorText;
+	@FXML
+	private Button cancelExitButton;
+	@FXML
+	private Button exitButton;
 	private boolean opened = false;
 	private Stage primaryStage;
+
+	public ConfirmExitController() {
+		this.popup = new Popup();
+	}
 
 	public void cancelExit(MouseEvent mouseEvent) {
 		this.closePopup();
@@ -25,15 +34,12 @@ public class ConfirmExitController {
 		return popup;
 	}
 
-	public void closePopup(){
+	public void closePopup() {
 		this.popup.hide();
 		opened = false;
 	}
 
-	public ConfirmExitController(){
-		this.popup = new Popup();
-	}
-
+	//TODO Fix position of popup
 	public void show() {
 		this.popup.show(this.primaryStage, this.primaryStage.getX(), this.primaryStage.getY() + 100);
 		opened = true;

@@ -15,7 +15,6 @@ import main.gui.obstacles.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static java.lang.Thread.sleep;
 import static main.Constants.*;
 
 public class Game implements Serializable {
@@ -48,9 +47,9 @@ public class Game implements Serializable {
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(250, PLAYER_START));
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
-		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
-		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X,  -200), CIRCLE_RADIUS, false));
-		this.topObstacle = new CircleObstacle(new Point (SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
+		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
+		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
+		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
 		this.listOfObstacles.add(this.topObstacle);
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
@@ -74,7 +73,7 @@ public class Game implements Serializable {
 
 	}
 
-	public void printTranslationY(){
+	public void printTranslationY() {
 		final Duration oneFrameAmt = Duration.millis(1000);
 		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt, new EventHandler() {
 			@Override
@@ -164,7 +163,7 @@ public class Game implements Serializable {
 		this.maxY = maxY;
 	}
 
-	public void destroyGame(){
+	public void destroyGame() {
 		this.gameRoot.getChildren().clear();
 	}
 
@@ -179,7 +178,7 @@ public class Game implements Serializable {
 			public void handle(Event event) {
 				gameController.getScoreText().setText(Integer.toString(currentScore));
 //				System.out.println(playerBall.getYPosition());
-				if(playerBall.getYPosition() > 0 && !gameController.getPausePopupController().isOpened()){
+				if (playerBall.getYPosition() > 0 && !gameController.getPausePopupController().isOpened()) {
 					gameController.endGame();
 				}
 
@@ -192,7 +191,7 @@ public class Game implements Serializable {
 				}
 				for (Star star : listOfStar) {
 					if (star.isCollision(playerBall)) {
-						if(!star.isCollected()){
+						if (!star.isCollected()) {
 //							System.out.println(star.svgPath.getLayoutY());
 							star.increaseScore(player.getCurrentGame());
 							star.svgPath.setVisible(false);
@@ -219,22 +218,23 @@ public class Game implements Serializable {
 	 */
 	public void pauseGame() {
 		this.playerBall.pause();
-		for(TranslateTransition transition : this.scrollAnimations){
-			transition.pause();
-		}
-	}
-	public void endGame(){
-		this.playerBall.pause();
-		for(TranslateTransition transition : this.scrollAnimations){
+		for (TranslateTransition transition : this.scrollAnimations) {
 			transition.pause();
 		}
 	}
 
-	public void playGame(){
+	public void endGame() {
+		this.playerBall.pause();
+		for (TranslateTransition transition : this.scrollAnimations) {
+			transition.pause();
+		}
+	}
+
+	public void playGame() {
 		this.playerBall.play();
 	}
 
-	public void playGameAfterStar(){
+	public void playGameAfterStar() {
 		System.out.println(collisionY);
 		this.playerBall.usedStarPlay(collisionY);
 	}
@@ -393,16 +393,16 @@ public class Game implements Serializable {
 		// This is most probably because of setting arc at a particular position but calling layout of the root object.
 		// TODO Line obstacle may start in the center after init
 		this.gameRoot = new Group();
-		for(Obstacle obstacle: this.listOfObstacles){
+		for (Obstacle obstacle : this.listOfObstacles) {
 			obstacle.init();
 			obstacle.render(this.gameRoot);
 			obstacle.play();
 		}
-		for(ColourSwitchBall colourSwitchBall: listOfSwitch){
+		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
 			colourSwitchBall.init();
 			colourSwitchBall.render(this.gameRoot);
 		}
-		for(Star star: listOfStar){
+		for (Star star : listOfStar) {
 			star.init();
 			star.render(this.gameRoot);
 		}
@@ -413,15 +413,15 @@ public class Game implements Serializable {
 	}
 
 	public void serialize() {
-		for(Obstacle obstacle: this.listOfObstacles){
+		for (Obstacle obstacle : this.listOfObstacles) {
 			obstacle.setPosition();
 		}
 
-		for(ColourSwitchBall colourSwitchBall: this.listOfSwitch){
+		for (ColourSwitchBall colourSwitchBall : this.listOfSwitch) {
 			colourSwitchBall.setPosition();
 		}
 
-		for(Star star: this.listOfStar) {
+		for (Star star : this.listOfStar) {
 			star.setPosition();
 		}
 		this.playerBall.setPosition();

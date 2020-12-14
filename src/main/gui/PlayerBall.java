@@ -7,21 +7,19 @@ import javafx.scene.Group;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import main.Constants;
-import main.controllers.StartGameController;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static main.Constants.PLAYER_START;
 import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class PlayerBall extends GameElement {
 
 	public static final long serialVersionUID = 11;
-	private String colour;
 	private final static double jumpSize = 100;
-	private double angularVelocity;
 	private final static double radius = 10;
+	private String colour;
+	private double angularVelocity;
 	transient private Circle ballRoot;
 	transient private TranslateTransition gravityTransition;
 	transient private TranslateTransition currentJump;
@@ -55,6 +53,10 @@ public class PlayerBall extends GameElement {
 		return angularVelocity;
 	}
 
+	public void setAngularVelocity(float angularVelocity) {
+		this.angularVelocity = angularVelocity;
+	}
+
 	public String getColour() {
 		return colour;
 	}
@@ -73,10 +75,6 @@ public class PlayerBall extends GameElement {
 
 	public void setBallRoot(Circle ballRoot) {
 		this.ballRoot = ballRoot;
-	}
-
-	public void setAngularVelocity(float angularVelocity) {
-		this.angularVelocity = angularVelocity;
 	}
 
 	public double getRadius() {
@@ -154,7 +152,7 @@ public class PlayerBall extends GameElement {
 		);
 	}
 
-	public double getYPosition(){
+	public double getYPosition() {
 		return this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY();
 	}
 
@@ -172,7 +170,7 @@ public class PlayerBall extends GameElement {
 
 	@Override
 	public void init() {
-		System.out.println("Player Ball @ "+ this.getPosition());
+		System.out.println("Player Ball @ " + this.getPosition());
 		this.gravityInterpolator = new Interpolator() {
 			@Override
 			protected double curve(double t) {

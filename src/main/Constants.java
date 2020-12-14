@@ -25,6 +25,7 @@ public class Constants {
 	public static final Color BONUS_STAR = Color.YELLOW;
 	public static final Color NORMAL_STAR = Color.WHITE;
 	public static final double PLAYER_START = 600;
+
 	// MAX UID = 14 Game Element
 	public enum GameStage {
 		LOADING, LANDING, LOGIN, MAINMENU, SELECTSAVED, STARTGAME

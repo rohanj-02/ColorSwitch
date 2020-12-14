@@ -19,8 +19,8 @@ import java.util.Arrays;
 
 public class TriangleObstacle extends Obstacle {
 
-	private double sideLength;
 	public static final long serialVersionUID = 9;
+	private double sideLength;
 	private Point[] vertices;
 	transient private Line[] edges;
 	transient private Timeline rotAnimationTimeline;
@@ -54,31 +54,31 @@ public class TriangleObstacle extends Obstacle {
 			this.edges[i].setStroke(Constants.COLOUR_PALETTE[i]);
 			this.edges[i].setStrokeLineCap(StrokeLineCap.ROUND);
 		}
-			// Add rotation mechanics
-			this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
-			this.rotAnimation.setAxis(Rotate.Z_AXIS);
-			this.obstacleRoot.getTransforms().add(this.rotAnimation);
-			this.rotAnimationTimeline = new Timeline();
-			if (positiveDirection) {
-				this.rotAnimationTimeline.getKeyFrames()
-						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), 360)));
-			} else {
-				this.rotAnimationTimeline.getKeyFrames()
-						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), -360)));
-			}
+		// Add rotation mechanics
+		this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
+		this.rotAnimation.setAxis(Rotate.Z_AXIS);
+		this.obstacleRoot.getTransforms().add(this.rotAnimation);
+		this.rotAnimationTimeline = new Timeline();
+		if (positiveDirection) {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), 360)));
+		} else {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), -360)));
+		}
 
-			this.rotAnimationTimeline.setCycleCount(Animation.INDEFINITE);
+		this.rotAnimationTimeline.setCycleCount(Animation.INDEFINITE);
 	}
 
 
 	public void play() {
 		// Rotate all arcs.
 //		for (int i = 0; i < this.edges.length; i++) {
-			if (rotAnimationTimeline.getStatus() == Animation.Status.PAUSED || rotAnimationTimeline.getStatus() == Animation.Status.STOPPED) {
-				this.rotAnimationTimeline.play();
-			} else {
-				this.rotAnimationTimeline.pause();
-			}
+		if (rotAnimationTimeline.getStatus() == Animation.Status.PAUSED || rotAnimationTimeline.getStatus() == Animation.Status.STOPPED) {
+			this.rotAnimationTimeline.play();
+		} else {
+			this.rotAnimationTimeline.pause();
+		}
 //		}
 	}
 
@@ -120,7 +120,7 @@ public class TriangleObstacle extends Obstacle {
 
 	@Override
 	public void init() {
-		System.out.println("Triangle Obstacle @ "+ this.getPosition());
+		System.out.println("Triangle Obstacle @ " + this.getPosition());
 		this.vertices = new Point[3];
 		this.edges = new Line[3];
 		Point center = this.getPosition();

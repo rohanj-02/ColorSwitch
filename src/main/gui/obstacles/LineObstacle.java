@@ -16,9 +16,9 @@ import java.util.Arrays;
 public class LineObstacle extends Obstacle {
 
 	public static final long serialVersionUID = 6;
+	private final double sceneLength;
 	transient private TranslateTransition translateTransitions;
 	transient private Line[] lineList;
-	private final double sceneLength;
 
 	public LineObstacle(Point start, double sceneLength, Boolean positiveDirection) {
 		double length = sceneLength / Constants.COLOUR_PALETTE.length;
@@ -44,15 +44,15 @@ public class LineObstacle extends Obstacle {
 			this.lineList[i].setStrokeWidth(this.strokeWidth);
 		}
 		this.translateTransitions = new TranslateTransition();
-			if (positiveDirection) {
-				this.translateTransitions.setByX(sceneLength);
-			} else {
-				this.translateTransitions.setByX(-sceneLength);
-			}
-			this.translateTransitions.setDuration(Duration.millis(10000));
-			this.translateTransitions.setInterpolator(Interpolator.LINEAR);
-			this.translateTransitions.setCycleCount(500);
-			this.translateTransitions.setNode(this.obstacleRoot);
+		if (positiveDirection) {
+			this.translateTransitions.setByX(sceneLength);
+		} else {
+			this.translateTransitions.setByX(-sceneLength);
+		}
+		this.translateTransitions.setDuration(Duration.millis(10000));
+		this.translateTransitions.setInterpolator(Interpolator.LINEAR);
+		this.translateTransitions.setCycleCount(500);
+		this.translateTransitions.setNode(this.obstacleRoot);
 
 	}
 
@@ -76,11 +76,11 @@ public class LineObstacle extends Obstacle {
 
 	public void play() {
 //		for (int i = 0; i < this.lineList.length; i++) {
-			if (translateTransitions.getStatus() == Animation.Status.PAUSED || translateTransitions.getStatus() == Animation.Status.STOPPED) {
-				this.translateTransitions.play();
-			} else {
-				this.translateTransitions.pause();
-			}
+		if (translateTransitions.getStatus() == Animation.Status.PAUSED || translateTransitions.getStatus() == Animation.Status.STOPPED) {
+			this.translateTransitions.play();
+		} else {
+			this.translateTransitions.pause();
+		}
 //		}
 	}
 
@@ -118,7 +118,7 @@ public class LineObstacle extends Obstacle {
 		if (!positiveDirection) {
 			this.setPosX(this.sceneLength - this.getPosX());
 		}
-		System.out.println("Line Obstacle @ "+ this.getPosition());
+		System.out.println("Line Obstacle @ " + this.getPosition());
 		this.lineList = new Line[2 * Constants.COLOUR_PALETTE.length];
 		this.obstacleRoot = new Group();
 		int noOfSegments = Constants.COLOUR_PALETTE.length;

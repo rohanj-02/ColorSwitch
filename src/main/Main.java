@@ -5,15 +5,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import main.controllers.ConfirmExitController;
 import main.controllers.MainLayoutController;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -43,9 +40,9 @@ public class Main extends Application {
 		primaryStage.setTitle("Color Switch");
 	}
 
-	public void confirmAndExit(Stage primaryStage){
+	public void confirmAndExit(Stage primaryStage) {
 		ConfirmExitController exitController;
-		try{
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/fxml/ConfirmExit.fxml"));
 			Parent popup = loader.load();
 			exitController = loader.getController();

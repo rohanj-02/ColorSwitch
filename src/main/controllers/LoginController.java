@@ -49,33 +49,31 @@ public class LoginController extends LayoutController implements Initializable {
 		this.actionButton.setText(text);
 	}
 
-	public void tryLogin(){
+	public void tryLogin() {
 		this.parentController.playClickSound();
-		if(this.actionButton.getText().equals("Login")){
+		if (this.actionButton.getText().equals("Login")) {
 			String name = this.usernameText.getText();
-			if(name.equals("")){
+			if (name.equals("")) {
 				this.errorText.setText("Username cannot be empty!");
 				return;
 			}
 			// More error handling
-			try{
+			try {
 				this.parentController.setCurrentPlayer(name);
 				this.increaseStage();
-			}catch(UserDoesNotExistException e){
+			} catch (UserDoesNotExistException e) {
 				this.errorText.setText("This user does not exist! Please login from an existing user.");
 			}
-		}
-		else{
+		} else {
 			String name = this.usernameText.getText();
-			if(name.equals("")){
+			if (name.equals("")) {
 				this.errorText.setText("Username cannot be empty!");
 				return;
 			}
-			try{
+			try {
 				this.parentController.createPlayer(name);
 				this.increaseStage();
-			}
-			catch(SameNameException e){
+			} catch (SameNameException e) {
 				this.errorText.setText("A user with this name already exists! ");
 			}
 		}
@@ -85,10 +83,10 @@ public class LoginController extends LayoutController implements Initializable {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		this.errorText.setText("");
 		this.rootPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-			if (event.getCode() == KeyCode.ENTER ) {
+			if (event.getCode() == KeyCode.ENTER) {
 				this.tryLogin();
 			}
-			if(event.getCode() == KeyCode.ESCAPE){
+			if (event.getCode() == KeyCode.ESCAPE) {
 				this.decreaseStage();
 			}
 		});

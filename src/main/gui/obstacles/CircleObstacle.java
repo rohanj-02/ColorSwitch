@@ -44,7 +44,7 @@ public class CircleObstacle extends Obstacle {
 			this.arcList[i].setStroke(Constants.COLOUR_PALETTE[i]);
 		}
 
-		this.rotAnimation=  new Rotate(0, this.getPosX(), this.getPosY());
+		this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
 		this.rotAnimation.setAxis(Rotate.Z_AXIS);
 		obstacleRoot.getTransforms().add(this.rotAnimation);
 		if (positiveDirection) {
@@ -60,16 +60,16 @@ public class CircleObstacle extends Obstacle {
 
 	public void play() {
 		// Rotate all arcs.
-			if (rotAnimationTimeline.getStatus() == Animation.Status.PAUSED || rotAnimationTimeline.getStatus() == Animation.Status.STOPPED) {
-				this.rotAnimationTimeline.play();
-			} else {
-				this.rotAnimationTimeline.pause();
-			}
+		if (rotAnimationTimeline.getStatus() == Animation.Status.PAUSED || rotAnimationTimeline.getStatus() == Animation.Status.STOPPED) {
+			this.rotAnimationTimeline.play();
+		} else {
+			this.rotAnimationTimeline.pause();
+		}
 	}
 
 	public void printRotation() {
 //		for (int i = 0; i < this.rotAnimation.length; i++) {
-			System.out.println(": " + this.rotAnimation.getAngle());
+		System.out.println(": " + this.rotAnimation.getAngle());
 	}
 
 	public double getRadius() {
@@ -114,7 +114,7 @@ public class CircleObstacle extends Obstacle {
 		this.arcList = new Arc[length];
 		this.rotAnimationTimeline = new Timeline();
 		this.obstacleRoot = new Group();
-		System.out.println("Circle Obstacle @ "+ this.getPosition());
+		System.out.println("Circle Obstacle @ " + this.getPosition());
 		for (int i = 0; i < this.arcList.length; i++) {
 			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength + this.getOrientation(), this.arcLength);
 
@@ -124,7 +124,7 @@ public class CircleObstacle extends Obstacle {
 			this.arcList[i].setStroke(Constants.COLOUR_PALETTE[i]);
 		}
 
-		this.rotAnimation=  new Rotate(0, this.getPosX(), this.getPosY());
+		this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
 		this.rotAnimation.setAxis(Rotate.Z_AXIS);
 		this.obstacleRoot.getTransforms().add(this.rotAnimation);
 		if (this.positiveDirection) {

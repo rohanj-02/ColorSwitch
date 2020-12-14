@@ -3,8 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
             prefHeight="700.0" prefWidth="500.0" fx:controller="main.controllers.LandingController">
     <GridPane prefHeight="377.0" prefWidth="500.0">
         <columnConstraints>

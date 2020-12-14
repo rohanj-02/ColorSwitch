@@ -51,6 +51,16 @@ public class MainMenu implements Serializable {
 		this.currentPlayer = currentPlayer;
 	}
 
+	public void setCurrentPlayer(String name) throws UserDoesNotExistException {
+		for (Player p : this.listOfPlayers) {
+			if (name.equals(p.getName())) {
+				this.currentPlayer = p;
+				System.out.println("Found a player match!");
+				return;
+			}
+		}
+		throw new UserDoesNotExistException("The user " + name + " is not in the database! Automatically creating a new player..");
+	}
 
 	public List<Game> showSavedGames(Player player) {
 		// Returns the list of saved games of a user
@@ -58,11 +68,11 @@ public class MainMenu implements Serializable {
 	}
 
 	/**
-	*	Creates a new player and adds it to the list of players
-	*/
+	 * Creates a new player and adds it to the list of players
+	 */
 	public void createNewPlayer(String name) throws SameNameException {
-		for(Player i : this.listOfPlayers){
-			if(i.getName().equals(name)){
+		for (Player i : this.listOfPlayers) {
+			if (i.getName().equals(name)) {
 				throw new SameNameException("Player already exists! ");
 			}
 		}
@@ -74,17 +84,6 @@ public class MainMenu implements Serializable {
 		this.currentPlayer = player;
 	}
 
-	public void setCurrentPlayer(String name) throws UserDoesNotExistException {
-		for (Player p : this.listOfPlayers) {
-			if (name.equals(p.getName())){
-				this.currentPlayer = p;
-				System.out.println("Found a player match!");
-				return;
-			}
-		}
-		throw new UserDoesNotExistException("The user " + name + " is not in the database! Automatically creating a new player..");
-	}
-
 	public List<Player> getPlayerList() {
 		return this.listOfPlayers;
 	}
@@ -92,7 +91,8 @@ public class MainMenu implements Serializable {
 	public void addGame(Game game) {
 		this.currentPlayer.setCurrentGame(game);
 	}
-	public void addPlayerToGame(Game game){
+
+	public void addPlayerToGame(Game game) {
 		game.setPlayer(this.currentPlayer);
 	}
 

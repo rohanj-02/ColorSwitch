@@ -14,7 +14,7 @@ public class Player implements Serializable {
 	// save the stats of the player after every game
 	private transient Game currentGame;
 
-	public Player(String name){
+	public Player(String name) {
 		this.savedGames = new ArrayList<>(5);
 		this.name = name;
 	}
@@ -65,12 +65,13 @@ public class Player implements Serializable {
 
 	/**
 	 * Sets the currentGame to the index pointed in the list of savedGames and returns the game object
+	 *
 	 * @param index the index of savedGames
 	 * @return Returns the game at index index
 	 * @throws GameDoesNotExistException on not finding the game
 	 */
 	public Game setCurrentGame(int index) throws GameDoesNotExistException {
-		if(index > this.savedGames.size()){
+		if (index > this.savedGames.size()) {
 			throw new GameDoesNotExistException("Index out of bounds");
 		}
 		this.setCurrentGame(this.savedGames.get(index));

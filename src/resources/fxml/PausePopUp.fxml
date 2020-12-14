@@ -6,9 +6,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
-<AnchorPane prefHeight="429.0" prefWidth="353.0" styleClass="popup-shadow"
-            stylesheets="@../styles/MainLayout.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.PauseController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="429.0" prefWidth="353.0"
+            styleClass="popup-shadow" stylesheets="@../styles/MainLayout.css"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="main.controllers.PauseController">
     <GridPane prefHeight="431.0" prefWidth="353.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>

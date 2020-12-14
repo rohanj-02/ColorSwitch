@@ -18,8 +18,8 @@ import java.util.Arrays;
 
 public class PlusObstacle extends Obstacle {
 
-	private double armLength;
 	public static final long serialVersionUID = 7;
+	private double armLength;
 	transient private Line[] armList;
 	transient private Timeline rotAnimationTimeline;
 	transient private Rotate rotAnimation;
@@ -51,18 +51,18 @@ public class PlusObstacle extends Obstacle {
 			armList[i].setStrokeWidth(this.strokeWidth);
 			armList[i].setStrokeLineCap(StrokeLineCap.ROUND);
 		}
-			this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
-			this.rotAnimation.setAxis(Rotate.Z_AXIS);
-			this.obstacleRoot.getTransforms().add(this.rotAnimation);
-			this.rotAnimationTimeline = new Timeline();
-			if (positiveDirection) {
-				this.rotAnimationTimeline.getKeyFrames()
-						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), 360)));
-			} else {
-				this.rotAnimationTimeline.getKeyFrames()
-						.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), -360)));
-			}
-			this.rotAnimationTimeline.setCycleCount(Animation.INDEFINITE);
+		this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
+		this.rotAnimation.setAxis(Rotate.Z_AXIS);
+		this.obstacleRoot.getTransforms().add(this.rotAnimation);
+		this.rotAnimationTimeline = new Timeline();
+		if (positiveDirection) {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), 360)));
+		} else {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), -360)));
+		}
+		this.rotAnimationTimeline.setCycleCount(Animation.INDEFINITE);
 	}
 
 	public void setCoordinateOfArm(Line line, double startX, double startY, double endX, double endY) {
@@ -75,11 +75,11 @@ public class PlusObstacle extends Obstacle {
 	public void play() {
 		// Rotate all arcs.
 //		for (int i = 0; i < this.armList.length; i++) {
-			if (rotAnimationTimeline.getStatus() == Animation.Status.PAUSED || rotAnimationTimeline.getStatus() == Animation.Status.STOPPED) {
-				this.rotAnimationTimeline.play();
-			} else {
-				this.rotAnimationTimeline.pause();
-			}
+		if (rotAnimationTimeline.getStatus() == Animation.Status.PAUSED || rotAnimationTimeline.getStatus() == Animation.Status.STOPPED) {
+			this.rotAnimationTimeline.play();
+		} else {
+			this.rotAnimationTimeline.pause();
+		}
 //		}
 	}
 
@@ -122,7 +122,7 @@ public class PlusObstacle extends Obstacle {
 	@Override
 	public void init() {
 		int length = Constants.COLOUR_PALETTE.length;
-		System.out.println("Plus Obstacle @ "+ this.getPosition());
+		System.out.println("Plus Obstacle @ " + this.getPosition());
 		this.obstacleRoot = new Group();
 		this.armList = new Line[length];
 		Line armBottom = new Line();

@@ -7,13 +7,12 @@ import main.gui.Collidable;
 import main.gui.GameElement;
 import main.gui.Point;
 
-import static main.Constants.SCREEN_MIDPOINT_X;
-
 public abstract class Obstacle extends GameElement implements Collidable {
 
-	protected double strokeWidth = 20;
 	public static final long serialVersionUID = 4;
+	protected double strokeWidth = 20;
 	protected boolean positiveDirection;
+	transient protected Group obstacleRoot;
 
 	public boolean isPositiveDirection() {
 		return positiveDirection;
@@ -35,8 +34,6 @@ public abstract class Obstacle extends GameElement implements Collidable {
 
 	public abstract void play();
 
-	transient protected Group obstacleRoot;
-
 	public Group getObstacleRoot() {
 		return obstacleRoot;
 	}
@@ -45,11 +42,27 @@ public abstract class Obstacle extends GameElement implements Collidable {
 		this.obstacleRoot = obstacleRoot;
 	}
 
+	// public abstract static void deserialize() throws IOException, ClassNotFoundException;
+	@Override
+	public void setPosition() {
+		Point point = new Point(this.getPosX(), this.obstacleRoot.getTranslateY() + this.obstacleRoot.getLayoutY());
+		this.setPosition(point);
+	}
+
+	//	protected float[] position;
+
+	// public abstract static void serialize() throws IOException;
+
+	@Override
+	public void setOrientation() {
+		this.setOrientation(this.obstacleRoot.getRotate());
+	}
+
 	static class SolidCircle extends GameElement {
-		private float radius;
-		private Color colour;
 		private final Circle element;
 		public Group solidCircleRoot;
+		private float radius;
+		private Color colour;
 
 		// Solid Circle changed but needs to be changed a lot depending on PathObstacle that we create
 		public SolidCircle(Point centre, Color color) {
@@ -105,22 +118,6 @@ public abstract class Obstacle extends GameElement implements Collidable {
 		public void init() {
 			System.out.println("Solid Circle init");
 		}
-	}
-
-	//	protected float[] position;
-
-	// public abstract static void serialize() throws IOException;
-
-	// public abstract static void deserialize() throws IOException, ClassNotFoundException;
-	@Override
-	public void setPosition() {
-		Point point = new Point(this.getPosX(), this.obstacleRoot.getTranslateY() + this.obstacleRoot.getLayoutY());
-		this.setPosition(point);
-	}
-
-	@Override
-	public void setOrientation() {
-		this.setOrientation(this.obstacleRoot.getRotate());
 	}
 
 }

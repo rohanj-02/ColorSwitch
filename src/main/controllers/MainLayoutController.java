@@ -1,6 +1,5 @@
 package main.controllers;
 
-import com.sun.jdi.request.DuplicateRequestException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -8,9 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -19,12 +15,13 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import main.Constants.GameStage;
+import main.Constants.*;
 import main.exceptions.GameDoesNotExistException;
 import main.exceptions.SameNameException;
 import main.exceptions.UserDoesNotExistException;
 import main.logic.Game;
 import main.menu.MainMenu;
+
 import java.io.*;
 
 import static main.Constants.*;
@@ -72,10 +69,10 @@ public class MainLayoutController extends AnchorPane {
 	public MainLayoutController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.mainMenu = new MainMenu();
-		try{
+		try {
 			this.deserialize();
 			System.out.println("Deserialized Database!");
-		}catch(IOException | ClassNotFoundException | NullPointerException e){
+		} catch (IOException | ClassNotFoundException | NullPointerException e) {
 			System.out.println("Exception Encountered: ");
 			e.printStackTrace();
 			System.out.println("Could not load " + DATABASE_FILENAME);
@@ -95,10 +92,10 @@ public class MainLayoutController extends AnchorPane {
 		playGameSound();
 	}
 
-	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException{
+	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException {
 		ObjectInputStream in;
 		in = new ObjectInputStream(new FileInputStream(DATABASE_FILENAME));
-		this.mainMenu = (MainMenu)in.readObject();
+		this.mainMenu = (MainMenu) in.readObject();
 		in.close();
 
 	}
@@ -109,7 +106,7 @@ public class MainLayoutController extends AnchorPane {
 		out.writeObject(mainMenu);
 	}
 
-	public void onBackClick(MouseEvent mouseEvent){
+	public void onBackClick(MouseEvent mouseEvent) {
 		this.decreaseGameStage();
 	}
 
@@ -169,7 +166,6 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 
-
 	public void setGameStage(GameStage gameStage) {
 		this.gameStage = gameStage;
 		try {
@@ -209,9 +205,9 @@ public class MainLayoutController extends AnchorPane {
 	 */
 	public void increaseGameStage() {
 		boolean flag = false;
-		if(this.isTransitioning){
+		if (this.isTransitioning) {
 			return;
-		}else{
+		} else {
 			this.isTransitioning = true;
 		}
 		for (GameStage iter : GameStage.values()) {
@@ -233,9 +229,9 @@ public class MainLayoutController extends AnchorPane {
 	public void decreaseGameStage() {
 
 		GameStage prev = GameStage.LANDING;
-		if(this.isTransitioning){
+		if (this.isTransitioning) {
 			return;
-		}else{
+		} else {
 			this.isTransitioning = true;
 		}
 		for (GameStage iter : GameStage.values()) {
@@ -328,7 +324,7 @@ public class MainLayoutController extends AnchorPane {
 	public void exitGame() {
 		// TODO change game exit
 		ConfirmExitController exitController;
-		try{
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/ConfirmExit.fxml"));
 			Parent popup = loader.load();
 			exitController = loader.getController();
@@ -343,7 +339,7 @@ public class MainLayoutController extends AnchorPane {
 		// Serializer code
 	}
 
-	public void forceExitGame(){
+	public void forceExitGame() {
 		this.primaryStage.close();
 	}
 
@@ -351,14 +347,15 @@ public class MainLayoutController extends AnchorPane {
 		// TODO Load saved game code here and change stage
 		Game loadedGame = this.mainMenu.getGame(index);
 		this.gameStage = GameStage.STARTGAME;
-		try{
+		try {
 			this.loadSavedGame(loadedGame);
-		} catch(IOException e){
+		} catch (IOException e) {
 			System.out.println("Could not load FXML file. Exiting game!");
 			this.forceExitGame();
 		}
 	}
-	public void playGameSound(){
+
+	public void playGameSound() {
 		String path = "src/resources/sounds/GameSound-1.mp3";
 		Media media = new Media(new File(path).toURI().toString());
 		MediaPlayer gameSound = new MediaPlayer(media);
@@ -367,7 +364,7 @@ public class MainLayoutController extends AnchorPane {
 
 	}
 
-	public void playClickSound(){
+	public void playClickSound() {
 		String path = "src/resources/sounds/click.mp3";
 		Media media = new Media(new File(path).toURI().toString());
 		MediaPlayer clickSound = new MediaPlayer(media);
@@ -378,7 +375,7 @@ public class MainLayoutController extends AnchorPane {
 		this.mainScene = mainScene;
 	}
 
-	public void setSceneToMain(){
+	public void setSceneToMain() {
 		this.primaryStage.setScene(mainScene);
 	}
 

@@ -23,6 +23,10 @@ public class EndGameController extends AnchorPane {
 	private StartGameController parentController;
 	private Popup endGamePopup;
 
+	public EndGameController() {
+		this.endGamePopup = new Popup();
+	}
+
 	public Button getCloseButton() {
 		return closeButton;
 	}
@@ -43,21 +47,21 @@ public class EndGameController extends AnchorPane {
 	public void onClose(MouseEvent mouseEvent) {
 		int currentScore = this.parentController.getGame().getCurrentScore();
 
-		if(currentScore >= 20){
+		if (currentScore >= 20) {
 
 			this.parentController.getGame().setCurrentScore(currentScore - 20);
 			this.parentController.getGame().playGameAfterStar();
 			this.parentController.refreshStage();
 			System.out.println("enough stars");
 			this.closePopup();
-		}else{
+		} else {
 			this.getErrorText().setText("Not enough Stars");
 			System.out.println("not enough stars");
 		}
 
 	}
 
-	public void closePopup(){
+	public void closePopup() {
 		this.endGamePopup.hide();
 
 
@@ -77,10 +81,6 @@ public class EndGameController extends AnchorPane {
 
 	public void setErrorText(Text errorText) {
 		this.errorText = errorText;
-	}
-
-	public EndGameController() {
-		this.endGamePopup = new Popup();
 	}
 
 	public void show(Stage primaryStage) {

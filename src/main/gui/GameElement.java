@@ -3,10 +3,9 @@ package main.gui;
 import java.io.Serializable;
 
 public abstract class GameElement implements Serializable {
-	private Point position;
-	protected double orientation;
-
 	public static final long serialVersionUID = 14;
+	protected double orientation;
+	private Point position;
 
 	public double getPosX() {
 		return this.position.getX();
@@ -32,16 +31,18 @@ public abstract class GameElement implements Serializable {
 		this.position = position;
 	}
 
-	public void setOrientation(double orientation) {
-		this.orientation = orientation;
-	}
-
 	public double getOrientation() {
 		return orientation;
 	}
 
+	public void setOrientation(double orientation) {
+		this.orientation = orientation;
+	}
+
 	abstract public void setPosition();
+
 	abstract public void setOrientation();
+
 	abstract public void init();
 
 }

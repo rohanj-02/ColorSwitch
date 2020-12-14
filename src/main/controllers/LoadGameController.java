@@ -37,7 +37,7 @@ public class LoadGameController extends LayoutController implements Initializabl
 		this.buttonContainer.getChildren().remove(loadGameButton);
 	}
 
-	private Button createButton(String text, int index){
+	private Button createButton(String text, int index) {
 		Button button = new Button(text + " " + index);
 		button.setPrefHeight(40);
 		button.setMinHeight(40);
@@ -48,18 +48,18 @@ public class LoadGameController extends LayoutController implements Initializabl
 		return button;
 	}
 
-	public void onButtonClick(int index){
-		try{
+	public void onButtonClick(int index) {
+		try {
 			this.parentController.loadGame(index);
-		}catch(GameDoesNotExistException e){
+		} catch (GameDoesNotExistException e) {
 			System.out.println("Could not load game! Creating a new game... ");
 		}
 	}
 
-	public void setNumberOfGames(int n){
+	public void setNumberOfGames(int n) {
 		this.numButtons = n;
-		for(int i = 0; i < n; i++){
-			Button newButton = createButton("Load Game", i+1);
+		for (int i = 0; i < n; i++) {
+			Button newButton = createButton("Load Game", i + 1);
 			this.buttonContainer.getChildren().add(newButton);
 		}
 	}

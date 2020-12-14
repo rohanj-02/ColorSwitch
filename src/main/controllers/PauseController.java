@@ -15,19 +15,20 @@ public class PauseController extends AnchorPane {
 	private boolean opened = false;
 	private StartGameController parentController;
 
+	public PauseController() {
+		this.pausePopup = new Popup();
+	}
+
 	@FXML
 	public void onClose(MouseEvent mouseEvent) {
 		this.closePopup();
 	}
 
-	public void closePopup(){
+	public void closePopup() {
 		this.parentController.getGame().playGame();
 		this.pausePopup.hide();
 		opened = false;
 		this.parentController.refreshStage();
-	}
-	public PauseController() {
-		this.pausePopup = new Popup();
 	}
 
 	public Popup getPausePopup() {

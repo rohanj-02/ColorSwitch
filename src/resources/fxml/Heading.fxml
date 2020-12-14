@@ -3,8 +3,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
             prefHeight="700.0" prefWidth="500.0" fx:controller="main.controllers.HeadingController"
             fx:id="headingContainer">
     <GridPane prefHeight="312.0" prefWidth="500.0">

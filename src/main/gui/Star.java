@@ -5,16 +5,15 @@ import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 import main.Constants;
 import main.logic.Game;
-import main.logic.Player;
 
 import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class Star extends GameElement implements Collidable {
 
-	private int amount;
+	public static final long serialVersionUID = 13;
 	public transient Group starRoot;
 	transient public SVGPath svgPath;
-	public static final long serialVersionUID = 13;
+	private int amount;
 	private boolean isCollected;
 
 	public Star(Point point, int amount) {
