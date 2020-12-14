@@ -17,9 +17,11 @@ public class Main extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		MainLayoutController mainLayoutController = new MainLayoutController(primaryStage);
-		primaryStage.setScene(new Scene(mainLayoutController));
+		Scene mainScene = new Scene(mainLayoutController);
+		primaryStage.setScene(mainScene);
+		mainLayoutController.setMainScene(mainScene);
 		primaryStage.show();
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Color Switch");

@@ -64,6 +64,7 @@ public class MainLayoutController extends AnchorPane {
 	private Stage primaryStage;
 	private MainMenu mainMenu;
 	private StartGameController gameController;
+	private Scene mainScene;
 
 
 	public MainLayoutController(Stage primaryStage) {
@@ -156,7 +157,7 @@ public class MainLayoutController extends AnchorPane {
 
 	public void setCurrentPlayer(String name) throws UserDoesNotExistException {
 		this.mainMenu.setCurrentPlayer(name);
-		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
+//		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
 	}
 
 	// GAME STAGE RELATED METHODS
@@ -291,8 +292,10 @@ public class MainLayoutController extends AnchorPane {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
 		AnchorPane newRoot = fxmlLoader.load();
 		this.gameController = fxmlLoader.getController();
+
 		this.gameController.setPrimaryStage(this.primaryStage);
 		this.gameController.render();
+		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
 		Scene scene = this.getScene();
 		this.primaryStage = (Stage) scene.getWindow();
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
@@ -310,6 +313,7 @@ public class MainLayoutController extends AnchorPane {
 		this.gameController = fxmlLoader.getController();
 		this.gameController.setPrimaryStage(this.primaryStage);
 		this.gameController.render();
+		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
 		Scene scene = this.getScene();
 		this.primaryStage = (Stage) scene.getWindow();
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
@@ -351,4 +355,15 @@ public class MainLayoutController extends AnchorPane {
 		clickSound.play();
 	}
 
+	public void setMainScene(Scene mainScene) {
+		this.mainScene = mainScene;
+	}
+
+	public void setSceneToMain(){
+		this.primaryStage.setScene(mainScene);
+	}
+
+	public void deleteGame() {
+		this.gameController = null;
+	}
 }

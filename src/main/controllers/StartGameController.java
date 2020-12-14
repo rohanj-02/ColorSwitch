@@ -15,6 +15,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import main.Constants;
 import main.logic.Game;
 
 import java.io.File;
@@ -42,7 +43,7 @@ public class StartGameController implements Initializable {
 	private MediaPlayer gameSound;
 	private MediaPlayer clickSound;
 	private final PauseController pausePopupController;
-	private final EndGameController endGameController;
+	private final EndGameController endGamePopupController;
 	private MainLayoutController mainLayoutController;
 
 	public StartGameController() throws IOException {
@@ -61,9 +62,9 @@ public class StartGameController implements Initializable {
 		// End game popup code
 		FXMLLoader endGameLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/EndGame.fxml"));
 		Parent endPopup = endGameLoader.load();
-		this.endGameController = endGameLoader.getController();
-		this.endGameController.setParentController(this);
-		this.endGamePopup = this.endGameController.getEndGamePopup();
+		this.endGamePopupController = endGameLoader.getController();
+		this.endGamePopupController.setParentController(this);
+		this.endGamePopup = this.endGamePopupController.getEndGamePopup();
 		this.endGamePopup.setHideOnEscape(false);
 		this.endGamePopup.getContent().add(endPopup);
 		this.endGamePopup.setX(540);
@@ -90,12 +91,21 @@ public class StartGameController implements Initializable {
 	 */
 	public void initialiseGame() {
 		this.playClickSound();
-		this.game.destroyGame();
+		this.destroyGame();
 		this.game = new Game(this);
 		this.game.setCurrentScore(0);
 		this.render();
+		this.hideAllPopups();
+	}
+
+	private void hideAllPopups() {
 		this.pausePopupController.closePopup();
-		this.endGameController.closePopup();
+		this.endGamePopupController.closePopup();
+	}
+
+	public void destroyGame(){
+		this.game.destroyGame();
+		this.rootPane.getChildren().remove(this.game.getGameRoot());
 	}
 
 	public Text getScoreText() {
@@ -107,7 +117,7 @@ public class StartGameController implements Initializable {
 	}
 
 	public void onEndClick(MouseEvent mouseEvent) {
-		this.endGameController.show(this.primaryStage);
+		this.endGamePopupController.show(this.primaryStage);
 	}
 
 	public void onPauseClick(MouseEvent mouseEvent) {
@@ -120,8 +130,8 @@ public class StartGameController implements Initializable {
 	}
 
 	public void endGame(){
-		this.endGameController.show(this.primaryStage);
-		this.endGameController.getScoreText().setText(Integer.toString(this.game.getCurrentScore()));
+		this.endGamePopupController.show(this.primaryStage);
+		this.endGamePopupController.getScoreText().setText(Integer.toString(this.game.getCurrentScore()));
 		this.game.endGame();
 	}
 
@@ -137,8 +147,8 @@ public class StartGameController implements Initializable {
 		return pausePopupController;
 	}
 
-	public EndGameController getEndGameController() {
-		return endGameController;
+	public EndGameController getEndGamePopupController() {
+		return endGamePopupController;
 	}
 
 	public MainLayoutController getMainLayoutController() {
@@ -162,7 +172,7 @@ public class StartGameController implements Initializable {
 	}
 
 	public void simulateEnd() {
-		this.endGameController.show(this.primaryStage);
+		this.endGamePopupController.show(this.primaryStage);
 	}
 
 	@Override
@@ -172,7 +182,7 @@ public class StartGameController implements Initializable {
 			if (event.getCode() == KeyCode.SPACE) {
 				this.jump();
 			}
-			if(event.getCode() == KeyCode.P){
+			else if(event.getCode() == KeyCode.P){
 				this.pauseGame();
 			}
 		});
@@ -186,7 +196,12 @@ public class StartGameController implements Initializable {
 	}
 
 	public void closeGame() {
-		this.primaryStage.close();
+		this.hideAllPopups();
+		this.destroyGame();
+		this.mainLayoutController.setGameStage(Constants.GameStage.MAINMENU);
+		this.mainLayoutController.deleteGame();
+		this.mainLayoutController.setSceneToMain();
+		this.primaryStage.show();
 	}
 
 	public void addToSavedGames() {

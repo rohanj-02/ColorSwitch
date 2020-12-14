@@ -36,7 +36,7 @@ public class PlayerBall extends GameElement {
 
 	//	ut + 1/2 at^2
 
-	public PlayerBall(Point position, StartGameController gameController) {
+	public PlayerBall(Point position) {
 		this.setPosition(position);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);

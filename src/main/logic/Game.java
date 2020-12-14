@@ -46,7 +46,7 @@ public class Game implements Serializable {
 		this.gameController = gameController;
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
-		this.playerBall = new PlayerBall(new Point(250, PLAYER_START), this.gameController);
+		this.playerBall = new PlayerBall(new Point(250, PLAYER_START));
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
 		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
 		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X,  -200), CIRCLE_RADIUS, false));
@@ -58,8 +58,8 @@ public class Game implements Serializable {
 		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
 
 		checkCollision();
-		printTranslationY();
-
+//		printTranslationY();
+//
 		for (Obstacle obstacle : this.listOfObstacles) {
 			obstacle.render(this.gameRoot);
 			obstacle.play();
