@@ -71,10 +71,11 @@ public class Player implements Serializable {
 	 * @throws GameDoesNotExistException on not finding the game
 	 */
 	public Game setCurrentGame(int index) throws GameDoesNotExistException {
-		if (index > this.savedGames.size()) {
+		if (index > this.savedGames.size() || index < 0) {
 			throw new GameDoesNotExistException("Index out of bounds");
 		}
-		this.setCurrentGame(this.savedGames.get(index));
-		return this.savedGames.get(index);
+		this.setCurrentGame(this.savedGames.get(index - 1));
+		this.savedGames.remove(this.currentGame);
+		return this.currentGame;
 	}
 }

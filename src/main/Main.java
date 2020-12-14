@@ -53,6 +53,7 @@ public class Main extends Application {
 			exitController.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			primaryStage.close();
 		}
 	}
 }

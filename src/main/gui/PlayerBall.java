@@ -24,7 +24,6 @@ public class PlayerBall extends GameElement {
 	transient private TranslateTransition gravityTransition;
 	transient private TranslateTransition currentJump;
 
-	//TODO Add to deserialization
 	transient private Interpolator gravityInterpolator = new Interpolator() {
 		@Override
 		protected double curve(double t) {
@@ -113,26 +112,10 @@ public class PlayerBall extends GameElement {
 	}
 
 	public void play() {
-		this.ballRoot.setTranslateY(this.getPosY());
-		this.ballRoot.setVisible(true);
-		Timer t = new Timer();
-		// TODO Add alert that ball will fall after 3 seconds, else you can start jumping before that also
-		// TODO Maybe implement scroll so that game doesn't start with a jerk
-		t.schedule(
-				new TimerTask() {
-					@Override
-					public void run() {
-						if (PlayerBall.this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
-							PlayerBall.this.gravityTransition.playFrom(Duration.millis(5000));
-						}
-						t.cancel();
-					}
-				},
-				3000
-		);
+		this.play(this.getPosY());
 	}
 
-	public void usedStarPlay(double collisionY) {
+	public void play(double collisionY) {
 		this.ballRoot.setTranslateY(collisionY);
 		this.ballRoot.setVisible(true);
 		Timer t = new Timer();

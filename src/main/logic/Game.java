@@ -236,7 +236,7 @@ public class Game implements Serializable {
 
 	public void playGameAfterStar() {
 		System.out.println(collisionY);
-		this.playerBall.usedStarPlay(collisionY);
+		this.playerBall.play(collisionY);
 	}
 
 	/**
@@ -265,21 +265,13 @@ public class Game implements Serializable {
 	public void scrollScreen() {
 		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallRoot().getTranslateY());
 		this.lengthOfScroll += lengthOfScroll;
-		// TODO Change length of scroll tactics or just move the gameRoot
 		// Generate new game elements when they are above NEW_OBSTACLE_SCROLL_THRESHOLD
 		double topDistance = getDistanceOfTop();
 		if (topDistance > NEW_OBSTACLE_SCROLL_THRESHOLD) {
 			this.generateGameElements();
 		}
 
-//		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.gameRoot);
-//		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
-//		scrollDown.setByY(lengthOfScroll);
-//		scrollDown.setCycleCount(1);
-//		scrollDown.play();
-//		this.scrollAnimations.add(scrollDown);
-//TODO Add serialization on signup also
-		// Translate all obstacles
+		//Translate all obstacles
 		for (Obstacle obstacle : listOfObstacles) {
 			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
@@ -387,8 +379,7 @@ public class Game implements Serializable {
 	public void init() {
 		// TODO Game scroll not working for some reason?
 		// TODO Save the scroll distance and start on that only
-		// TODO After save game needs to be exited.
-		// TODO After saved game opened remove from savedGames list
+		// TODO After save game needs to be exited
 		// TODO Change serialise code so that the obstacle Root has initial position also. Rn it does not take into account initial position and shifts everything.
 		// This is most probably because of setting arc at a particular position but calling layout of the root object.
 		// TODO Line obstacle may start in the center after init
@@ -427,5 +418,3 @@ public class Game implements Serializable {
 		this.playerBall.setPosition();
 	}
 }
-
-// TODO Change load game condition because we are getting Index out of Bounds exception 6 on 6 on selecting last game  Do index - 1 while accessing arraylist

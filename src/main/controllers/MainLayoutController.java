@@ -26,8 +26,6 @@ import java.io.*;
 
 import static main.Constants.*;
 
-// TODO Bug fix : Space + P: Ball disappears
-
 public class MainLayoutController extends AnchorPane {
 	@FXML
 	private AnchorPane heading;
@@ -65,7 +63,7 @@ public class MainLayoutController extends AnchorPane {
 	private StartGameController gameController;
 	private Scene mainScene;
 
-
+	// TODO change MainMenu design to Singleton
 	public MainLayoutController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.mainMenu = new MainMenu();
@@ -152,6 +150,11 @@ public class MainLayoutController extends AnchorPane {
 
 	public void createPlayer(String name) throws SameNameException {
 		this.mainMenu.createNewPlayer(name);
+		try{
+			this.serialize();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setCurrentPlayer(String name) throws UserDoesNotExistException {
@@ -322,21 +325,20 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 	public void exitGame() {
-		// TODO change game exit
 		ConfirmExitController exitController;
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/ConfirmExit.fxml"));
 			Parent popup = loader.load();
 			exitController = loader.getController();
-			exitController.setPrimaryStage(primaryStage);
+			exitController.setPrimaryStage(this.primaryStage);
 			Popup exitPopup = exitController.getPopup();
 			exitPopup.setHideOnEscape(false);
 			exitPopup.getContent().add(popup);
 			exitController.show();
 		} catch (IOException e) {
 			e.printStackTrace();
+			this.primaryStage.close();
 		}
-		// Serializer code
 	}
 
 	public void forceExitGame() {
@@ -344,7 +346,6 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 	public void loadGame(int index) throws GameDoesNotExistException {
-		// TODO Load saved game code here and change stage
 		Game loadedGame = this.mainMenu.getGame(index);
 		this.gameStage = GameStage.STARTGAME;
 		try {

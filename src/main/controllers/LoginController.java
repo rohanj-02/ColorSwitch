@@ -16,7 +16,6 @@ import main.exceptions.UserDoesNotExistException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//TODO User with same name exists comes when no db
 public class LoginController extends LayoutController implements Initializable {
 
 	@FXML

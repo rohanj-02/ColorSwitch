@@ -101,7 +101,6 @@ public class EndGameController extends AnchorPane {
 
 	public void exitToMainMenu(MouseEvent mouseEvent) {
 		this.parentController.playClickSound();
-		//TODO Change to main menu
 		this.parentController.closeGame();
 	}
 
