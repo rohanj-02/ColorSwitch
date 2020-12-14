@@ -6,6 +6,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.SVGPath;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants.GameStage;
@@ -324,8 +326,25 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 	public void exitGame() {
-		this.primaryStage.close();
+		// TODO change game exit
+		ConfirmExitController exitController;
+		try{
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/ConfirmExit.fxml"));
+			Parent popup = loader.load();
+			exitController = loader.getController();
+			exitController.setPrimaryStage(primaryStage);
+			Popup exitPopup = exitController.getPopup();
+			exitPopup.setHideOnEscape(false);
+			exitPopup.getContent().add(popup);
+			exitController.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		// Serializer code
+	}
+
+	public void forceExitGame(){
+		this.primaryStage.close();
 	}
 
 	public void loadGame(int index) throws GameDoesNotExistException {
@@ -336,7 +355,7 @@ public class MainLayoutController extends AnchorPane {
 			this.loadSavedGame(loadedGame);
 		} catch(IOException e){
 			System.out.println("Could not load FXML file. Exiting game!");
-			this.exitGame();
+			this.forceExitGame();
 		}
 	}
 	public void playGameSound(){
