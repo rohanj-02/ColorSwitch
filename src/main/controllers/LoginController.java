@@ -11,11 +11,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import main.exceptions.SameNameException;
-import main.exceptions.UserDoesNotExist;
+import main.exceptions.UserDoesNotExistException;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//TODO User with same name exists comes when no db
 public class LoginController extends LayoutController implements Initializable {
 
 	@FXML
@@ -60,7 +61,7 @@ public class LoginController extends LayoutController implements Initializable {
 			try{
 				this.parentController.setCurrentPlayer(name);
 				this.increaseStage();
-			}catch(UserDoesNotExist e){
+			}catch(UserDoesNotExistException e){
 				this.errorText.setText("This user does not exist! Please login from an existing user.");
 			}
 		}

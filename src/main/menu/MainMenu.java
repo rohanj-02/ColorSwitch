@@ -1,7 +1,8 @@
 package main.menu;
 
+import main.exceptions.GameDoesNotExistException;
 import main.exceptions.SameNameException;
-import main.exceptions.UserDoesNotExist;
+import main.exceptions.UserDoesNotExistException;
 import main.logic.Game;
 import main.logic.Player;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class MainMenu implements Serializable {
 
+	public static final long serialVersionUID = 1;
 	protected String mode;
 	protected ArrayList<Player> listOfPlayers;
 	protected transient Player currentPlayer;
@@ -72,7 +74,7 @@ public class MainMenu implements Serializable {
 		this.currentPlayer = player;
 	}
 
-	public void setCurrentPlayer(String name) throws UserDoesNotExist {
+	public void setCurrentPlayer(String name) throws UserDoesNotExistException {
 		for (Player p : this.listOfPlayers) {
 			if (name.equals(p.getName())){
 				this.currentPlayer = p;
@@ -80,7 +82,7 @@ public class MainMenu implements Serializable {
 				return;
 			}
 		}
-		throw new UserDoesNotExist("The user " + name + " is not in the database! Automatically creating a new player..");
+		throw new UserDoesNotExistException("The user " + name + " is not in the database! Automatically creating a new player..");
 	}
 
 	public List<Player> getPlayerList() {
@@ -88,8 +90,6 @@ public class MainMenu implements Serializable {
 	}
 
 	public void addGame(Game game) {
-		System.out.println(game);
-		System.out.println(this.currentPlayer);
 		this.currentPlayer.setCurrentGame(game);
 	}
 	public void addPlayerToGame(Game game){
@@ -100,4 +100,12 @@ public class MainMenu implements Serializable {
 		this.currentPlayer.addToSavedGames(game);
 	}
 
+	public int getNumberOfGames() {
+		return this.currentPlayer.getSavedGames().size();
+	}
+
+	public Game getGame(int index) throws GameDoesNotExistException {
+		return this.currentPlayer.setCurrentGame(index);
+//		return this.currentPlayer.getCurrentGame();
+	}
 }

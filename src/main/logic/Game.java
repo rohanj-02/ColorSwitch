@@ -20,6 +20,7 @@ import static main.Constants.*;
 
 public class Game implements Serializable {
 
+	public static final long serialVersionUID = 3;
 	private transient Player player;
 	// Player Game 2 way association maybe recursion in serialization
 	// When deserializing PLayer object, in savedGames() in a Game object
@@ -35,26 +36,29 @@ public class Game implements Serializable {
 	private double maxY;
 	transient private StartGameController gameController;
 	private double collisionY = 0.0;
+	private double lengthOfScroll;
 
 	public Game(StartGameController gameController) {
 		this.scrollAnimations = new ArrayList<>();
+		this.lengthOfScroll = 0;
 		this.listOfStar = new ArrayList<>();
 		this.listOfSwitch = new ArrayList<>();
 		this.gameController = gameController;
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
-		this.playerBall = new PlayerBall(new Point(250, 700), this.gameController);
+		this.playerBall = new PlayerBall(new Point(250, PLAYER_START), this.gameController);
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
 		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
-		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X,  -200), CIRCLE_RADIUS, true));
+		this.listOfObstacles.add(new CircleObstacle(new Point (SCREEN_MIDPOINT_X,  -200), CIRCLE_RADIUS, false));
 		this.topObstacle = new CircleObstacle(new Point (SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
 		this.listOfObstacles.add(this.topObstacle);
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), 5));
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), 5));
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), 5));
-		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), 15));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
+		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
 
 		checkCollision();
+		printTranslationY();
 
 		for (Obstacle obstacle : this.listOfObstacles) {
 			obstacle.render(this.gameRoot);
@@ -67,6 +71,24 @@ public class Game implements Serializable {
 		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
 			colourSwitchBall.render(this.gameRoot);
 		}
+
+	}
+
+	public void printTranslationY(){
+		final Duration oneFrameAmt = Duration.millis(1000);
+		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt, new EventHandler() {
+			@Override
+			public void handle(Event event) {
+				for (Obstacle obstacle : listOfObstacles) {
+					Group obstacleRoot = obstacle.getObstacleRoot();
+					System.out.println("Translation Y : " + obstacleRoot.getTranslateY());
+				}
+			}
+		});
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.getKeyFrames().add(oneFrame);
+		timeline.play();
 
 	}
 
@@ -242,13 +264,21 @@ public class Game implements Serializable {
 	 */
 	public void scrollScreen() {
 		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallRoot().getTranslateY());
-
+		this.lengthOfScroll += lengthOfScroll;
+		// TODO Change length of scroll tactics or just move the gameRoot
 		// Generate new game elements when they are above NEW_OBSTACLE_SCROLL_THRESHOLD
 		double topDistance = getDistanceOfTop();
 		if (topDistance > NEW_OBSTACLE_SCROLL_THRESHOLD) {
 			this.generateGameElements();
 		}
 
+//		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.gameRoot);
+//		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
+//		scrollDown.setByY(lengthOfScroll);
+//		scrollDown.setCycleCount(1);
+//		scrollDown.play();
+//		this.scrollAnimations.add(scrollDown);
+//TODO Add serialization on signup also
 		// Translate all obstacles
 		for (Obstacle obstacle : listOfObstacles) {
 			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
@@ -350,4 +380,52 @@ public class Game implements Serializable {
 		newObstacle.render(this.gameRoot);
 		newObstacle.play();
 	}
+
+	/**
+	 * Initialise game after serialization
+	 */
+	public void init() {
+		// TODO Game scroll not working for some reason?
+		// TODO Save the scroll distance and start on that only
+		// TODO After save game needs to be exited.
+		// TODO After saved game opened remove from savedGames list
+		// TODO Change serialise code so that the obstacle Root has initial position also. Rn it does not take into account initial position and shifts everything.
+		// This is most probably because of setting arc at a particular position but calling layout of the root object.
+		// TODO Line obstacle may start in the center after init
+		this.gameRoot = new Group();
+		for(Obstacle obstacle: this.listOfObstacles){
+			obstacle.init();
+			obstacle.render(this.gameRoot);
+			obstacle.play();
+		}
+		for(ColourSwitchBall colourSwitchBall: listOfSwitch){
+			colourSwitchBall.init();
+			colourSwitchBall.render(this.gameRoot);
+		}
+		for(Star star: listOfStar){
+			star.init();
+			star.render(this.gameRoot);
+		}
+		this.playerBall.init();
+		this.playerBall.render(this.gameRoot);
+		this.scrollAnimations = new ArrayList<>();
+		checkCollision();
+	}
+
+	public void serialize() {
+		for(Obstacle obstacle: this.listOfObstacles){
+			obstacle.setPosition();
+		}
+
+		for(ColourSwitchBall colourSwitchBall: this.listOfSwitch){
+			colourSwitchBall.setPosition();
+		}
+
+		for(Star star: this.listOfStar) {
+			star.setPosition();
+		}
+		this.playerBall.setPosition();
+	}
 }
+
+// TODO Change load game condition because we are getting Index out of Bounds exception 6 on 6 on selecting last game  Do index - 1 while accessing arraylist

@@ -41,3 +41,24 @@ AnchorPane {
 .back{
     -fx-background-color: #272727;
 }
+
+.scroll-bar {
+    -fx-background-color:transparent;
+}
+
+.scroll-bar .thumb{
+    -fx-background-color: #373c35;
+}
+
+.scroll-bar .decrement-arrow, .scroll-bar .increment-arrow{
+    -fx-background-color: transparent;
+    -fx-text-fill: transparent;
+}
+
+Vbox {
+    -fx-background-color: #272727;
+}
+
+.background-dark {
+    -fx-background-color: #272727;
+}

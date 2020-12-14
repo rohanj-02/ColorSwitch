@@ -20,17 +20,16 @@ public class RectangleObstacle extends Obstacle {
 
 	private double width;
 	private double height;
-	transient private final Line[] lineList;
-	transient private final Timeline rotAnimationTimeline;
-	transient private final Rotate rotAnimation;
+	public static final long serialVersionUID = 8;
+	transient private Line[] lineList;
+	transient private Timeline rotAnimationTimeline;
+	transient private Rotate rotAnimation;
 
 	public RectangleObstacle(Point center, double width, double height, Boolean positiveDirection) {
 		this.width = width;
 		this.height = height;
 		this.setPosition(center);
 		int length = Constants.COLOUR_PALETTE.length;
-//		this.rotAnimationTimeline = new Timeline[length];
-//		this.rotAnimation = new Rotate[length];
 		this.obstacleRoot = new Group();
 		this.lineList = new Line[length];
 		Line lineBottom = new Line();
@@ -130,8 +129,50 @@ public class RectangleObstacle extends Obstacle {
 			}
 		}
 		if (collisionDetected) {
-			System.out.println("Collision Detected");
+//			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void init() {
+		int length = Constants.COLOUR_PALETTE.length;
+		System.out.println("Rectangle Obstacle @ "+ this.getPosition());
+		this.obstacleRoot = new Group();
+		this.lineList = new Line[length];
+		Line lineBottom = new Line();
+		Line lineRight = new Line();
+		Line lineTop = new Line();
+		Line lineLeft = new Line();
+
+		// TODO Change this for exact orientation
+		setCoordinateOfLine(lineBottom, this.getPosX() - width / 2.0, this.getPosY() + height / 2.0, this.getPosX() + width / 2.0, this.getPosY() + height / 2.0);
+		setCoordinateOfLine(lineRight, this.getPosX() + width / 2.0, this.getPosY() - height / 2.0, this.getPosX() + width / 2.0, this.getPosY() + height / 2.0);
+		setCoordinateOfLine(lineTop, this.getPosX() - width / 2.0, this.getPosY() - height / 2.0, this.getPosX() + width / 2.0, this.getPosY() - height / 2.0);
+		setCoordinateOfLine(lineLeft, this.getPosX() - width / 2.0, this.getPosY() - height / 2.0, this.getPosX() - width / 2.0, this.getPosY() + height / 2.0);
+
+		this.lineList[0] = lineBottom;
+		this.lineList[1] = lineRight;
+		this.lineList[2] = lineTop;
+		this.lineList[3] = lineLeft;
+
+		for (int i = 0; i < lineList.length; i++) {
+			lineList[i].setStroke(Constants.COLOUR_PALETTE[i]);
+			lineList[i].setStrokeWidth(this.strokeWidth);
+			lineList[i].setStrokeLineCap(StrokeLineCap.ROUND);
+		}
+		this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
+		this.rotAnimation.setAxis(Rotate.Z_AXIS);
+		this.obstacleRoot.getTransforms().add(this.rotAnimation);
+		this.rotAnimationTimeline = new Timeline();
+		if (positiveDirection) {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), 360)));
+		} else {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), -360)));
+		}
+
+		this.rotAnimationTimeline.setCycleCount(Animation.INDEFINITE);
 	}
 }

@@ -20,10 +20,11 @@ import java.util.Arrays;
 public class TriangleObstacle extends Obstacle {
 
 	private double sideLength;
-	private final Point[] vertices;
-	transient private final Line[] edges;
-	transient private final Timeline rotAnimationTimeline;
-	transient private final Rotate rotAnimation;
+	public static final long serialVersionUID = 9;
+	private Point[] vertices;
+	transient private Line[] edges;
+	transient private Timeline rotAnimationTimeline;
+	transient private Rotate rotAnimation;
 
 	public TriangleObstacle(Point center, double sideLength, Boolean positiveDirection) {
 
@@ -112,8 +113,50 @@ public class TriangleObstacle extends Obstacle {
 			}
 		}
 		if (collisionDetected) {
-			System.out.println("Collision Detected");
+//			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void init() {
+		System.out.println("Triangle Obstacle @ "+ this.getPosition());
+		this.vertices = new Point[3];
+		this.edges = new Line[3];
+		Point center = this.getPosition();
+
+		//Set edges and vertices
+		//TODO Change this for orientation()Or find a way to initialise with a particular orientation
+		this.vertices[0] = new Point(center.getX() - sideLength / 2, center.getY() - sideLength / (2 * Math.sqrt(3)));
+		this.vertices[1] = new Point(center.getX() + sideLength / 2, center.getY() - sideLength / (2 * Math.sqrt(3)));
+		this.vertices[2] = new Point(center.getX(), center.getY() + sideLength / Math.sqrt(3));
+		this.edges[0] = new Line(this.vertices[0].getX(), this.vertices[0].getY(), this.vertices[1].getX(), this.vertices[1].getY());
+		this.edges[1] = new Line(this.vertices[1].getX(), this.vertices[1].getY(), this.vertices[2].getX(), this.vertices[2].getY());
+		this.edges[2] = new Line(this.vertices[2].getX(), this.vertices[2].getY(), this.vertices[0].getX(), this.vertices[0].getY());
+
+		// Initialise other arrays
+		this.obstacleRoot = new Group();
+
+		for (int i = 0; i < edges.length; i++) {
+			//Remove fill and set stroke
+			this.edges[i].setFill(Color.rgb(0, 0, 0, 0));
+			this.edges[i].setStrokeWidth(this.strokeWidth);
+			this.edges[i].setStroke(Constants.COLOUR_PALETTE[i]);
+			this.edges[i].setStrokeLineCap(StrokeLineCap.ROUND);
+		}
+		// Add rotation mechanics
+		this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());
+		this.rotAnimation.setAxis(Rotate.Z_AXIS);
+		this.obstacleRoot.getTransforms().add(this.rotAnimation);
+		this.rotAnimationTimeline = new Timeline();
+		if (positiveDirection) {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), 360)));
+		} else {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), -360)));
+		}
+
+		this.rotAnimationTimeline.setCycleCount(Animation.INDEFINITE);
 	}
 }

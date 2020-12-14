@@ -12,6 +12,16 @@ import static main.Constants.SCREEN_MIDPOINT_X;
 public abstract class Obstacle extends GameElement implements Collidable {
 
 	protected double strokeWidth = 20;
+	public static final long serialVersionUID = 4;
+	protected boolean positiveDirection;
+
+	public boolean isPositiveDirection() {
+		return positiveDirection;
+	}
+
+	public void setPositiveDirection(boolean positiveDirection) {
+		this.positiveDirection = positiveDirection;
+	}
 
 	public double getStrokeWidth() {
 		return strokeWidth;
@@ -82,13 +92,18 @@ public abstract class Obstacle extends GameElement implements Collidable {
 
 		@Override
 		public void setPosition() {
-			Point point = new Point(SCREEN_MIDPOINT_X, this.solidCircleRoot.getTranslateY() + this.solidCircleRoot.getLayoutY());
+			Point point = new Point(this.getPosX(), this.solidCircleRoot.getTranslateY() + this.solidCircleRoot.getLayoutY());
 			this.setPosition(point);
 		}
 
 		@Override
 		public void setOrientation() {
 			this.setOrientation(0);
+		}
+
+		@Override
+		public void init() {
+			System.out.println("Solid Circle init");
 		}
 	}
 
@@ -99,7 +114,7 @@ public abstract class Obstacle extends GameElement implements Collidable {
 	// public abstract static void deserialize() throws IOException, ClassNotFoundException;
 	@Override
 	public void setPosition() {
-		Point point = new Point(SCREEN_MIDPOINT_X, this.obstacleRoot.getTranslateY() + this.obstacleRoot.getLayoutY());
+		Point point = new Point(this.getPosX(), this.obstacleRoot.getTranslateY() + this.obstacleRoot.getLayoutY());
 		this.setPosition(point);
 	}
 

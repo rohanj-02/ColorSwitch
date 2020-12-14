@@ -77,6 +77,14 @@ public class StartGameController implements Initializable {
 		this.render();
 	}
 
+	public void setLoadedGame(Game game){
+		this.game.destroyGame();
+		this.game = game;
+		this.game.setGameController(this);
+		this.game.init();
+		this.render();
+	}
+
 	/**
 	 * Used for restarting the game
 	 */
@@ -184,6 +192,7 @@ public class StartGameController implements Initializable {
 	public void addToSavedGames() {
 		this.mainLayoutController.getMainMenu().addToSavedGames(this.game);
 		try{
+			this.game.serialize();
 			this.mainLayoutController.serialize();
 		}catch(IOException e){
 			e.printStackTrace();

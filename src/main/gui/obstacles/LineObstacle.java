@@ -15,8 +15,10 @@ import java.util.Arrays;
 
 public class LineObstacle extends Obstacle {
 
-	transient private final TranslateTransition translateTransitions;
-	transient private final Line[] lineList;
+	public static final long serialVersionUID = 6;
+	transient private TranslateTransition translateTransitions;
+	transient private Line[] lineList;
+	private final double sceneLength;
 
 	public LineObstacle(Point start, double sceneLength, Boolean positiveDirection) {
 		double length = sceneLength / Constants.COLOUR_PALETTE.length;
@@ -24,6 +26,7 @@ public class LineObstacle extends Obstacle {
 		if (!positiveDirection) {
 			this.setPosX(sceneLength - this.getPosX());
 		}
+		this.sceneLength = sceneLength;
 		this.lineList = new Line[2 * Constants.COLOUR_PALETTE.length];
 		this.obstacleRoot = new Group();
 		int noOfSegments = Constants.COLOUR_PALETTE.length;
@@ -103,8 +106,46 @@ public class LineObstacle extends Obstacle {
 			}
 		}
 		if (collisionDetected) {
-			System.out.println("Collision Detected");
+//			System.out.println("Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void init() {
+		// TODO This might be messed up, I do not know the general start point.
+		double length = this.sceneLength / Constants.COLOUR_PALETTE.length;
+		if (!positiveDirection) {
+			this.setPosX(this.sceneLength - this.getPosX());
+		}
+		System.out.println("Line Obstacle @ "+ this.getPosition());
+		this.lineList = new Line[2 * Constants.COLOUR_PALETTE.length];
+		this.obstacleRoot = new Group();
+		int noOfSegments = Constants.COLOUR_PALETTE.length;
+
+		for (int i = noOfSegments - 1; i >= 0; i--) {
+			this.lineList[i] = new Line();
+			setCoordinateOfLine(this.lineList[i], this.getPosX() + (i - noOfSegments + 1) * length, this.getPosY(), this.getPosX() + (i - noOfSegments) * length, this.getPosY());
+			this.lineList[i].setStroke(Constants.COLOUR_PALETTE[i]);
+			this.lineList[i].setStrokeWidth(this.strokeWidth);
+		}
+		for (int i = noOfSegments; i < 2 * noOfSegments; i++) {
+			this.lineList[i] = new Line();
+			setCoordinateOfLine(this.lineList[i], this.getPosX() + (i - noOfSegments) * length, this.getPosY(), this.getPosX() + (i - noOfSegments + 1) * length, this.getPosY());
+			this.lineList[i].setStroke(Constants.COLOUR_PALETTE[i - noOfSegments]);
+			this.lineList[i].setStrokeWidth(this.strokeWidth);
+		}
+		this.translateTransitions = new TranslateTransition();
+		if (positiveDirection) {
+			this.translateTransitions.setByX(this.sceneLength);
+		} else {
+			this.translateTransitions.setByX(-this.sceneLength);
+		}
+		this.translateTransitions.setDuration(Duration.millis(10000));
+		this.translateTransitions.setInterpolator(Interpolator.LINEAR);
+		this.translateTransitions.setCycleCount(500);
+		this.translateTransitions.setNode(this.obstacleRoot);
+
+
 	}
 }

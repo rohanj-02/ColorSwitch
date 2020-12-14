@@ -16,15 +16,13 @@ import main.gui.Point;
 
 import java.util.Arrays;
 
-import static main.Constants.SCREEN_MIDPOINT_X;
-
-
 public class CircleObstacle extends Obstacle {
 
+	public static final long serialVersionUID = 5;
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
-	transient private final Arc[] arcList;
-	transient private final Timeline rotAnimationTimeline;
-	transient private final Rotate rotAnimation;
+	transient private Arc[] arcList;
+	transient private Timeline rotAnimationTimeline;
+	transient private Rotate rotAnimation;
 	private double radius;
 
 	//TODO Add functionality to change strokeWidth
@@ -35,6 +33,7 @@ public class CircleObstacle extends Obstacle {
 		this.arcList = new Arc[length];
 		this.rotAnimationTimeline = new Timeline();
 		this.obstacleRoot = new Group();
+		this.positiveDirection = positiveDirection;
 
 		for (int i = 0; i < this.arcList.length; i++) {
 			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength, this.arcLength);
@@ -107,5 +106,34 @@ public class CircleObstacle extends Obstacle {
 			System.out.println("Circle Obstacle Collision Detected");
 		}
 		return collisionDetected;
+	}
+
+	@Override
+	public void init() {
+		int length = Constants.COLOUR_PALETTE.length;
+		this.arcList = new Arc[length];
+		this.rotAnimationTimeline = new Timeline();
+		this.obstacleRoot = new Group();
+		System.out.println("Circle Obstacle @ "+ this.getPosition());
+		for (int i = 0; i < this.arcList.length; i++) {
+			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength + this.getOrientation(), this.arcLength);
+
+			// Remove fill and set stroke
+			this.arcList[i].setFill(Color.rgb(0, 0, 0, 0));
+			this.arcList[i].setStrokeWidth(this.strokeWidth);
+			this.arcList[i].setStroke(Constants.COLOUR_PALETTE[i]);
+		}
+
+		this.rotAnimation=  new Rotate(0, this.getPosX(), this.getPosY());
+		this.rotAnimation.setAxis(Rotate.Z_AXIS);
+		this.obstacleRoot.getTransforms().add(this.rotAnimation);
+		if (this.positiveDirection) {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), 360)));
+		} else {
+			this.rotAnimationTimeline.getKeyFrames()
+					.add(new KeyFrame(Duration.seconds(5), new KeyValue(this.rotAnimation.angleProperty(), -360)));
+		}
+		this.rotAnimationTimeline.setCycleCount(Animation.INDEFINITE);
 	}
 }
