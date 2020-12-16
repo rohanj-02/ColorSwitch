@@ -93,7 +93,7 @@ public class CircleObstacle extends Obstacle {
 	@Override
 	public boolean isCollision(PlayerBall ball) {
 		boolean collisionDetected = false;
-		System.out.println("Angle: "+this.rotAnimation.getAngle());
+//		System.out.println("Angle: "+this.rotAnimation.getAngle());
 
 		for (int i = 0; i < arcList.length; i++) {
 			Shape intersect = Shape.intersect(arcList[i], ball.getBallRoot());
@@ -104,7 +104,7 @@ public class CircleObstacle extends Obstacle {
 			}
 		}
 		if (collisionDetected) {
-			System.out.println("Circle Obstacle Collision Detected");
+//			System.out.println("Circle Obstacle Collision Detected");
 		}
 		return collisionDetected;
 	}
@@ -115,7 +115,7 @@ public class CircleObstacle extends Obstacle {
 		this.arcList = new Arc[length];
 		this.rotAnimationTimeline = new Timeline();
 		this.obstacleRoot = new Group();
-		System.out.println("Circle Obstacle @ " + this.getPosition());
+//		System.out.println("Circle Obstacle @ " + this.getPosition());
 		for (int i = 0; i < this.arcList.length; i++) {
 			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength + this.getOrientation(), this.arcLength);
 

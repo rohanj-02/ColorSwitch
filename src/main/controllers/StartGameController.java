@@ -1,5 +1,6 @@
 package main.controllers;
 
+import javafx.animation.Animation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,18 +11,23 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import main.Constants;
+import main.gui.PlayerBall;
 import main.logic.Game;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class StartGameController implements Initializable {
 
@@ -29,6 +35,12 @@ public class StartGameController implements Initializable {
 	private final Popup endGamePopup;
 	private final PauseController pausePopupController;
 	private final EndGameController endGamePopupController;
+	public HBox timerPlaceHolder;
+	public Button timerButton;
+
+	@FXML
+	private Text timer;
+
 	@FXML
 	private AnchorPane rootPane;
 	@FXML
@@ -44,6 +56,7 @@ public class StartGameController implements Initializable {
 	private MediaPlayer gameSound;
 	private MediaPlayer clickSound;
 	private MainLayoutController mainLayoutController;
+	private int time = 3;
 
 	public StartGameController() throws IOException {
 
@@ -77,7 +90,39 @@ public class StartGameController implements Initializable {
 		this.game.setGameController(this);
 		this.game.init();
 		this.render();
-		this.getMainLayoutController().loadNewGame("GameScreen.fxml");
+//		this.getMainLayoutController().loadNewGame("GameScreen.fxml");
+
+	}
+
+	class PauseTimer extends TimerTask {
+		public void run() {
+			if(time == 3){
+				timer.setText("3s");
+			}
+			time--;
+			timer.setText(Integer.toString(time) + "s");
+
+			if(time == 0){
+				timer.setText(" ");
+			}
+		}
+	}
+
+	// And From your main() method or any other method
+
+	public void pauseTimer(){
+		timerPlaceHolder.toFront();
+		timer.toFront();
+		timer.setVisible(true);
+		System.out.println(timer.getText());
+		timer.setText("3s");
+		time = 3;
+
+
+			Timer t = new Timer();
+			t.schedule(new PauseTimer(), 1000);
+			t.schedule(new PauseTimer(), 2000);
+			t.schedule(new PauseTimer(), 3000);
 
 	}
 
@@ -140,6 +185,10 @@ public class StartGameController implements Initializable {
 		return game;
 	}
 
+	public Text getTimer() {
+		return timer;
+	}
+
 	public void setGame(Game game) {
 		this.game.destroyGame();
 		this.game = game;
@@ -197,6 +246,7 @@ public class StartGameController implements Initializable {
 	}
 
 	public void jump() {
+		this.timer.setVisible(false);
 		if (this.game.isScrollRequired()) {
 			this.game.scrollScreen();
 		}

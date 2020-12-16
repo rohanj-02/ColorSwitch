@@ -53,5 +53,21 @@
             </opaqueInsets>
             <VBox prefHeight="243.0" prefWidth="283.0" />
         </VBox>
+      <HBox fx:id="timerPlaceHolder" alignment="CENTER" prefHeight="172.0" prefWidth="86.0" GridPane.columnIndex="1">
+         <children>
+            <Button fx:id="timerButton" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="109.0" style="-fx-background-color: 272727; -fx-opaque-insets: 0.25;" textFill="YELLOW">
+               <font>
+                  <Font size="41.0" />
+               </font>
+               <graphic>
+                  <Text fx:id="timer" fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text=" " wrappingWidth="53.21630859375">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
     </GridPane>
 </AnchorPane>

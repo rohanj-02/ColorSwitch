@@ -51,8 +51,9 @@ public class Game implements Serializable {
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(SCREEN_MIDPOINT_X, PLAYER_START));
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
-		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
+//		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
 		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
+		this.topObstacle.getObstacleRoot().toBack();
 		this.listOfObstacles.add(this.topObstacle);
 //		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
@@ -163,7 +164,7 @@ public class Game implements Serializable {
 
 			@Override
 			public void handle(Event event) {
-				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME)){
+//				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME)){
 					System.out.println(playerBall.getYPosition());
 					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS) && !gameController.getPausePopupController().isOpened()) {
 						gameController.endGame();
@@ -196,7 +197,7 @@ public class Game implements Serializable {
 							colourSwitchBall.root.setVisible(false);
 						}
 					}
-				}
+//				}
 
 			}
 		});
@@ -369,6 +370,7 @@ public class Game implements Serializable {
 			default:
 				break;
 		}
+		newObstacle.getObstacleRoot().toBack();
 		this.topObstacle = newObstacle;
 		this.listOfObstacles.add(newObstacle);
 		newObstacle.render(this.gameRoot);

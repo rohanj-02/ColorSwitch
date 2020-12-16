@@ -52,6 +52,7 @@ public class PauseController extends AnchorPane {
 
 
 	public void onPlayClicked(MouseEvent mouseEvent) {
+		this.parentController.pauseTimer();
 		this.onClose(mouseEvent);
 		this.parentController.playClickSound();
 	}
