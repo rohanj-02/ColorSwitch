@@ -17,6 +17,7 @@ import static main.Constants.*;
 
 // TODO Give game object an id and ask are you sure you want to overwrite the game? Or something to avoid duplicate saves.
 // TODO Pause game on x click if player in STARTGAME Stage
+// TODO Ensure destruction of game on exit game or restart game
 
 public class Game implements Serializable {
 
@@ -37,6 +38,7 @@ public class Game implements Serializable {
 	transient private StartGameController gameController;
 	private double collisionY = 0.0;
 	private double lengthOfScroll;
+	private transient Timeline collisionTimeline;
 
 	public Game(StartGameController gameController) {
 		this.scrollAnimations = new ArrayList<>();
@@ -70,24 +72,6 @@ public class Game implements Serializable {
 		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
 			colourSwitchBall.render(this.gameRoot);
 		}
-
-	}
-
-	public void printTranslationY() {
-		final Duration oneFrameAmt = Duration.millis(1000);
-		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt, new EventHandler() {
-			@Override
-			public void handle(Event event) {
-				for (Obstacle obstacle : listOfObstacles) {
-					Group obstacleRoot = obstacle.getObstacleRoot();
-					System.out.println("Translation Y : " + obstacleRoot.getTranslateY());
-				}
-			}
-		});
-		Timeline timeline = new Timeline();
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.getKeyFrames().add(oneFrame);
-		timeline.play();
 
 	}
 
@@ -164,7 +148,8 @@ public class Game implements Serializable {
 	}
 
 	public void destroyGame() {
-		this.gameRoot.getChildren().clear();
+		this.collisionTimeline.stop();
+		this.gameRoot.getChildren().removeAll(this.gameRoot.getChildren());
 	}
 
 	/**
@@ -209,10 +194,10 @@ public class Game implements Serializable {
 
 			}
 		});
-		Timeline timeline = new Timeline();
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.getKeyFrames().add(oneFrame);
-		timeline.play();
+		this.collisionTimeline = new Timeline();
+		this.collisionTimeline.setCycleCount(Animation.INDEFINITE);
+		this.collisionTimeline.getKeyFrames().add(oneFrame);
+		this.collisionTimeline.play();
 	}
 
 	/**
@@ -418,5 +403,3 @@ public class Game implements Serializable {
 		this.playerBall.setPosition();
 	}
 }
-
-// TODO Check PlayerBall position on load
