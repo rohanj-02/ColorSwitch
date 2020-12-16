@@ -5,7 +5,6 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.util.Duration;
-import main.Constants;
 import main.controllers.StartGameController;
 import main.gui.ColourSwitchBall;
 import main.gui.PlayerBall;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import static main.Constants.*;
 
 // TODO Give game object an id and ask are you sure you want to overwrite the game? Or something to avoid duplicate saves.
-// TODO Back button touch area and not exactly on svg
 // TODO Pause game on x click if player in STARTGAME Stage
 
 public class Game implements Serializable {
@@ -194,14 +192,11 @@ public class Game implements Serializable {
 					for (Star star : listOfStar) {
 						if (star.isCollision(playerBall)) {
 							if (!star.isCollected()) {
-
 //							System.out.println(star.svgPath.getLayoutY());
 								star.increaseScore(player.getCurrentGame());
 								gameController.getScoreText().setText(Integer.toString(currentScore));
 								star.svgPath.setVisible(false);
 							}
-
-
 						}
 					}
 					for (ColourSwitchBall colourSwitchBall : listOfSwitch) {

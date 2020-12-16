@@ -2,6 +2,7 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.control.Button?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="700.0" prefWidth="500.0" stylesheets="@../styles/MainLayout.css"
          type="AnchorPane" xmlns="http://javafx.com/javafx/10.0.2-internal">
     <GridPane prefHeight="700.0" prefWidth="500.0">
@@ -15,12 +16,16 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" GridPane.rowIndex="0">
             <fx:include fx:id="heading" source="Heading.fxml"/>
             <VBox alignment="CENTER" prefHeight="53.0" prefWidth="84.0">
-                <children>
-                    <SVGPath fx:id="backButton"
-                             content="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z"
-                             fill="WHITE" onMouseClicked="#onBackClick" strokeWidth="2.0"
-                             style="-fx-scale-x: 1.5; -fx-scale-y: 1.5;"/>
-                </children>
+                <Button fx:id="backButton" alignment="BASELINE_RIGHT" mnemonicParsing="false" prefHeight="32.0" prefWidth="33.0"
+                        styleClass="bg-transparent" id="close-button" textOverrun="CLIP"
+                        onMouseClicked="#onBackClick">
+                    <graphic>
+                        <SVGPath
+                                content="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z"
+                                fill="WHITE" strokeWidth="2.0"
+                                style="-fx-scale-x: 1.5; -fx-scale-y: 1.5;"/>
+                    </graphic>
+                </Button>
             </VBox>
         </AnchorPane>
         <AnchorPane fx:id="bottomAnchorPaneContainer" minHeight="0.0" minWidth="0.0" prefHeight="100.0"

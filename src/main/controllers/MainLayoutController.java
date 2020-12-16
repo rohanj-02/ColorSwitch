@@ -7,12 +7,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.SVGPath;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -56,7 +56,7 @@ public class MainLayoutController extends AnchorPane {
 	 */
 
 	@FXML
-	private SVGPath backButton;
+	private Button backButton;
 
 	private boolean isLogin;
 	private boolean isTransitioning; // added to remove the 5 tap skip!
@@ -206,6 +206,12 @@ public class MainLayoutController extends AnchorPane {
 			}
 			if (gameStage != GameStage.STARTGAME) {
 				this.bottomPaneController.setParentController(this);
+				if(this.gameStage == GameStage.LANDING){
+					this.backButton.setVisible(false);
+				}
+				else{
+					this.backButton.setVisible(true);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
