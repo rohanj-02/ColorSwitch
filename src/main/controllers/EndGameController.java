@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static main.Constants.REVIVE_AMOUNT;
+
 public class EndGameController extends AnchorPane {
 
 	public Text scoreText;
@@ -49,8 +51,8 @@ public class EndGameController extends AnchorPane {
 	@FXML
 	public void onClose(MouseEvent mouseEvent) {
 		int currentScore = this.parentController.getGame().getCurrentScore();
-		if (currentScore >= -1100) {
-			this.parentController.getGame().setCurrentScore(currentScore - 20);
+		if (currentScore >= REVIVE_AMOUNT) {
+			this.parentController.getGame().setCurrentScore(currentScore - REVIVE_AMOUNT);
 
 			this.parentController.getGame().playGameAfterStar();
 			this.parentController.refreshStage();

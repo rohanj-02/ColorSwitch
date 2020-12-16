@@ -6,22 +6,60 @@ import main.exceptions.UserDoesNotExistException;
 import main.logic.Game;
 import main.logic.Player;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static main.Constants.DATABASE_FILENAME;
+
+// TODO Remove collected stars from listOfStars and similarly for switches
+// TODO Check score not being serialised
 
 public class MainMenu implements Serializable {
 
+	private transient static MainMenu mainMenu = null;
 	public static final long serialVersionUID = 1;
 	protected String mode;
 	protected ArrayList<Player> listOfPlayers;
 	protected transient Player currentPlayer;
 
-	public MainMenu() {
+	public static MainMenu getInstance(){
+		if(mainMenu == null){
+			try{
+				mainMenu = new MainMenu();
+				deserialize();
+				return mainMenu;
+			} catch (IOException | ClassNotFoundException e) {
+				e.printStackTrace();
+				return new MainMenu();
+			}
+		}
+		else{
+			return mainMenu;
+		}
+	}
+
+	public static void deserialize() throws IOException, ClassNotFoundException, NullPointerException {
+		ObjectInputStream in;
+		in = new ObjectInputStream(new FileInputStream(DATABASE_FILENAME));
+		mainMenu.listOfPlayers = (ArrayList<Player>) in.readObject();
+		for(Player player: mainMenu.listOfPlayers){
+			System.out.println("Name: " + player.getName());
+		}
+		in.close();
+
+	}
+
+	public static void serialize() throws IOException {
+		ObjectOutputStream out;
+		out = new ObjectOutputStream(new FileOutputStream(DATABASE_FILENAME));
+		out.writeObject(mainMenu.listOfPlayers);
+	}
+
+	private MainMenu() {
 		// Implement serialisation here
 		this.listOfPlayers = new ArrayList<>();
-		this.currentPlayer = new Player("user");
+		this.currentPlayer = new Player("adminuser");
 	}
 
 	public String getMode() {

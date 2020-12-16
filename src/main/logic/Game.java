@@ -17,7 +17,6 @@ import static main.Constants.*;
 
 // TODO Give game object an id and ask are you sure you want to overwrite the game? Or something to avoid duplicate saves.
 // TODO Pause game on x click if player in STARTGAME Stage
-// TODO Ensure destruction of game on exit game or restart game
 
 public class Game implements Serializable {
 
@@ -32,7 +31,7 @@ public class Game implements Serializable {
 	private ArrayList<Star> listOfStar;
 	private ArrayList<ColourSwitchBall> listOfSwitch;
 	private PlayerBall playerBall;
-	private int currentScore = 0;
+	private int currentScore;
 	transient private Group gameRoot;
 	transient private ArrayList<TranslateTransition> scrollAnimations;
 	private double maxY;
@@ -44,6 +43,7 @@ public class Game implements Serializable {
 	public Game(StartGameController gameController) {
 		this.scrollAnimations = new ArrayList<>();
 		this.lengthOfScroll = 0;
+		this.currentScore = 0;
 		this.listOfStar = new ArrayList<>();
 		this.listOfSwitch = new ArrayList<>();
 		this.gameController = gameController;
@@ -60,7 +60,7 @@ public class Game implements Serializable {
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
 //		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
 		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
-		immunity = false;
+		this.immunity = false;
 		checkCollision();
 //		printTranslationY();
 //
@@ -164,9 +164,10 @@ public class Game implements Serializable {
 
 			@Override
 			public void handle(Event event) {
-//				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME)){
+				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME) && !gameController.getPausePopupController().isOpened()){
 					System.out.println(playerBall.getYPosition());
-					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS) && !gameController.getPausePopupController().isOpened()) {
+					gameController.getScoreText().setText(Integer.toString(currentScore));
+					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS)) {
 						gameController.endGame();
 					}
 
@@ -180,25 +181,36 @@ public class Game implements Serializable {
 //						System.out.println(collisionY);
 						}
 					}
+
+					Star collectedStar = null;
 					for (Star star : listOfStar) {
 						if (star.isCollision(playerBall)) {
 							if (!star.isCollected()) {
 //							System.out.println(star.svgPath.getLayoutY());
+								collectedStar = star;
 								star.increaseScore(player.getCurrentGame());
 								gameController.getScoreText().setText(Integer.toString(currentScore));
 								star.svgPath.setVisible(false);
 							}
 						}
 					}
+					if(collectedStar != null){
+						listOfStar.remove(collectedStar);
+					}
+
+					ColourSwitchBall collectedColourSwitchBall = null;
 					for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
 						if (colourSwitchBall.isCollision(playerBall)) {
+							collectedColourSwitchBall = colourSwitchBall;
 							colourSwitchBall.changeColour(playerBall);
 							collisionY = colourSwitchBall.getRoot().getLayoutY();
 							colourSwitchBall.root.setVisible(false);
 						}
 					}
-//				}
-
+					if(collectedColourSwitchBall != null){
+						listOfSwitch.remove(collectedColourSwitchBall);
+					}
+				}
 			}
 		});
 		this.collisionTimeline = new Timeline();

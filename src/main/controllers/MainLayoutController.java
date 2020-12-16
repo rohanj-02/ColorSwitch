@@ -68,16 +68,16 @@ public class MainLayoutController extends AnchorPane {
 	// TODO change MainMenu design to Singleton
 	public MainLayoutController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.mainMenu = new MainMenu();
-		try {
-			this.deserialize();
-			System.out.println("Deserialized Database!");
-		} catch (IOException | ClassNotFoundException | NullPointerException e) {
-			System.out.println("Exception Encountered: ");
-			e.printStackTrace();
-			System.out.println("Could not load " + DATABASE_FILENAME);
-			this.mainMenu = new MainMenu();
-		}
+		this.mainMenu = MainMenu.getInstance();
+//		try {
+//			this.deserialize();
+//			System.out.println("Deserialized Database!");
+//		} catch (IOException | ClassNotFoundException | NullPointerException e) {
+//			System.out.println("Exception Encountered: ");
+//			e.printStackTrace();
+//			System.out.println("Could not load " + DATABASE_FILENAME);
+//			this.mainMenu = MainMenu.getInstance();
+//		}
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
@@ -93,17 +93,11 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException {
-		ObjectInputStream in;
-		in = new ObjectInputStream(new FileInputStream(DATABASE_FILENAME));
-		this.mainMenu = (MainMenu) in.readObject();
-		in.close();
-
+		MainMenu.deserialize();
 	}
 
 	public void serialize() throws IOException {
-		ObjectOutputStream out;
-		out = new ObjectOutputStream(new FileOutputStream(DATABASE_FILENAME));
-		out.writeObject(mainMenu);
+		MainMenu.serialize();
 	}
 
 	public void onBackClick(MouseEvent mouseEvent) {
