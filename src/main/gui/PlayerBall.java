@@ -15,9 +15,8 @@ import java.util.TimerTask;
 // TODO Space + P = Ball disappears ?!
 // TODO If no translate transition working then kill ball, otherwise ball may hover in between
 // TODO Add NoSavedGamesException
-// TODO Remove endgame and jump buttons
-import static main.Constants.*;
 
+import static main.Constants.*;
 
 public class PlayerBall extends GameElement {
 

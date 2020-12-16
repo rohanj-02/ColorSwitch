@@ -85,8 +85,10 @@ public class StartGameController implements Initializable {
 	 * Used for restarting the game
 	 */
 	public void initialiseGame() throws IOException {
+		this.hideAllPopups();
 		this.playClickSound();
 		this.destroyGame();
+		this.mainLayoutController.deleteGame();
 		this.mainLayoutController.loadNewGame("GameScreen.fxml");
 		this.game = new Game(this);
 		this.game.setCurrentScore(0);
