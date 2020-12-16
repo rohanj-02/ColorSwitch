@@ -173,6 +173,7 @@ public class Game implements Serializable {
 						if (obstacle.isCollision(playerBall)) {
 							if(!immunity){
 								gameController.endGame();
+								gameController.getScoreText().setText(Integer.toString(currentScore));
 							}
 							immunity = true;
 //						System.out.println(collisionY);
