@@ -49,8 +49,7 @@ public class EndGameController extends AnchorPane {
 	public void onClose(MouseEvent mouseEvent) {
 		int currentScore = this.parentController.getGame().getCurrentScore();
 		System.out.println("on Close function called");
-		if (currentScore >= 0) {
-
+		if (currentScore >= -1100) {
 			this.parentController.getGame().setCurrentScore(currentScore - 20);
 			this.parentController.getGame().playGameAfterStar();
 			this.parentController.refreshStage();

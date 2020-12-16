@@ -104,6 +104,14 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 		this.setOrientation(0);
 	}
 
+	public Group getRoot() {
+		return root;
+	}
+
+	public void setRoot(Group root) {
+		this.root = root;
+	}
+
 	@Override
 	public void init() {
 		int length = Constants.COLOUR_PALETTE.length;

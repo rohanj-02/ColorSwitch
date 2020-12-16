@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import main.Constants;
+import main.logic.Game;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -115,8 +116,9 @@ public class PlayerBall extends GameElement {
 		this.play(this.getPosY());
 	}
 
-	public void play(double collisionY) {
-		this.ballRoot.setTranslateY(collisionY);
+	public void playGameAfterStar(double collisionY, Game game) {
+		System.out.println(this.ballRoot.getLayoutY() - collisionY);
+		this.ballRoot.setTranslateY(this.ballRoot.getLayoutY() - collisionY);
 		this.ballRoot.setVisible(true);
 		Timer t = new Timer();
 		// TODO Add alert that ball will fall after 3 seconds, else you can start jumping before that also
@@ -125,6 +127,27 @@ public class PlayerBall extends GameElement {
 				new TimerTask() {
 					@Override
 					public void run() {
+						game.setImmunity(false);
+						if (PlayerBall.this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
+							PlayerBall.this.gravityTransition.playFrom(Duration.millis(5000));
+						}
+						t.cancel();
+					}
+				},
+				3000
+		);
+	}public void play(double collisionY) {
+		System.out.println(this.ballRoot.getLayoutY() - collisionY);
+		this.ballRoot.setTranslateY(this.ballRoot.getLayoutY() - collisionY);
+		this.ballRoot.setVisible(true);
+		Timer t = new Timer();
+		// TODO Add alert that ball will fall after 3 seconds, else you can start jumping before that also
+		// TODO Maybe implement scroll so that game doesn't start with a jerk
+		t.schedule(
+				new TimerTask() {
+					@Override
+					public void run() {
+
 						if (PlayerBall.this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
 							PlayerBall.this.gravityTransition.playFrom(Duration.millis(5000));
 						}

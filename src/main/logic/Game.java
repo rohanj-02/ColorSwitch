@@ -22,6 +22,7 @@ public class Game implements Serializable {
 
 	public static final long serialVersionUID = 3;
 	private transient Player player;
+	private boolean immunity;
 	// Player Game 2 way association maybe recursion in serialization
 	// When deserializing PLayer object, in savedGames() in a Game object
 	// set Game.player = this to give reference of the player to Game object
@@ -48,14 +49,15 @@ public class Game implements Serializable {
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(250, PLAYER_START));
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
-		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
-		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
+//		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
+//		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
 		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
 		this.listOfObstacles.add(this.topObstacle);
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
 		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
+		immunity = false;
 		checkCollision();
 //		printTranslationY();
 //
@@ -184,8 +186,10 @@ public class Game implements Serializable {
 
 					for (Obstacle obstacle : listOfObstacles) {
 						if (obstacle.isCollision(playerBall)) {
-							gameController.endGame();
-							collisionY = playerBall.getBallRoot().getLayoutY();
+							if(!immunity){
+								gameController.endGame();
+							}
+							immunity = true;
 //						System.out.println(collisionY);
 						}
 					}
@@ -205,6 +209,7 @@ public class Game implements Serializable {
 					for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
 						if (colourSwitchBall.isCollision(playerBall)) {
 							colourSwitchBall.changeColour(playerBall);
+							collisionY = colourSwitchBall.getRoot().getLayoutY();
 							colourSwitchBall.root.setVisible(false);
 						}
 					}
@@ -241,7 +246,15 @@ public class Game implements Serializable {
 
 	public void playGameAfterStar() {
 //		System.out.println(collisionY);
-		this.playerBall.play(collisionY);
+		this.playerBall.playGameAfterStar(collisionY, this);
+	}
+
+	public boolean isImmunity() {
+		return immunity;
+	}
+
+	public void setImmunity(boolean immunity) {
+		this.immunity = immunity;
 	}
 
 	/**
