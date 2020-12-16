@@ -15,15 +15,14 @@ import java.util.TimerTask;
 // TODO If no translate transition working then kill ball, otherwise ball may hover in between
 // TODO Add NoSavedGamesException
 // TODO Remove endgame and jump buttons
+import static main.Constants.*;
 
-import static main.Constants.PLAYER_START;
-import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class PlayerBall extends GameElement {
 
 	public static final long serialVersionUID = 11;
 	private final static double jumpSize = 100;
-	private final static double radius = 10;
+	private final static double radius = PLAYER_RADIUS;
 	private String colour;
 	private double angularVelocity;
 	transient private Circle ballRoot;
@@ -120,6 +119,10 @@ public class PlayerBall extends GameElement {
 		this.ballRoot.setVisible(false);
 	}
 
+	public double getYPosition() {
+		return this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY();
+	}
+
 	public void play() {
 		this.play(this.pausePosition.getY());
 	}
@@ -155,7 +158,7 @@ public class PlayerBall extends GameElement {
 
 	@Override
 	public void setPosition() {
-		// WARNING TO BE CALLED ONLY AFTER PAUSE MENU HAS BEEN CALLED!
+		// ! TO BE CALLED ONLY AFTER PAUSE MENU HAS BEEN CALLED!
 		// Will have to change for compass
 		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
 		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());

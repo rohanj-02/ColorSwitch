@@ -17,6 +17,7 @@ import static main.Constants.*;
 
 // TODO Give game object an id and ask are you sure you want to overwrite the game? Or something to avoid duplicate saves.
 // TODO Back button touch area and not exactly on svg
+// TODO Pause game on x click if player in STARTGAME Stage
 
 public class Game implements Serializable {
 
@@ -177,35 +178,37 @@ public class Game implements Serializable {
 
 			@Override
 			public void handle(Event event) {
-//				gameController.getScoreText().setText(Integer.toString(currentScore));
-//				System.out.println(playerBall.getYPosition());
-//				if (playerBall.getYPosition() > 0 && !gameController.getPausePopupController().isOpened()) {
-//					gameController.endGame();
-//				}
-//
-//				for (Obstacle obstacle : listOfObstacles) {
-//					if (obstacle.isCollision(playerBall)) {
-//						gameController.endGame();
-//						collisionY = playerBall.getBallRoot().getLayoutY();
-////						System.out.println(collisionY);
-//					}
-//				}
-//				for (Star star : listOfStar) {
-//					if (star.isCollision(playerBall)) {
-//						if (!star.isCollected()) {
-////							System.out.println(star.svgPath.getLayoutY());
-//							star.increaseScore(player.getCurrentGame());
-//							star.svgPath.setVisible(false);
-//						}
-//
-//
-//					}
-//				}
-//				for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
-//					if (colourSwitchBall.isCollision(playerBall)) {
-//						colourSwitchBall.changeColour(playerBall);
-//					}
-//				}
+				gameController.getScoreText().setText(Integer.toString(currentScore));
+				System.out.println(playerBall.getYPosition());
+				if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS) && !gameController.getPausePopupController().isOpened()) {
+					gameController.endGame();
+					System.out.println("This is the end of the game.");
+					System.out.println("Player pos: " + playerBall.getYPosition());
+				}
+
+				for (Obstacle obstacle : listOfObstacles) {
+					if (obstacle.isCollision(playerBall)) {
+						gameController.endGame();
+						collisionY = playerBall.getBallRoot().getLayoutY();
+						System.out.println(collisionY);
+					}
+				}
+				for (Star star : listOfStar) {
+					if (star.isCollision(playerBall)) {
+						if (!star.isCollected()) {
+							System.out.println(star.svgPath.getLayoutY());
+							star.increaseScore(player.getCurrentGame());
+							star.svgPath.setVisible(false);
+						}
+
+
+					}
+				}
+				for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
+					if (colourSwitchBall.isCollision(playerBall)) {
+						colourSwitchBall.changeColour(playerBall);
+					}
+				}
 			}
 		});
 		Timeline timeline = new Timeline();

@@ -20,6 +20,7 @@ public class EndGameController extends AnchorPane {
 	private Button restartGameButton;
 	@FXML
 	private Button reviveButton;
+	private boolean opened = false;
 	private StartGameController parentController;
 	private Popup endGamePopup;
 
@@ -46,9 +47,7 @@ public class EndGameController extends AnchorPane {
 	@FXML
 	public void onClose(MouseEvent mouseEvent) {
 		int currentScore = this.parentController.getGame().getCurrentScore();
-
 		if (currentScore >= 20) {
-
 			this.parentController.getGame().setCurrentScore(currentScore - 20);
 			this.parentController.getGame().playGameAfterStar();
 			this.parentController.refreshStage();
@@ -58,13 +57,11 @@ public class EndGameController extends AnchorPane {
 			this.getErrorText().setText("Not enough Stars");
 			System.out.println("not enough stars");
 		}
-
+		this.opened = false;
 	}
 
 	public void closePopup() {
 		this.endGamePopup.hide();
-
-
 	}
 
 	public Text getScoreText() {
@@ -84,6 +81,7 @@ public class EndGameController extends AnchorPane {
 	}
 
 	public void show(Stage primaryStage) {
+		this.opened = true;
 		this.endGamePopup.show(primaryStage, primaryStage.getX() + 30, primaryStage.getY() + 150);
 	}
 
@@ -104,4 +102,7 @@ public class EndGameController extends AnchorPane {
 		this.parentController.closeGame();
 	}
 
+	public boolean isOpened() {
+		return this.opened;
+	}
 }
