@@ -11,14 +11,12 @@ import main.gui.PlayerBall;
 import main.gui.Point;
 import main.gui.Star;
 import main.gui.obstacles.*;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import static main.Constants.*;
 
-// TODO GIve game object an id and ask are you sure you want to overwrite the game? Or something to avoid duplicate saves.
-//TODO Back button touch area and not exactly on svg
+// TODO Give game object an id and ask are you sure you want to overwrite the game? Or something to avoid duplicate saves.
+// TODO Back button touch area and not exactly on svg
 
 public class Game implements Serializable {
 
@@ -381,8 +379,6 @@ public class Game implements Serializable {
 	 * Initialise game after serialization
 	 */
 	public void init() {
-		// TODO Game scroll not working for some reason?
-		// TODO Save the scroll distance and start on that only
 		// TODO After save game needs to be exited
 		// TODO Change serialise code so that the obstacle Root has initial position also. Rn it does not take into account initial position and shifts everything.
 		// This is most probably because of setting arc at a particular position but calling layout of the root object.
@@ -420,8 +416,7 @@ public class Game implements Serializable {
 		for (Star star : this.listOfStar) {
 			star.setPosition();
 		}
-		// No need for this as on pause button the position is already set.
-//		this.playerBall.setPosition();
+		this.playerBall.setPosition();
 	}
 }
 

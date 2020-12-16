@@ -11,10 +11,12 @@ import main.Constants;
 import java.util.Timer;
 import java.util.TimerTask;
 
+// TODO Space + P = Ball disappears ?!
 // TODO If no translate transition working then kill ball, otherwise ball may hover in between
 // TODO Add NoSavedGamesException
 // TODO Remove endgame and jump buttons
 
+import static main.Constants.PLAYER_START;
 import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class PlayerBall extends GameElement {
@@ -27,6 +29,7 @@ public class PlayerBall extends GameElement {
 	transient private Circle ballRoot;
 	transient private TranslateTransition gravityTransition;
 	transient private TranslateTransition currentJump;
+	private Point pausePosition;
 
 	transient private Interpolator gravityInterpolator = new Interpolator() {
 		@Override
@@ -39,6 +42,7 @@ public class PlayerBall extends GameElement {
 
 	public PlayerBall(Point position) {
 		this.setPosition(position);
+		this.pausePosition = new Point(position);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		this.ballRoot.setFill(Constants.COLOUR_PALETTE[0]);
@@ -110,18 +114,27 @@ public class PlayerBall extends GameElement {
 
 	public void pause() {
 //		this.setPosition(new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY()));
-		this.setPosition();
+		this.setPausePosition();
 		this.currentJump.stop();
 		this.gravityTransition.stop();
 		this.ballRoot.setVisible(false);
 	}
 
 	public void play() {
-		this.play(this.getPosY());
+		this.play(this.pausePosition.getY());
+	}
+
+	public void setPausePosition(){
+		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
+		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
+		System.out.println(" Ball Pos Y" + this.getPosY());
+		this.pausePosition = new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY());
+		System.out.println("Pause position" + this.pausePosition);
 	}
 
 	public void play(double collisionY) {
-		this.ballRoot.setTranslateY(collisionY);
+		this.ballRoot.setTranslateY(collisionY - PLAYER_START);
+//		this.ballRoot.setLayoutY(collisionY);
 		this.ballRoot.setVisible(true);
 		Timer t = new Timer();
 		// TODO Add alert that ball will fall after 3 seconds, else you can start jumping before that also
