@@ -54,7 +54,7 @@ public class Game implements Serializable {
 //		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
+//		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
 		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
 
 		checkCollision();
@@ -380,8 +380,6 @@ public class Game implements Serializable {
 	 */
 	public void init() {
 		// TODO After save game needs to be exited
-		// TODO Change serialise code so that the obstacle Root has initial position also. Rn it does not take into account initial position and shifts everything.
-		// This is most probably because of setting arc at a particular position but calling layout of the root object.
 		// TODO Line obstacle may start in the center after init
 		this.gameRoot = new Group();
 		for (Obstacle obstacle : this.listOfObstacles) {
@@ -420,11 +418,4 @@ public class Game implements Serializable {
 	}
 }
 
-/* TODO
-    1. Change playerBall pause to pausePosition point.
-    2. Problems:
-    	1. Obstacle offset on load
-    	2. Scroll Perfect
-    	3. Scroll after Pause button weird
-    	4. Pause on x click should spawn ball at correct place. Might be related to #1.
- */
+// TODO Check PlayerBall position on load

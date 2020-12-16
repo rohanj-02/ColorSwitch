@@ -155,11 +155,13 @@ public class PlayerBall extends GameElement {
 
 	@Override
 	public void setPosition() {
+		// WARNING TO BE CALLED ONLY AFTER PAUSE MENU HAS BEEN CALLED!
 		// Will have to change for compass
 		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
 		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
 		System.out.println(" Ball Pos Y" + this.getPosY());
-		Point point = new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY());
+		System.out.println("Ball Pause Pos Y " + this.pausePosition.getY());
+		Point point = new Point(SCREEN_MIDPOINT_X, this.pausePosition.getY());
 		this.setPosition(point);
 	}
 
