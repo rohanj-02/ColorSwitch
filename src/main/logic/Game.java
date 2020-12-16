@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.util.Duration;
+import main.Constants;
 import main.controllers.StartGameController;
 import main.gui.ColourSwitchBall;
 import main.gui.PlayerBall;
@@ -55,7 +56,6 @@ public class Game implements Serializable {
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
 		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
-
 		checkCollision();
 //		printTranslationY();
 //
@@ -176,35 +176,40 @@ public class Game implements Serializable {
 
 			@Override
 			public void handle(Event event) {
-				gameController.getScoreText().setText(Integer.toString(currentScore));
-//				System.out.println(playerBall.getYPosition());
-				if (playerBall.getYPosition() > 0 && !gameController.getPausePopupController().isOpened()) {
-					gameController.endGame();
-				}
-
-				for (Obstacle obstacle : listOfObstacles) {
-					if (obstacle.isCollision(playerBall)) {
+				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME)){
+					System.out.println(playerBall.getYPosition());
+					if (playerBall.getYPosition() > 120 && !gameController.getPausePopupController().isOpened()) {
 						gameController.endGame();
-						collisionY = playerBall.getBallRoot().getLayoutY();
+					}
+
+					for (Obstacle obstacle : listOfObstacles) {
+						if (obstacle.isCollision(playerBall)) {
+							gameController.endGame();
+							collisionY = playerBall.getBallRoot().getLayoutY();
 //						System.out.println(collisionY);
-					}
-				}
-				for (Star star : listOfStar) {
-					if (star.isCollision(playerBall)) {
-						if (!star.isCollected()) {
-//							System.out.println(star.svgPath.getLayoutY());
-							star.increaseScore(player.getCurrentGame());
-							star.svgPath.setVisible(false);
 						}
+					}
+					for (Star star : listOfStar) {
+						if (star.isCollision(playerBall)) {
+							if (!star.isCollected()) {
+
+//							System.out.println(star.svgPath.getLayoutY());
+								star.increaseScore(player.getCurrentGame());
+								gameController.getScoreText().setText(Integer.toString(currentScore));
+								star.svgPath.setVisible(false);
+							}
 
 
+						}
+					}
+					for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
+						if (colourSwitchBall.isCollision(playerBall)) {
+							colourSwitchBall.changeColour(playerBall);
+							colourSwitchBall.root.setVisible(false);
+						}
 					}
 				}
-				for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
-					if (colourSwitchBall.isCollision(playerBall)) {
-						colourSwitchBall.changeColour(playerBall);
-					}
-				}
+
 			}
 		});
 		Timeline timeline = new Timeline();
@@ -235,7 +240,7 @@ public class Game implements Serializable {
 	}
 
 	public void playGameAfterStar() {
-		System.out.println(collisionY);
+//		System.out.println(collisionY);
 		this.playerBall.play(collisionY);
 	}
 

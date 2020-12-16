@@ -50,6 +50,7 @@ public class LoadGameController extends LayoutController implements Initializabl
 
 	public void onButtonClick(int index) {
 		try {
+			this.parentController.playClickSound();
 			this.parentController.loadGame(index);
 		} catch (GameDoesNotExistException e) {
 			System.out.println("Could not load game! Creating a new game... ");

@@ -71,24 +71,26 @@ public class StartGameController implements Initializable {
 
 	}
 
-	public void setLoadedGame(Game game) {
+	public void setLoadedGame(Game game) throws IOException {
 		this.game.destroyGame();
 		this.game = game;
 		this.game.setGameController(this);
 		this.game.init();
 		this.render();
+		this.getMainLayoutController().loadNewGame("GameScreen.fxml");
+
 	}
 
 	/**
 	 * Used for restarting the game
 	 */
-	public void initialiseGame() {
+	public void initialiseGame() throws IOException {
 		this.playClickSound();
 		this.destroyGame();
+		this.mainLayoutController.loadNewGame("GameScreen.fxml");
 		this.game = new Game(this);
 		this.game.setCurrentScore(0);
 		this.render();
-		this.hideAllPopups();
 	}
 
 	private void hideAllPopups() {
@@ -103,6 +105,10 @@ public class StartGameController implements Initializable {
 
 	public Text getScoreText() {
 		return scoreText;
+	}
+
+	public Popup getEndGamePopup() {
+		return endGamePopup;
 	}
 
 	public void setScoreText(Text scoreText) {
@@ -149,6 +155,7 @@ public class StartGameController implements Initializable {
 	public EndGameController getEndGamePopupController() {
 		return endGamePopupController;
 	}
+
 
 	public MainLayoutController getMainLayoutController() {
 		return mainLayoutController;

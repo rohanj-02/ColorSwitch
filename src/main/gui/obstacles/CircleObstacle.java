@@ -93,6 +93,8 @@ public class CircleObstacle extends Obstacle {
 	@Override
 	public boolean isCollision(PlayerBall ball) {
 		boolean collisionDetected = false;
+		System.out.println("Angle: "+this.rotAnimation.getAngle());
+
 
 		for (int i = 0; i < arcList.length; i++) {
 			Shape intersect = Shape.intersect(arcList[i], ball.getBallRoot());

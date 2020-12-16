@@ -22,6 +22,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		MainLayoutController mainLayoutController = new MainLayoutController(primaryStage);
+		mainLayoutController.playGameSound();
 		Scene mainScene = new Scene(mainLayoutController);
 		primaryStage.setScene(mainScene);
 		mainLayoutController.setMainScene(mainScene);

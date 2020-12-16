@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.SVGPath;
@@ -23,6 +24,7 @@ import main.logic.Game;
 import main.menu.MainMenu;
 
 import java.io.*;
+import java.nio.file.Paths;
 
 import static main.Constants.*;
 
@@ -87,7 +89,7 @@ public class MainLayoutController extends AnchorPane {
 		this.headingController.addMovingO();
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
-		playGameSound();
+
 	}
 
 	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException {
@@ -105,6 +107,7 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 	public void onBackClick(MouseEvent mouseEvent) {
+		playClickSound();
 		this.decreaseGameStage();
 	}
 
@@ -120,6 +123,14 @@ public class MainLayoutController extends AnchorPane {
 
 	public MainMenu getMainMenu() {
 		return this.mainMenu;
+	}
+
+	public StartGameController getGameController() {
+		return gameController;
+	}
+
+	public void setGameController(StartGameController gameController) {
+		this.gameController = gameController;
 	}
 
 	public AnchorPane getBottomAnchorPaneContainer() {
@@ -357,17 +368,23 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 	public void playGameSound() {
-		String path = "src/resources/sounds/GameSound-1.mp3";
-		Media media = new Media(new File(path).toURI().toString());
-		MediaPlayer gameSound = new MediaPlayer(media);
-//		gameSound.setAutoPlay(true);
-//		gameSound.
+//		String path = "src/resources/sounds/GameSound-1.mp3";
+//		Media media = new Media(new File(path).toURI().toString());
+//		MediaPlayer gameSound = new MediaPlayer(media);
+//		gameSound.play();
+////		AudioClip gameSound;
+////		gameSound = new AudioClip(path);
+////		gameSound.play();
+////		gameSound.setCycleCount(1000);
+		playSound sound = new playSound();
+		Thread t = new Thread(sound);
+		t.start();
 
 	}
 
 	public void playClickSound() {
-		String path = "src/resources/sounds/click.mp3";
-		Media media = new Media(new File(path).toURI().toString());
+		String path = "src/resources/sounds/click-2.mp3";
+		Media media = new Media(Paths.get(path).toUri().toString());
 		MediaPlayer clickSound = new MediaPlayer(media);
 		clickSound.play();
 	}
@@ -382,5 +399,18 @@ public class MainLayoutController extends AnchorPane {
 
 	public void deleteGame() {
 		this.gameController = null;
+	}
+
+	class playSound implements Runnable{
+
+		@Override
+		public void run() {
+			String bip = "src/resources/sounds/GameSound-1.mp3";
+			Media hit = new Media(Paths.get(bip).toUri().toString());
+			AudioClip mediaPlayer = new AudioClip(hit.getSource());
+			mediaPlayer.play();
+			mediaPlayer.setVolume(0.2);
+
+		}
 	}
 }

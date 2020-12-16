@@ -7,6 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class PauseController extends AnchorPane {
 
 	@FXML
@@ -54,7 +56,7 @@ public class PauseController extends AnchorPane {
 		this.parentController.playClickSound();
 	}
 
-	public void onRestartClicked(MouseEvent mouseEvent) {
+	public void onRestartClicked(MouseEvent mouseEvent) throws IOException {
 		this.parentController.initialiseGame();
 
 	}

@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class EndGameController extends AnchorPane {
 
 	public Text scoreText;
@@ -46,8 +48,8 @@ public class EndGameController extends AnchorPane {
 	@FXML
 	public void onClose(MouseEvent mouseEvent) {
 		int currentScore = this.parentController.getGame().getCurrentScore();
-
-		if (currentScore >= 20) {
+		System.out.println("on Close function called");
+		if (currentScore >= 0) {
 
 			this.parentController.getGame().setCurrentScore(currentScore - 20);
 			this.parentController.getGame().playGameAfterStar();
@@ -59,6 +61,11 @@ public class EndGameController extends AnchorPane {
 			System.out.println("not enough stars");
 		}
 
+	}
+
+	@FXML
+	public void closePopUp(MouseEvent mouseEvent){
+		this.closePopup();
 	}
 
 	public void closePopup() {
@@ -96,7 +103,11 @@ public class EndGameController extends AnchorPane {
 	}
 
 	public void restartGame(MouseEvent mouseEvent) {
-		this.parentController.initialiseGame();
+		try {
+			this.parentController.initialiseGame();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void exitToMainMenu(MouseEvent mouseEvent) {
