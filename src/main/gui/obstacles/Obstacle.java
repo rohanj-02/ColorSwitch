@@ -45,7 +45,7 @@ public abstract class Obstacle extends GameElement implements Collidable {
 	// public abstract static void deserialize() throws IOException, ClassNotFoundException;
 	@Override
 	public void setPosition() {
-		Point point = new Point(this.getPosX(), this.obstacleRoot.getTranslateY() + this.obstacleRoot.getLayoutY());
+		Point point = new Point(this.getPosX() + this.obstacleRoot.getLayoutX() + this.obstacleRoot.getTranslateX(), this.obstacleRoot.getTranslateY() + this.obstacleRoot.getLayoutY() + this.getPosY());
 		this.setPosition(point);
 	}
 

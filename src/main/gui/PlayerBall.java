@@ -12,18 +12,24 @@ import main.logic.Game;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static main.Constants.SCREEN_MIDPOINT_X;
+// TODO Space + P = Ball disappears ?!
+// TODO If no translate transition working then kill ball, otherwise ball may hover in between
+// TODO Add NoSavedGamesException
+// TODO Remove endgame and jump buttons
+import static main.Constants.*;
+
 
 public class PlayerBall extends GameElement {
 
 	public static final long serialVersionUID = 11;
 	private final static double jumpSize = 100;
-	private final static double radius = 10;
+	private final static double radius = PLAYER_RADIUS;
 	private String colour;
 	private double angularVelocity;
 	transient private Circle ballRoot;
 	transient private TranslateTransition gravityTransition;
 	transient private TranslateTransition currentJump;
+	private Point pausePosition;
 
 	transient private Interpolator gravityInterpolator = new Interpolator() {
 		@Override
@@ -36,6 +42,7 @@ public class PlayerBall extends GameElement {
 
 	public PlayerBall(Point position) {
 		this.setPosition(position);
+		this.pausePosition = new Point(position);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		this.ballRoot.setFill(Constants.COLOUR_PALETTE[0]);
@@ -106,14 +113,27 @@ public class PlayerBall extends GameElement {
 	}
 
 	public void pause() {
+//		this.setPosition(new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY()));
+		this.setPausePosition();
 		this.currentJump.stop();
-		this.setPosition();
 		this.gravityTransition.stop();
 		this.ballRoot.setVisible(false);
 	}
 
+	public double getYPosition() {
+		return this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY();
+	}
+
 	public void play() {
-		this.play(this.getPosY());
+		this.play(this.pausePosition.getY());
+	}
+
+	public void setPausePosition(){
+		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
+		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
+		System.out.println(" Ball Pos Y" + this.getPosY());
+		this.pausePosition = new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY());
+		System.out.println("Pause position" + this.pausePosition);
 	}
 
 	public void playGameAfterStar(double collisionY, Game game) {
@@ -137,8 +157,8 @@ public class PlayerBall extends GameElement {
 				3000
 		);
 	}public void play(double collisionY) {
-		System.out.println(this.ballRoot.getLayoutY() - collisionY);
-		this.ballRoot.setTranslateY(this.ballRoot.getLayoutY() - collisionY);
+		this.ballRoot.setTranslateY(collisionY - PLAYER_START);
+//		this.ballRoot.setLayoutY(collisionY);
 		this.ballRoot.setVisible(true);
 		Timer t = new Timer();
 		// TODO Add alert that ball will fall after 3 seconds, else you can start jumping before that also
@@ -158,14 +178,15 @@ public class PlayerBall extends GameElement {
 		);
 	}
 
-	public double getYPosition() {
-		return this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY();
-	}
-
 	@Override
 	public void setPosition() {
+		// ! TO BE CALLED ONLY AFTER PAUSE MENU HAS BEEN CALLED!
 		// Will have to change for compass
-		Point point = new Point(SCREEN_MIDPOINT_X, this.getYPosition());
+		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
+		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
+		System.out.println(" Ball Pos Y" + this.getPosY());
+		System.out.println("Ball Pause Pos Y " + this.pausePosition.getY());
+		Point point = new Point(SCREEN_MIDPOINT_X, this.pausePosition.getY());
 		this.setPosition(point);
 	}
 
@@ -183,7 +204,6 @@ public class PlayerBall extends GameElement {
 				return -t * 4 * (1 - 2 * t);
 			}
 		};
-//		this.ballRoot = new Circle(this.getPosX(), PLAYER_START + this.getPosY(), radius);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		this.ballRoot.setFill(Constants.COLOUR_PALETTE[0]);

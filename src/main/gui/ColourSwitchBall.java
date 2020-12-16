@@ -95,7 +95,7 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 
 	@Override
 	public void setPosition() {
-		Point point = new Point(SCREEN_MIDPOINT_X, this.root.getTranslateY() + this.root.getLayoutY());
+		Point point = new Point(SCREEN_MIDPOINT_X, this.root.getTranslateY() + this.root.getLayoutY() + this.getPosY());
 		this.setPosition(point);
 	}
 
@@ -114,6 +114,7 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 
 	@Override
 	public void init() {
+		System.out.println("Switch Ball @ " + this.getPosition());
 		int length = Constants.COLOUR_PALETTE.length;
 		this.arcList = new Arc[length];
 		this.root = new Group();
