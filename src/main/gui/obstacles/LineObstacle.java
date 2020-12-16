@@ -112,6 +112,12 @@ public class LineObstacle extends Obstacle {
 	}
 
 	@Override
+	public void setPosition() {
+		Point point = new Point(0, this.obstacleRoot.getTranslateY() + this.obstacleRoot.getLayoutY() + this.getPosY());
+		this.setPosition(point);
+	}
+
+	@Override
 	public void init() {
 		// TODO This might be messed up, I do not know the general start point.
 		double length = this.sceneLength / Constants.COLOUR_PALETTE.length;

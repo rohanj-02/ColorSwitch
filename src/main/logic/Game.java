@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 import static main.Constants.*;
 
+// TODO GIve game object an id and ask are you sure you want to overwrite the game? Or something to avoid duplicate saves.
+//TODO Back button touch area and not exactly on svg
+
 public class Game implements Serializable {
 
 	public static final long serialVersionUID = 3;
@@ -45,12 +48,12 @@ public class Game implements Serializable {
 		this.gameController = gameController;
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
-		this.playerBall = new PlayerBall(new Point(250, PLAYER_START));
+		this.playerBall = new PlayerBall(new Point(SCREEN_MIDPOINT_X, PLAYER_START));
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
 		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
-		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
 		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
 		this.listOfObstacles.add(this.topObstacle);
+//		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
@@ -171,40 +174,40 @@ public class Game implements Serializable {
 	 * Check collision of ball with any game element
 	 */
 	public void checkCollision() {
-		final Duration oneFrameAmt = Duration.millis((float) 1000 / 60);
+		final Duration oneFrameAmt = Duration.millis((float) 1000 / 20);
 		final KeyFrame oneFrame = new KeyFrame(oneFrameAmt, new EventHandler() {
 
 			@Override
 			public void handle(Event event) {
-				gameController.getScoreText().setText(Integer.toString(currentScore));
+//				gameController.getScoreText().setText(Integer.toString(currentScore));
 //				System.out.println(playerBall.getYPosition());
-				if (playerBall.getYPosition() > 0 && !gameController.getPausePopupController().isOpened()) {
-					gameController.endGame();
-				}
-
-				for (Obstacle obstacle : listOfObstacles) {
-					if (obstacle.isCollision(playerBall)) {
-						gameController.endGame();
-						collisionY = playerBall.getBallRoot().getLayoutY();
-//						System.out.println(collisionY);
-					}
-				}
-				for (Star star : listOfStar) {
-					if (star.isCollision(playerBall)) {
-						if (!star.isCollected()) {
-//							System.out.println(star.svgPath.getLayoutY());
-							star.increaseScore(player.getCurrentGame());
-							star.svgPath.setVisible(false);
-						}
-
-
-					}
-				}
-				for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
-					if (colourSwitchBall.isCollision(playerBall)) {
-						colourSwitchBall.changeColour(playerBall);
-					}
-				}
+//				if (playerBall.getYPosition() > 0 && !gameController.getPausePopupController().isOpened()) {
+//					gameController.endGame();
+//				}
+//
+//				for (Obstacle obstacle : listOfObstacles) {
+//					if (obstacle.isCollision(playerBall)) {
+//						gameController.endGame();
+//						collisionY = playerBall.getBallRoot().getLayoutY();
+////						System.out.println(collisionY);
+//					}
+//				}
+//				for (Star star : listOfStar) {
+//					if (star.isCollision(playerBall)) {
+//						if (!star.isCollected()) {
+////							System.out.println(star.svgPath.getLayoutY());
+//							star.increaseScore(player.getCurrentGame());
+//							star.svgPath.setVisible(false);
+//						}
+//
+//
+//					}
+//				}
+//				for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
+//					if (colourSwitchBall.isCollision(playerBall)) {
+//						colourSwitchBall.changeColour(playerBall);
+//					}
+//				}
 			}
 		});
 		Timeline timeline = new Timeline();
@@ -219,14 +222,14 @@ public class Game implements Serializable {
 	public void pauseGame() {
 		this.playerBall.pause();
 		for (TranslateTransition transition : this.scrollAnimations) {
-			transition.pause();
+			transition.stop();
 		}
 	}
 
 	public void endGame() {
 		this.playerBall.pause();
 		for (TranslateTransition transition : this.scrollAnimations) {
-			transition.pause();
+			transition.stop();
 		}
 	}
 
@@ -246,7 +249,7 @@ public class Game implements Serializable {
 	 * @return boolean: true when scroll is required
 	 */
 	public boolean isScrollRequired() {
-		return (this.getPlayerBall().getBallRoot().getTranslateY() < -SCROLL_THRESHOLD);
+		return (this.getPlayerBall().getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START < -SCROLL_THRESHOLD);
 	}
 
 	/**
@@ -255,7 +258,7 @@ public class Game implements Serializable {
 	 * @return double: the computed distance
 	 */
 	public double getDistanceOfTop() {
-		return this.topObstacle.getObstacleRoot().getTranslateY() + this.topObstacle.getObstacleRoot().getLayoutY();
+		return this.topObstacle.getObstacleRoot().getTranslateY() + this.topObstacle.getObstacleRoot().getLayoutY() + this.topObstacle.getPosY();
 	}
 
 	/**
@@ -263,8 +266,9 @@ public class Game implements Serializable {
 	 * balls). The scroll length is determined by the y value of the player ball.
 	 */
 	public void scrollScreen() {
-		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallRoot().getTranslateY());
+		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START);
 		this.lengthOfScroll += lengthOfScroll;
+		this.scrollAnimations = new ArrayList<>();
 		// Generate new game elements when they are above NEW_OBSTACLE_SCROLL_THRESHOLD
 		double topDistance = getDistanceOfTop();
 		if (topDistance > NEW_OBSTACLE_SCROLL_THRESHOLD) {
@@ -330,7 +334,7 @@ public class Game implements Serializable {
 	 * Add colourSwitches to the game screen. Appends new colourSwitches to the listOfSwitches
 	 */
 	public void generateSwitches() {
-		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START - (NEW_OBSTACLE_SCROLL_THRESHOLD / 2));
+		Point generationPoint = new Point(SCREEN_MIDPOINT_X, COLOR_SWITCH_START_Y);
 		ColourSwitchBall newBall = new ColourSwitchBall(generationPoint, COLOUR_SWITCH_RADIUS);
 		this.listOfSwitch.add(newBall);
 		newBall.render(this.gameRoot);
@@ -400,6 +404,7 @@ public class Game implements Serializable {
 		this.playerBall.init();
 		this.playerBall.render(this.gameRoot);
 		this.scrollAnimations = new ArrayList<>();
+		System.out.println(this.topObstacle.getPosition());
 		checkCollision();
 	}
 
@@ -415,6 +420,16 @@ public class Game implements Serializable {
 		for (Star star : this.listOfStar) {
 			star.setPosition();
 		}
-		this.playerBall.setPosition();
+		// No need for this as on pause button the position is already set.
+//		this.playerBall.setPosition();
 	}
 }
+
+/* TODO
+    1. Change playerBall pause to pausePosition point.
+    2. Problems:
+    	1. Obstacle offset on load
+    	2. Scroll Perfect
+    	3. Scroll after Pause button weird
+    	4. Pause on x click should spawn ball at correct place. Might be related to #1.
+ */

@@ -11,6 +11,10 @@ import main.Constants;
 import java.util.Timer;
 import java.util.TimerTask;
 
+// TODO If no translate transition working then kill ball, otherwise ball may hover in between
+// TODO Add NoSavedGamesException
+// TODO Remove endgame and jump buttons
+
 import static main.Constants.SCREEN_MIDPOINT_X;
 
 public class PlayerBall extends GameElement {
@@ -105,8 +109,9 @@ public class PlayerBall extends GameElement {
 	}
 
 	public void pause() {
-		this.currentJump.stop();
+//		this.setPosition(new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY()));
 		this.setPosition();
+		this.currentJump.stop();
 		this.gravityTransition.stop();
 		this.ballRoot.setVisible(false);
 	}
@@ -135,14 +140,13 @@ public class PlayerBall extends GameElement {
 		);
 	}
 
-	public double getYPosition() {
-		return this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY();
-	}
-
 	@Override
 	public void setPosition() {
 		// Will have to change for compass
-		Point point = new Point(SCREEN_MIDPOINT_X, this.getYPosition());
+		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
+		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
+		System.out.println(" Ball Pos Y" + this.getPosY());
+		Point point = new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY());
 		this.setPosition(point);
 	}
 
@@ -160,7 +164,6 @@ public class PlayerBall extends GameElement {
 				return -t * 4 * (1 - 2 * t);
 			}
 		};
-//		this.ballRoot = new Circle(this.getPosX(), PLAYER_START + this.getPosY(), radius);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		this.ballRoot.setFill(Constants.COLOUR_PALETTE[0]);
