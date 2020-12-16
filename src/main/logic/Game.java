@@ -17,7 +17,6 @@ import static main.Constants.*;
 
 // TODO Give game object an id and ask are you sure you want to overwrite the game? Or something to avoid duplicate saves.
 // TODO Pause game on x click if player in STARTGAME Stage
-// TODO Ensure destruction of game on exit game or restart game
 
 public class Game implements Serializable {
 
@@ -163,9 +162,9 @@ public class Game implements Serializable {
 
 			@Override
 			public void handle(Event event) {
-				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME)){
+				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME) && !gameController.getPausePopupController().isOpened()){
 					System.out.println(playerBall.getYPosition());
-					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS) && !gameController.getPausePopupController().isOpened()) {
+					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS)) {
 						gameController.endGame();
 					}
 

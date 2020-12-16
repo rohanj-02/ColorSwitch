@@ -77,8 +77,7 @@ public class StartGameController implements Initializable {
 		this.game.setGameController(this);
 		this.game.init();
 		this.render();
-		this.getMainLayoutController().loadNewGame("GameScreen.fxml");
-
+//		this.getMainLayoutController().loadNewGame("GameScreen.fxml");
 	}
 
 	/**
