@@ -176,6 +176,7 @@ public class StartGameController implements Initializable {
 
 	public void refreshStage() {
 		this.primaryStage.show();
+
 	}
 
 	public void simulateEnd() {

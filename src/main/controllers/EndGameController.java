@@ -49,9 +49,9 @@ public class EndGameController extends AnchorPane {
 	@FXML
 	public void onClose(MouseEvent mouseEvent) {
 		int currentScore = this.parentController.getGame().getCurrentScore();
-		System.out.println("on Close function called");
 		if (currentScore >= -1100) {
 			this.parentController.getGame().setCurrentScore(currentScore - 20);
+
 			this.parentController.getGame().playGameAfterStar();
 			this.parentController.refreshStage();
 			System.out.println("enough stars");
@@ -60,6 +60,7 @@ public class EndGameController extends AnchorPane {
 			this.getErrorText().setText("Not enough Stars");
 			System.out.println("not enough stars");
 		}
+		this.parentController.getScoreText().setText(Integer.toString(currentScore));
 		this.opened = false;
 	}
 
