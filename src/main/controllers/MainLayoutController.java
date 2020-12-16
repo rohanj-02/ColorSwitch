@@ -330,6 +330,7 @@ public class MainLayoutController extends AnchorPane {
 		this.primaryStage = (Stage) scene.getWindow();
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
 		this.primaryStage.show();
+		this.gameController.setMainLayoutController(this);
 		this.gameController.setLoadedGame(game);
 		this.mainMenu.addGame(game);
 		this.mainMenu.addPlayerToGame(game);
