@@ -4,6 +4,7 @@ import javafx.animation.*;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import main.controllers.StartGameController;
 import main.gui.ColourSwitchBall;
@@ -168,13 +169,13 @@ public class Game implements Serializable {
 //					System.out.println(playerBall.getYPosition());
 					gameController.getScoreText().setText(Integer.toString(currentScore));
 					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS)) {
-						gameController.endGame();
+//						gameController.endGame();
 					}
 
 					for (Obstacle obstacle : listOfObstacles) {
 						if (obstacle.isCollision(playerBall)) {
 							if(!immunity){
-								gameController.endGame();
+//								gameController.endGame();
 								gameController.getScoreText().setText(Integer.toString(currentScore));
 							}
 							immunity = true;
@@ -326,9 +327,9 @@ public class Game implements Serializable {
 	 * Generates obstacles, stars and colourSwitches and adds them to the game screen.
 	 */
 	public void generateGameElements() {
-		this.generateObstacles();
+		Color color = this.generateObstacles();
 		this.generateStars();
-		this.generateSwitches();
+		this.generateSwitches(color);
 	}
 
 	/**
@@ -343,18 +344,23 @@ public class Game implements Serializable {
 
 	/**
 	 * Add colourSwitches to the game screen. Appends new colourSwitches to the listOfSwitches
+	 * @param color
 	 */
-	public void generateSwitches() {
+	public void generateSwitches(Color color) {
 		Point generationPoint = new Point(SCREEN_MIDPOINT_X, COLOR_SWITCH_START_Y);
 		ColourSwitchBall newBall = new ColourSwitchBall(generationPoint, COLOUR_SWITCH_RADIUS);
+		if(color != null){
+			newBall.setTargetColor(color);
+		}
 		this.listOfSwitch.add(newBall);
 		newBall.render(this.gameRoot);
 	}
 
 	/**
 	 * Add obstacles to the game screen. Appends new obstacles to the listOfObstacles
+	 * @return
 	 */
-	public void generateObstacles() {
+	public Color generateObstacles() {
 		// Add fixed size and then size percentage
 		int selection = (int) (Math.random() * 5 + 1);
 		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START);
@@ -387,6 +393,10 @@ public class Game implements Serializable {
 		this.listOfObstacles.add(newObstacle);
 		newObstacle.render(this.gameRoot);
 		newObstacle.play();
+		if(selection == 2){
+			return COLOUR_PALETTE[0];
+		}
+		return null;
 	}
 
 	/**
