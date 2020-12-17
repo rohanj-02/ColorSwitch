@@ -38,6 +38,8 @@ public abstract class CollectableBall extends GameElement implements Collidable 
 		this.setPosition(point);
 	}
 
+	public abstract void scaleCollectable(double scaleX, double scaleY);
+
 	@Override
 	public void setOrientation() {
 		this.setOrientation(this.orientation);

@@ -83,6 +83,11 @@ public class PlayerBall extends GameElement {
 		this.setDirection(directionX, directionY);
 	}
 
+	public void scalePlayerBall(double scaleX, double scaleY){
+		this.ballSVG.setScaleX(scaleX);
+		this.ballSVG.setScaleY(scaleY);
+	}
+
 	private void setDirection(int directionX, int directionY) {
 		this.setDirectionX(directionX);
 		this.setDirectionY(directionY);

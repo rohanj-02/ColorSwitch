@@ -63,6 +63,15 @@ public class ColourSwitchBall extends CollectableBall {
 		}
 	}
 
+	@Override
+	public void scaleCollectable(double scaleX, double scaleY){
+//		for(Arc arc : this.arcList){
+//			arc.setScaleX(scaleX);
+//			arc.setScaleY(scaleY);
+//		}
+		this.root.setScaleX(scaleX*0.8);
+		this.root.setScaleY(scaleY*0.8);
+	}
 
 	@Override
 	public boolean isCollision(PlayerBall ball) {

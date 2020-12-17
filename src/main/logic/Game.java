@@ -46,15 +46,6 @@ public abstract class Game implements Serializable {
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(SCREEN_MIDPOINT_X, PLAYER_START_Y));
 		this.gameRoot.getChildren().add(playerBall.getBallSVG());
-//		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
-		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -100), CIRCLE_RADIUS, true);
-		this.topObstacle.getObstacleRoot().toBack();
-		this.listOfObstacles.add(this.topObstacle);
-//		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
-//		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
-//		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
-//		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
-		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
 		this.immunity = false;
 		checkCollision();
 //		printTranslationY();
@@ -152,13 +143,13 @@ public abstract class Game implements Serializable {
 					gameController.getScoreText().setText(Integer.toString(currentScore));
 //					System.out.println(playerBall.getYPosition());
 					if (playerBall.getYPosition() > (SCREEN_SIZE_Y + PLAYER_RADIUS)) {
-						gameController.endGame();
+//						gameController.endGame();
 					}
 
 					for (Obstacle obstacle : listOfObstacles) {
 						if (obstacle.isCollision(playerBall)) {
 							if(!immunity){
-								gameController.endGame();
+//								gameController.endGame();
 								gameController.getScoreText().setText(Integer.toString(currentScore));
 							}
 							immunity = true;

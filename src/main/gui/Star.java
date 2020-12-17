@@ -50,6 +50,10 @@ public class Star extends GameElement implements Collidable {
 		}
 	}
 
+	public void scaleStar(double scaleX, double scaleY){
+		this.starRoot.setScaleX(scaleX);
+		this.starRoot.setScaleY(scaleY);
+	}
 
 	public int getAmount() {
 		return amount;

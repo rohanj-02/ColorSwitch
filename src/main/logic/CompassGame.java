@@ -24,15 +24,60 @@ public class CompassGame extends Game{
 //		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 450), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
 //		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X + 100, 350), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_LEFT));
 		this.populateLevel();
+		this.scaleAllElements();
 		this.render();
 		this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT;
 	}
 
+	private void scaleAllElements() {
+		this.playerBall.scalePlayerBall(0.7,0.7);
+//		for (Obstacle obstacle : listOfObstacles) {
+//		}
+
+		for (CollectableBall collectableBall : listOfSwitch) {
+			collectableBall.scaleCollectable(2,2);
+		}
+		// Translate all stars
+		for (Star star : listOfStar) {
+			star.scaleStar(2,2);
+		}
+
+	}
+
 	private void populateLevel() {
-		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
-		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 250), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X + 50, 200 ), STAR_POINTS));
-		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X + 100, 100), COLOUR_SWITCH_RADIUS));
+		// Straight then right
+		double baseX = SCREEN_MIDPOINT_X;
+		double baseY = 400;
+		this.listOfObstacles.add(new CircleObstacle(new Point(baseX, baseY), CIRCLE_RADIUS, true));
+		this.listOfSwitch.add(new DirectionSwitcher(new Point(baseX, baseY - 150), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
+		this.listOfStar.add(new Star(new Point(baseX + 50, baseY - 200 ), STAR_POINTS));
+		this.listOfSwitch.add(new ColourSwitchBall(new Point(baseX + 100, baseY - 250), COLOUR_SWITCH_RADIUS));
+
+		// Right to left
+		baseX = SCREEN_MIDPOINT_X + 300;
+		baseY = 0;
+		this.listOfObstacles.add(new CircleObstacle(new Point(baseX, baseY), CIRCLE_RADIUS, true));
+		this.listOfSwitch.add(new DirectionSwitcher(new Point(baseX + 125, baseY - 125), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_LEFT));
+		this.listOfStar.add(new Star(new Point(baseX + 100, baseY - 150 ), STAR_POINTS));
+		this.listOfSwitch.add(new ColourSwitchBall(new Point(baseX + 50, baseY - 200), COLOUR_SWITCH_RADIUS));
+
+		// Left
+		baseX = baseX + 50 - TRIANGLE_SIDE_LENGTH;
+		baseY = baseY - 200 - TRIANGLE_SIDE_LENGTH;
+		this.listOfObstacles.add(new TriangleObstacle(new Point(baseX, baseY), TRIANGLE_SIDE_LENGTH, true));
+		this.listOfSwitch.add(new DirectionSwitcher(new Point(baseX - 125, baseY - 125), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_LEFT));
+		this.listOfStar.add(new Star(new Point(baseX - 200, baseY - 200 ), STAR_POINTS));
+		this.listOfSwitch.add(new ColourSwitchBall(new Point(baseX - 250, baseY - 250), COLOUR_SWITCH_RADIUS));
+
+
+		// Left
+		baseX = baseX - 250 - RECTANGLE_HEIGHT_LENGTH;
+		baseY = baseY - 250 - RECTANGLE_HEIGHT_LENGTH;
+		this.listOfObstacles.add(new RectangleObstacle(new Point(baseX, baseY), RECTANGLE_WIDTH_LENGTH, RECTANGLE_HEIGHT_LENGTH, true));
+		this.listOfSwitch.add(new DirectionSwitcher(new Point(baseX - 125, baseY - 125), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_LEFT));
+		this.listOfStar.add(new Star(new Point(baseX - 200, baseY - 200 ), STAR_POINTS));
+		this.listOfStar.add(new Star(new Point(baseX - 250, baseY - 250), STAR_POINTS*5));
+
 	}
 
 	public int isScrollRequiredX(){
@@ -68,7 +113,7 @@ public class CompassGame extends Game{
 				int flagX = isScrollRequiredX();
 				int flagY = isScrollRequiredY();
 				if(flagX == 1){
-					this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT_RIGHT;
+					this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT_LEFT;
 					return flagY == 1;
 				}
 			}

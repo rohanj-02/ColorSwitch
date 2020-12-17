@@ -106,6 +106,12 @@ public class DirectionSwitcher extends CollectableBall{
 	}
 
 	@Override
+	public void scaleCollectable(double scaleX, double scaleY){
+		this.directionSVG.setScaleX(scaleX);
+		this.directionSVG.setScaleY(scaleY);
+	}
+
+	@Override
 	public boolean isCollision(PlayerBall ball) {
 		boolean collisionDetected = false;
 		Shape intersect = Shape.intersect(this.directionSVG, ball.getBallRoot());
