@@ -71,7 +71,7 @@ public class Star extends GameElement implements Collidable {
 	public boolean isCollision(PlayerBall ball) {
 		boolean collisionDetected = false;
 
-		Shape intersect = Shape.intersect(this.svgPath, ball.getBallRoot());
+		Shape intersect = Shape.intersect(this.svgPath, ball.getBallSVG());
 
 		if (intersect.getBoundsInLocal().getWidth() != -1) {
 			collisionDetected = true;

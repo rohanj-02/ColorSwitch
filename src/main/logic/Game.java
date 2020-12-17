@@ -50,7 +50,7 @@ public class Game implements Serializable {
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(SCREEN_MIDPOINT_X, PLAYER_START));
-		this.gameRoot.getChildren().add(playerBall.getBallRoot());
+		this.gameRoot.getChildren().add(playerBall.getBallSVG());
 //		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
 		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
 		this.topObstacle.getObstacleRoot().toBack();
@@ -167,7 +167,8 @@ public class Game implements Serializable {
 				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME) && !gameController.getPausePopupController().isOpened()){
 					System.out.println(playerBall.getYPosition());
 					gameController.getScoreText().setText(Integer.toString(currentScore));
-					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS)) {
+//					System.out.println(playerBall.getYPosition());
+					if (playerBall.getYPosition() > (SCREEN_SIZE_Y + PLAYER_RADIUS)) {
 						gameController.endGame();
 					}
 
@@ -260,7 +261,7 @@ public class Game implements Serializable {
 	 * @return boolean: true when scroll is required
 	 */
 	public boolean isScrollRequired() {
-		return (this.getPlayerBall().getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START < -SCROLL_THRESHOLD);
+		return (this.getPlayerBall().getBallSVG().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START < -SCROLL_THRESHOLD);
 	}
 
 	/**
@@ -277,7 +278,7 @@ public class Game implements Serializable {
 	 * balls). The scroll length is determined by the y value of the player ball.
 	 */
 	public void scrollScreen() {
-		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START);
+		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallSVG().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START);
 		this.lengthOfScroll += lengthOfScroll;
 		this.scrollAnimations = new ArrayList<>();
 		// Generate new game elements when they are above NEW_OBSTACLE_SCROLL_THRESHOLD
@@ -314,7 +315,7 @@ public class Game implements Serializable {
 			scrollAnimations.add(scrollDown);
 		}
 		// Translate the playerBall
-		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
+		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallSVG());
 		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 		scrollDown.setByY(lengthOfScroll);
 		scrollDown.setCycleCount(1);

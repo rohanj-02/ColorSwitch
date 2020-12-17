@@ -121,8 +121,8 @@ public class RectangleObstacle extends Obstacle {
 		boolean collisionDetected = false;
 
 		for (int i = 0; i < lineList.length; i++) {
-			Shape intersect = Shape.intersect(lineList[i], ball.getBallRoot());
-			if (lineList[i].getStroke() != ball.getBallRoot().getFill()) {
+			Shape intersect = Shape.intersect(lineList[i], ball.getBallSVG());
+			if (lineList[i].getStroke() != ball.getBallSVG().getFill()) {
 				if (intersect.getBoundsInLocal().getWidth() != -1) {
 					collisionDetected = true;
 				}
