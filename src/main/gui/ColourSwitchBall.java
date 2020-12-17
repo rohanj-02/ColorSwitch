@@ -8,24 +8,19 @@ import main.Constants;
 
 import java.util.Arrays;
 
-import static main.Constants.SCREEN_MIDPOINT_X;
-
-public class ColourSwitchBall extends GameElement implements Collidable {
+public class ColourSwitchBall extends CollectableBall {
 
 	public static final long serialVersionUID = 10;
 	private static int counter = 1;
 	private final double arcLength = 360.00 / Constants.COLOUR_PALETTE.length;
-	transient public Group root;
-	public boolean colourChanged = false;
-	private double radius;
+	private boolean colourChanged = false;
 	transient private Arc[] arcList;
 
 	public ColourSwitchBall(Point center, double radius) {
-		this.radius = radius;
-		this.setPosition(center);
+		super(center, radius);
+
 		int length = Constants.COLOUR_PALETTE.length;
 		this.arcList = new Arc[length];
-		this.root = new Group();
 
 		for (int i = 0; i < this.arcList.length; i++) {
 			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength, this.arcLength);
@@ -37,21 +32,9 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 		}
 	}
 
-	/**
-	 * Returns whether the object has been collected or not
-	 *
-	 * @return boolean
-	 */
-	public boolean isCollected() {
-		return false;
-	}
-
-	public double getRadius() {
-		return radius;
-	}
-
-	public void setRadius(double radius) {
-		this.radius = radius;
+	@Override
+	public void performSpecialFunction(PlayerBall ball) {
+		this.changeColour(ball);
 	}
 
 	/**
@@ -68,6 +51,7 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 		}
 	}
 
+	@Override
 	public void render(Group root) {
 		if (this.root.getChildren().containsAll(Arrays.asList(this.arcList))) {
 			this.root.getChildren().removeAll(this.arcList);
@@ -94,30 +78,11 @@ public class ColourSwitchBall extends GameElement implements Collidable {
 	}
 
 	@Override
-	public void setPosition() {
-		Point point = new Point(SCREEN_MIDPOINT_X, this.root.getTranslateY() + this.root.getLayoutY() + this.getPosY());
-		this.setPosition(point);
-	}
-
-	@Override
-	public void setOrientation() {
-		this.setOrientation(0);
-	}
-
-	public Group getRoot() {
-		return root;
-	}
-
-	public void setRoot(Group root) {
-		this.root = root;
-	}
-
-	@Override
 	public void init() {
+		super.init();
 		System.out.println("Switch Ball @ " + this.getPosition());
 		int length = Constants.COLOUR_PALETTE.length;
 		this.arcList = new Arc[length];
-		this.root = new Group();
 
 		for (int i = 0; i < this.arcList.length; i++) {
 			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength, this.arcLength);

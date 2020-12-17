@@ -6,10 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.util.Duration;
 import main.controllers.StartGameController;
-import main.gui.ColourSwitchBall;
-import main.gui.PlayerBall;
-import main.gui.Point;
-import main.gui.Star;
+import main.gui.*;
 import main.gui.obstacles.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,28 +18,26 @@ import static main.Constants.*;
 public abstract class Game implements Serializable {
 
 	public static final long serialVersionUID = 3;
-	private transient Player player;
-	private boolean immunity;
+	protected transient Player player;
+	protected boolean immunity;
 	// Player Game 2 way association maybe recursion in serialization
 	// When deserializing PLayer object, in savedGames() in a Game object
 	// set Game.player = this to give reference of the player to Game object
-	private ArrayList<Obstacle> listOfObstacles;
-	private Obstacle topObstacle;
-	private ArrayList<Star> listOfStar;
-	private ArrayList<ColourSwitchBall> listOfSwitch;
-	private PlayerBall playerBall;
-	private int currentScore;
-	transient private Group gameRoot;
-	transient private ArrayList<TranslateTransition> scrollAnimations;
-	private double maxY;
-	transient private StartGameController gameController;
-	private double collisionY = 0.0;
-	private double lengthOfScroll;
-	private transient Timeline collisionTimeline;
+	protected ArrayList<Obstacle> listOfObstacles;
+	protected Obstacle topObstacle;
+	protected ArrayList<Star> listOfStar;
+	protected ArrayList<CollectableBall> listOfSwitch;
+	protected PlayerBall playerBall;
+	protected int currentScore;
+	protected transient Group gameRoot;
+	protected transient ArrayList<TranslateTransition> scrollAnimations;
+	protected double maxY;
+	transient protected StartGameController gameController;
+	protected double collisionY = 0.0;
+	protected transient Timeline collisionTimeline;
 
 	public Game(StartGameController gameController) {
 		this.scrollAnimations = new ArrayList<>();
-		this.lengthOfScroll = 0;
 		this.currentScore = 0;
 		this.listOfStar = new ArrayList<>();
 		this.listOfSwitch = new ArrayList<>();
@@ -52,12 +47,12 @@ public abstract class Game implements Serializable {
 		this.playerBall = new PlayerBall(new Point(SCREEN_MIDPOINT_X, PLAYER_START));
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
 //		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
-		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
+		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -100), CIRCLE_RADIUS, true);
 		this.topObstacle.getObstacleRoot().toBack();
 		this.listOfObstacles.add(this.topObstacle);
 //		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
-		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
+//		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
+//		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
 //		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
 		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
 		this.immunity = false;
@@ -72,8 +67,8 @@ public abstract class Game implements Serializable {
 			star.render(this.gameRoot);
 		}
 
-		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
-			colourSwitchBall.render(this.gameRoot);
+		for (CollectableBall collectableBall : listOfSwitch) {
+			collectableBall.render(this.gameRoot);
 		}
 
 	}
@@ -94,11 +89,11 @@ public abstract class Game implements Serializable {
 		this.gameRoot = gameRoot;
 	}
 
-	public ArrayList<ColourSwitchBall> getListOfSwitch() {
+	public ArrayList<CollectableBall> getListOfSwitch() {
 		return listOfSwitch;
 	}
 
-	public void setListOfSwitch(ArrayList<ColourSwitchBall> listOfSwitch) {
+	public void setListOfSwitch(ArrayList<CollectableBall> listOfSwitch) {
 		this.listOfSwitch = listOfSwitch;
 	}
 
@@ -198,17 +193,17 @@ public abstract class Game implements Serializable {
 						listOfStar.remove(collectedStar);
 					}
 
-					ColourSwitchBall collectedColourSwitchBall = null;
-					for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
-						if (colourSwitchBall.isCollision(playerBall)) {
-							collectedColourSwitchBall = colourSwitchBall;
-							colourSwitchBall.changeColour(playerBall);
-							collisionY = colourSwitchBall.getRoot().getLayoutY();
-							colourSwitchBall.root.setVisible(false);
+					CollectableBall collectedBall = null;
+					for (CollectableBall collectableBall : listOfSwitch) {
+						if (collectableBall.isCollision(playerBall)) {
+							collectedBall = collectableBall;
+							collectableBall.performSpecialFunction(playerBall);
+							collisionY = collectableBall.getRoot().getLayoutY();
+							collectableBall.getRoot().setVisible(false);
 						}
 					}
-					if(collectedColourSwitchBall != null){
-						listOfSwitch.remove(collectedColourSwitchBall);
+					if(collectedBall != null){
+						listOfSwitch.remove(collectedBall);
 					}
 				}
 			}
@@ -259,135 +254,19 @@ public abstract class Game implements Serializable {
 	 *
 	 * @return boolean: true when scroll is required
 	 */
-	public boolean isScrollRequired() {
-		return (this.getPlayerBall().getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START < -SCROLL_THRESHOLD);
-	}
+	public abstract boolean isScrollRequired();
 
-	/**
-	 * Computes the distance of the topObstacle from y = 0.
-	 *
-	 * @return double: the computed distance
-	 */
-	public double getDistanceOfTop() {
-		return this.topObstacle.getObstacleRoot().getTranslateY() + this.topObstacle.getObstacleRoot().getLayoutY() + this.topObstacle.getPosY();
-	}
 
 	/**
 	 * Scrolls everything on the screen(obstacles, stars, player and colour switch
 	 * balls). The scroll length is determined by the y value of the player ball.
 	 */
-	public void scrollScreen() {
-		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START);
-		this.lengthOfScroll += lengthOfScroll;
-		this.scrollAnimations = new ArrayList<>();
-		// Generate new game elements when they are above NEW_OBSTACLE_SCROLL_THRESHOLD
-		double topDistance = getDistanceOfTop();
-		if (topDistance > NEW_OBSTACLE_SCROLL_THRESHOLD) {
-			this.generateGameElements();
-		}
-
-		//Translate all obstacles
-		for (Obstacle obstacle : listOfObstacles) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
-			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
-			scrollDown.setByY(lengthOfScroll);
-			scrollDown.setCycleCount(1);
-			scrollDown.play();
-			scrollAnimations.add(scrollDown);
-		}
-		// Translate all colour switches
-		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), colourSwitchBall.root);
-			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
-			scrollDown.setByY(lengthOfScroll);
-			scrollDown.setCycleCount(1);
-			scrollDown.play();
-			scrollAnimations.add(scrollDown);
-		}
-		// Translate all stars
-		for (Star star : listOfStar) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.starRoot);
-			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
-			scrollDown.setByY(lengthOfScroll);
-			scrollDown.setCycleCount(1);
-			scrollDown.play();
-			scrollAnimations.add(scrollDown);
-		}
-		// Translate the playerBall
-		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
-		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
-		scrollDown.setByY(lengthOfScroll);
-		scrollDown.setCycleCount(1);
-		scrollDown.play();
-		scrollAnimations.add(scrollDown);
-	}
+	public abstract void scrollScreen();
 
 	/**
 	 * Generates obstacles, stars and colourSwitches and adds them to the game screen.
 	 */
-	public void generateGameElements() {
-		this.generateObstacles();
-		this.generateStars();
-		this.generateSwitches();
-	}
-
-	/**
-	 * Add stars to the game screen. Appends new stars to the listOfStars
-	 */
-	public void generateStars() {
-		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START - 3); // 3 added for latency issues
-		Star newStar = new Star(generationPoint, STAR_POINTS);
-		this.listOfStar.add(newStar);
-		newStar.render(this.gameRoot);
-	}
-
-	/**
-	 * Add colourSwitches to the game screen. Appends new colourSwitches to the listOfSwitches
-	 */
-	public void generateSwitches() {
-		Point generationPoint = new Point(SCREEN_MIDPOINT_X, COLOR_SWITCH_START_Y);
-		ColourSwitchBall newBall = new ColourSwitchBall(generationPoint, COLOUR_SWITCH_RADIUS);
-		this.listOfSwitch.add(newBall);
-		newBall.render(this.gameRoot);
-	}
-
-	/**
-	 * Add obstacles to the game screen. Appends new obstacles to the listOfObstacles
-	 */
-	public void generateObstacles() {
-		// Add fixed size and then size percentage
-		int selection = (int) (Math.random() * 5 + 1);
-		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START);
-		boolean direction = Math.random() < 0.5;
-		Obstacle newObstacle = new CircleObstacle(generationPoint, CIRCLE_RADIUS, direction);
-		switch (selection) {
-			case 1:
-				newObstacle = new CircleObstacle(generationPoint, CIRCLE_RADIUS, direction);
-				break;
-			case 2:
-				newObstacle = new TriangleObstacle(generationPoint, TRIANGLE_SIDE_LENGTH, direction);
-				break;
-			case 3:
-				newObstacle = new RectangleObstacle(generationPoint, RECTANGLE_WIDTH_LENGTH, RECTANGLE_HEIGHT_LENGTH,
-						direction);
-				break;
-			case 4:
-				generationPoint.setX(generationPoint.getX() + PLUS_OFFSET);
-				newObstacle = new PlusObstacle(generationPoint, PLUS_SIDE_LENGTH, direction);
-				break;
-			case 5:
-				generationPoint.setX(0);
-				newObstacle = new LineObstacle(generationPoint, SCREEN_SIZE_X, direction);
-				break;
-			default:
-				break;
-		}
-		newObstacle.getObstacleRoot().toBack();
-		this.topObstacle = newObstacle;
-		this.listOfObstacles.add(newObstacle);
-		newObstacle.render(this.gameRoot);
-		newObstacle.play();
-	}
+	public abstract void generateGameElements();
 
 	/**
 	 * Initialise game after serialization
@@ -401,9 +280,9 @@ public abstract class Game implements Serializable {
 			obstacle.render(this.gameRoot);
 			obstacle.play();
 		}
-		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
-			colourSwitchBall.init();
-			colourSwitchBall.render(this.gameRoot);
+		for (CollectableBall collectableBall : listOfSwitch) {
+			collectableBall.init();
+			collectableBall.render(this.gameRoot);
 		}
 		for (Star star : listOfStar) {
 			star.init();
@@ -421,8 +300,8 @@ public abstract class Game implements Serializable {
 			obstacle.setPosition();
 		}
 
-		for (ColourSwitchBall colourSwitchBall : this.listOfSwitch) {
-			colourSwitchBall.setPosition();
+		for (CollectableBall collectableBall : this.listOfSwitch) {
+			collectableBall.setPosition();
 		}
 
 		for (Star star : this.listOfStar) {

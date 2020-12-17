@@ -42,7 +42,7 @@ public class PlayerBall extends GameElement {
 	//	ut + 1/2 at^2
 
 	public PlayerBall(Point position) {
-		this(position, 1, 1);
+		this(position, 0, 1);
 	}
 
 	public PlayerBall(Point position, int directionX, int directionY){
@@ -131,6 +131,9 @@ public class PlayerBall extends GameElement {
 		else if(this.directionX == 1){
 			jump.setByX(-jumpSize);
 		}
+		else if(this.directionX == 0){
+			jump.setByX(0);
+		}
 		jump.setByY(jumpSize);
 		jump.setCycleCount(1);
 		jump.play();
@@ -164,7 +167,7 @@ public class PlayerBall extends GameElement {
 //		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
 //		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
 //		System.out.println(" Ball Pos Y" + this.getPosY());
-		this.pausePosition = new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY());
+		this.pausePosition = new Point(this.ballRoot.getTranslateX() + this.ballRoot.getLayoutX() + this.getPosX() , this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY());
 //		System.out.println("Pause position" + this.pausePosition);
 	}
 
@@ -188,7 +191,9 @@ public class PlayerBall extends GameElement {
 				},
 				3000
 		);
-	}public void play(double collisionY) {
+	}
+
+	public void play(double collisionY) {
 		this.ballRoot.setTranslateY(collisionY - PLAYER_START);
 //		this.ballRoot.setLayoutY(collisionY);
 		this.ballRoot.setVisible(true);
@@ -218,7 +223,7 @@ public class PlayerBall extends GameElement {
 //		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
 //		System.out.println(" Ball Pos Y" + this.getPosY());
 //		System.out.println("Ball Pause Pos Y " + this.pausePosition.getY());
-		Point point = new Point(SCREEN_MIDPOINT_X, this.pausePosition.getY());
+		Point point = new Point(this.pausePosition.getX(), this.pausePosition.getY());
 		this.setPosition(point);
 	}
 
