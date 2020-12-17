@@ -33,4 +33,8 @@ public class Constants {
 	public enum GameStage {
 		LOADING, LANDING, LOGIN, MAINMENU, SELECTSAVED, STARTGAME
 	}
+
+	public enum GameMode {
+		CLASSIC, COMPASS
+	}
 }

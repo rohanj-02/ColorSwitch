@@ -18,7 +18,7 @@ import static main.Constants.*;
 // TODO Give game object an id and ask are you sure you want to overwrite the game? Or something to avoid duplicate saves.
 // TODO Pause game on x click if player in STARTGAME Stage
 
-public class Game implements Serializable {
+public abstract class Game implements Serializable {
 
 	public static final long serialVersionUID = 3;
 	private transient Player player;

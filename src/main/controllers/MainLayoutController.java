@@ -21,6 +21,7 @@ import main.exceptions.GameDoesNotExistException;
 import main.exceptions.SameNameException;
 import main.exceptions.UserDoesNotExistException;
 import main.logic.Game;
+import main.logic.GameFactory;
 import main.menu.MainMenu;
 
 import java.io.*;
@@ -64,6 +65,7 @@ public class MainLayoutController extends AnchorPane {
 	private MainMenu mainMenu;
 	private StartGameController gameController;
 	private Scene mainScene;
+	private GameMode gameMode;
 
 	// TODO change MainMenu design to Singleton
 	public MainLayoutController(Stage primaryStage) {
@@ -89,7 +91,6 @@ public class MainLayoutController extends AnchorPane {
 		this.headingController.addMovingO();
 		this.setGameStage(GameStage.LANDING);
 		this.setLogin(false);
-
 	}
 
 	public void deserialize() throws IOException, ClassNotFoundException, NullPointerException {
@@ -193,19 +194,14 @@ public class MainLayoutController extends AnchorPane {
 					((LoadGameController) this.bottomPaneController).setNumberOfGames(this.mainMenu.getNumberOfGames());
 					break;
 				case STARTGAME:
-					this.loadNewGame("GameScreen.fxml");
+					this.loadNewGame("GameScreen.fxml", this.gameMode);
 					break;
 				default:
 					return;
 			}
 			if (gameStage != GameStage.STARTGAME) {
 				this.bottomPaneController.setParentController(this);
-				if(this.gameStage == GameStage.LANDING){
-					this.backButton.setVisible(false);
-				}
-				else{
-					this.backButton.setVisible(true);
-				}
+				this.backButton.setVisible(this.gameStage != GameStage.LANDING);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -300,7 +296,7 @@ public class MainLayoutController extends AnchorPane {
 
 	// GAME RELATED METHODS
 
-	public void loadNewGame(String name) throws IOException {
+	public void loadNewGame(String name, GameMode gameMode) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
 		AnchorPane newRoot = fxmlLoader.load();
 		this.gameController = fxmlLoader.getController();
@@ -313,7 +309,10 @@ public class MainLayoutController extends AnchorPane {
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
 		this.primaryStage.show();
 		this.gameController.setMainLayoutController(this);
-		Game game = new Game(this.gameController);
+		GameFactory gameFactory = new GameFactory();
+		Game game = gameFactory.createGame(gameMode, this.gameController);
+//		\new Game(this.gameController);
+		this.gameController.setGameMode(this.gameMode);
 		this.gameController.setGame(game);
 		this.mainMenu.addGame(game);
 		this.mainMenu.addPlayerToGame(game);
@@ -331,6 +330,7 @@ public class MainLayoutController extends AnchorPane {
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
 		this.primaryStage.show();
 		this.gameController.setMainLayoutController(this);
+		this.gameController.setGameMode(this.gameMode);
 		this.gameController.setLoadedGame(game);
 		this.mainMenu.addGame(game);
 		this.mainMenu.addPlayerToGame(game);

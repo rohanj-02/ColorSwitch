@@ -20,7 +20,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Constants;
 import main.gui.PlayerBall;
+import main.logic.ClassicGame;
+import main.logic.CompassGame;
 import main.logic.Game;
+import main.logic.GameFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,10 +60,13 @@ public class StartGameController implements Initializable {
 	private MediaPlayer clickSound;
 	private MainLayoutController mainLayoutController;
 	private int time = 3;
+	private Constants.GameMode gameMode;
 
 	public StartGameController() throws IOException {
 
-		game = new Game(this);
+//		GameFactory gameFactory = new GameFactory();
+//		this.game = gameFactory.createGame(this.gameMode, this);
+//		game = new ClassicGame(this);
 
 		//Pause popup code
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/PausePopUp.fxml"));
@@ -92,6 +98,14 @@ public class StartGameController implements Initializable {
 		this.render();
 //		this.getMainLayoutController().loadNewGame("GameScreen.fxml");
 
+	}
+
+	public Constants.GameMode getGameMode() {
+		return gameMode;
+	}
+
+	public void setGameMode(Constants.GameMode gameMode) {
+		this.gameMode = gameMode;
 	}
 
 	class PauseTimer extends TimerTask {
@@ -134,8 +148,10 @@ public class StartGameController implements Initializable {
 		this.playClickSound();
 		this.destroyGame();
 		this.mainLayoutController.deleteGame();
-		this.mainLayoutController.loadNewGame("GameScreen.fxml");
-		this.game = new Game(this);
+		this.mainLayoutController.loadNewGame("GameScreen.fxml", this.gameMode);
+		GameFactory gameFactory = new GameFactory();
+		this.game = gameFactory.createGame(this.gameMode, this);
+//		this.game = new ClassicGame(this);
 		this.game.setCurrentScore(0);
 		this.render();
 	}
@@ -191,6 +207,13 @@ public class StartGameController implements Initializable {
 
 	public void setGame(Game game) {
 		this.game.destroyGame();
+		// Should calll setGameMode also along with this method or setLoadedGame method
+//		if(game.getClass() == ClassicGame.class){
+//			this.gameMode = Constants.GameMode.CLASSIC;
+//		}
+//		else if(game.getClass() == CompassGame.class){
+//			this.gameMode = Constants.GameMode.COMPASS;
+//		}
 		this.game = game;
 		this.render();
 	}
