@@ -45,7 +45,7 @@ public abstract class Game implements Serializable {
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(SCREEN_MIDPOINT_X, PLAYER_START_Y));
-		this.gameRoot.getChildren().add(playerBall.getBallRoot());
+		this.gameRoot.getChildren().add(playerBall.getBallSVG());
 //		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
 		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -100), CIRCLE_RADIUS, true);
 		this.topObstacle.getObstacleRoot().toBack();
@@ -150,7 +150,8 @@ public abstract class Game implements Serializable {
 				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.START_GAME) && !gameController.getPausePopupController().isOpened()){
 //					System.out.println(playerBall.getYPosition());
 					gameController.getScoreText().setText(Integer.toString(currentScore));
-					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS)) {
+//					System.out.println(playerBall.getYPosition());
+					if (playerBall.getYPosition() > (SCREEN_SIZE_Y + PLAYER_RADIUS)) {
 						gameController.endGame();
 					}
 
@@ -258,11 +259,62 @@ public abstract class Game implements Serializable {
 	 */
 	public abstract boolean isScrollRequired();
 
+//	From Extra features branch
+//	public boolean isScrollRequired() {
+//		return (this.getPlayerBall().getBallSVG().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START < -SCROLL_THRESHOLD);
+//	}
+
 
 	/**
 	 * Scrolls everything on the screen(obstacles, stars, player and colour switch
 	 * balls). The scroll length is determined by the y value of the player ball.
 	 */
+//	From extra features public void scrollScreen() {
+//		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallSVG().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START);
+//		this.lengthOfScroll += lengthOfScroll;
+//		this.scrollAnimations = new ArrayList<>();
+//		// Generate new game elements when they are above NEW_OBSTACLE_SCROLL_THRESHOLD
+//		double topDistance = getDistanceOfTop();
+//		if (topDistance > NEW_OBSTACLE_SCROLL_THRESHOLD) {
+//			this.generateGameElements();
+//		}
+//
+//		//Translate all obstacles
+//		for (Obstacle obstacle : listOfObstacles) {
+//			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
+//			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
+//			scrollDown.setByY(lengthOfScroll);
+//			scrollDown.setCycleCount(1);
+//			scrollDown.play();
+//			scrollAnimations.add(scrollDown);
+//		}
+//		// Translate all colour switches
+//		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
+//			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), colourSwitchBall.root);
+//			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
+//			scrollDown.setByY(lengthOfScroll);
+//			scrollDown.setCycleCount(1);
+//			scrollDown.play();
+//			scrollAnimations.add(scrollDown);
+//		}
+//		// Translate all stars
+//		for (Star star : listOfStar) {
+//			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.starRoot);
+//			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
+//			scrollDown.setByY(lengthOfScroll);
+//			scrollDown.setCycleCount(1);
+//			scrollDown.play();
+//			scrollAnimations.add(scrollDown);
+//		}
+//		// Translate the playerBall
+//		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallSVG());
+//		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
+//		scrollDown.setByY(lengthOfScroll);
+//		scrollDown.setCycleCount(1);
+//		scrollDown.play();
+//		scrollAnimations.add(scrollDown);
+//	}
+
 	public abstract void scrollScreen();
 
 	/**

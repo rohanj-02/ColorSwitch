@@ -42,7 +42,7 @@ public class ColourSwitchBall extends CollectableBall {
 	 */
 	public void changeColour(PlayerBall ball) {
 		if (!colourChanged) {
-			ball.getBallRoot().setFill(Constants.COLOUR_PALETTE[counter]);
+			ball.getBallSVG().setFill(Constants.COLOUR_PALETTE[counter]);
 			colourChanged = true;
 		}
 		counter++;
@@ -68,7 +68,7 @@ public class ColourSwitchBall extends CollectableBall {
 	public boolean isCollision(PlayerBall ball) {
 		boolean collisionDetected = false;
 
-		Shape intersect = Shape.intersect(arcList[0], ball.getBallRoot());
+		Shape intersect = Shape.intersect(arcList[0], ball.getBallSVG());
 		if (intersect.getBoundsInLocal().getWidth() != -1) {
 			collisionDetected = true;
 		}

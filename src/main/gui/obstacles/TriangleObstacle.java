@@ -106,8 +106,8 @@ public class TriangleObstacle extends Obstacle {
 		boolean collisionDetected = false;
 
 		for (int i = 0; i < edges.length; i++) {
-			Shape intersect = Shape.intersect(edges[i], ball.getBallRoot());
-			if (edges[i].getStroke() != ball.getBallRoot().getFill()) {
+			Shape intersect = Shape.intersect(edges[i], ball.getBallSVG());
+			if (edges[i].getStroke() != ball.getBallSVG().getFill()) {
 				if (intersect.getBoundsInLocal().getWidth() != -1) {
 					collisionDetected = true;
 				}

@@ -95,8 +95,8 @@ public class CircleObstacle extends Obstacle {
 //		System.out.println("Angle: "+this.rotAnimation.getAngle());
 
 		for (int i = 0; i < arcList.length; i++) {
-			Shape intersect = Shape.intersect(arcList[i], ball.getBallRoot());
-			if (arcList[i].getStroke() != ball.getBallRoot().getFill()) {
+			Shape intersect = Shape.intersect(arcList[i], ball.getBallSVG());
+			if (arcList[i].getStroke() != ball.getBallSVG().getFill()) {
 				if (intersect.getBoundsInLocal().getWidth() != -1) {
 					collisionDetected = true;
 				}
