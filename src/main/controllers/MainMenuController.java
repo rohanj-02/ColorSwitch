@@ -17,13 +17,13 @@ public class MainMenuController extends LayoutController {
 	public void onNewGameClick(MouseEvent mouseEvent) {
 //		this.increaseStage();
 		this.parentController.playClickSound();
-		this.parentController.setGameStage(Constants.GameStage.STARTGAME);
+		this.parentController.setGameStage(Constants.GameStage.GAME_MODE_SELECTION);
 	}
 
 	@FXML
 	public void onLoadGameClick(MouseEvent mouseEvent) {
 		this.parentController.playClickSound();
-		this.increaseStage();
+		this.parentController.setGameStage(Constants.GameStage.SELECT_SAVED);
 	}
 
 	@FXML

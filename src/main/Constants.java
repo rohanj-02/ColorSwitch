@@ -31,7 +31,7 @@ public class Constants {
 
 	// MAX UID = 14 Game Element
 	public enum GameStage {
-		LOADING, LANDING, LOGIN, MAINMENU, SELECTSAVED, STARTGAME
+		LOADING, LANDING, LOGIN, MAIN_MENU, GAME_MODE_SELECTION, SELECT_SAVED, START_GAME;
 	}
 
 	public enum GameMode {

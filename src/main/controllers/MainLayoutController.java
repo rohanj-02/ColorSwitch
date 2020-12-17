@@ -27,6 +27,8 @@ import main.menu.MainMenu;
 import java.io.*;
 import java.nio.file.Paths;
 
+//TODO Change serialisation s.t. the name of load game is Compass game 1 and Classic game 1 instead of Load Game 1
+
 import static main.Constants.*;
 
 public class MainLayoutController extends AnchorPane {
@@ -66,6 +68,14 @@ public class MainLayoutController extends AnchorPane {
 	private StartGameController gameController;
 	private Scene mainScene;
 	private GameMode gameMode;
+
+	public GameMode getGameMode() {
+		return gameMode;
+	}
+
+	public void setGameMode(GameMode gameMode) {
+		this.gameMode = gameMode;
+	}
 
 	// TODO change MainMenu design to Singleton
 	public MainLayoutController(Stage primaryStage) {
@@ -186,20 +196,23 @@ public class MainLayoutController extends AnchorPane {
 					this.loadStage("Login.fxml");
 					((LoginController) this.bottomPaneController).setButtonText(this.isLogin() ? "Login" : "Signup");
 					break;
-				case MAINMENU:
+				case MAIN_MENU:
 					this.loadStage("MainMenu.fxml");
 					break;
-				case SELECTSAVED:
-					this.loadStage("LoadGame2.fxml");
+				case SELECT_SAVED:
+					this.loadStage("LoadGame.fxml");
 					((LoadGameController) this.bottomPaneController).setNumberOfGames(this.mainMenu.getNumberOfGames());
 					break;
-				case STARTGAME:
+				case GAME_MODE_SELECTION:
+					this.loadStage("GameMode.fxml");
+					break;
+				case START_GAME:
 					this.loadNewGame("GameScreen.fxml", this.gameMode);
 					break;
 				default:
 					return;
 			}
-			if (gameStage != GameStage.STARTGAME) {
+			if (gameStage != GameStage.START_GAME) {
 				this.bottomPaneController.setParentController(this);
 				this.backButton.setVisible(this.gameStage != GameStage.LANDING);
 			}
@@ -302,8 +315,8 @@ public class MainLayoutController extends AnchorPane {
 		this.gameController = fxmlLoader.getController();
 
 		this.gameController.setPrimaryStage(this.primaryStage);
-		this.gameController.render();
-		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
+//		this.gameController.render();
+//		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
 //		Scene scene = this.getScene();
 //		this.primaryStage = (Stage) scene.getWindow();
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
@@ -323,14 +336,14 @@ public class MainLayoutController extends AnchorPane {
 		AnchorPane newRoot = fxmlLoader.load();
 		this.gameController = fxmlLoader.getController();
 		this.gameController.setPrimaryStage(this.primaryStage);
-		this.gameController.render();
-		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
+//		this.gameController.render();
+//		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
 //		Scene scene = this.getScene();
 //		this.primaryStage = (Stage) scene.getWindow();
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
 		this.primaryStage.show();
 		this.gameController.setMainLayoutController(this);
-		this.gameController.setGameMode(this.gameMode);
+		this.gameController.setGameMode(this.gameMode); // TODO This game mode will be null at that time, set it according to type of game object!
 		this.gameController.setLoadedGame(game);
 		this.mainMenu.addGame(game);
 		this.mainMenu.addPlayerToGame(game);
@@ -359,7 +372,7 @@ public class MainLayoutController extends AnchorPane {
 
 	public void loadGame(int index) throws GameDoesNotExistException {
 		Game loadedGame = this.mainMenu.getGame(index);
-		this.gameStage = GameStage.STARTGAME;
+		this.gameStage = GameStage.START_GAME;
 		try {
 			this.loadSavedGame(loadedGame);
 		} catch (IOException e) {

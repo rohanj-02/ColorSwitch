@@ -164,7 +164,7 @@ public abstract class Game implements Serializable {
 
 			@Override
 			public void handle(Event event) {
-				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME) && !gameController.getPausePopupController().isOpened()){
+				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.START_GAME) && !gameController.getPausePopupController().isOpened()){
 					System.out.println(playerBall.getYPosition());
 					gameController.getScoreText().setText(Integer.toString(currentScore));
 					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS)) {

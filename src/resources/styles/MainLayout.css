@@ -63,3 +63,8 @@ Vbox {
 .background-dark {
     -fx-background-color: #272727;
 }
+
+.timer-button{
+    -fx-background-color: #272727;
+    -fx-opaque-insets: 25%;
+}

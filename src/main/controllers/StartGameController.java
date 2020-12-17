@@ -1,6 +1,5 @@
 package main.controllers;
 
-import javafx.animation.Animation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,11 +16,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import main.Constants;
-import main.gui.PlayerBall;
-import main.logic.ClassicGame;
-import main.logic.CompassGame;
 import main.logic.Game;
 import main.logic.GameFactory;
 
@@ -31,6 +26,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+
+//TODO ball just vanishes sometimes? This might be related to Space + P but it happened 2 times without clicking p. So some issue in gravity end or something like that
 
 public class StartGameController implements Initializable {
 
@@ -91,7 +88,9 @@ public class StartGameController implements Initializable {
 	}
 
 	public void setLoadedGame(Game game) throws IOException {
-		this.game.destroyGame();
+		if(this.game != null){
+			this.game.destroyGame();
+		}
 		this.game = game;
 		this.game.setGameController(this);
 		this.game.init();
@@ -162,8 +161,10 @@ public class StartGameController implements Initializable {
 	}
 
 	public void destroyGame() {
-		this.game.destroyGame();
-		this.rootPane.getChildren().remove(this.game.getGameRoot());
+		if(this.game != null){
+			this.game.destroyGame();
+			this.rootPane.getChildren().remove(this.game.getGameRoot());
+		}
 	}
 
 	public Text getScoreText() {
@@ -206,7 +207,9 @@ public class StartGameController implements Initializable {
 	}
 
 	public void setGame(Game game) {
-		this.game.destroyGame();
+		if(this.game != null){
+			this.game.destroyGame();
+		}
 		// Should calll setGameMode also along with this method or setLoadedGame method
 //		if(game.getClass() == ClassicGame.class){
 //			this.gameMode = Constants.GameMode.CLASSIC;
@@ -279,7 +282,7 @@ public class StartGameController implements Initializable {
 	public void closeGame() {
 		this.hideAllPopups();
 		this.destroyGame();
-		this.mainLayoutController.setGameStage(Constants.GameStage.MAINMENU);
+		this.mainLayoutController.setGameStage(Constants.GameStage.MAIN_MENU);
 		this.mainLayoutController.deleteGame();
 		this.mainLayoutController.setSceneToMain();
 		this.primaryStage.show();
