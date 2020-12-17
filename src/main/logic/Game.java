@@ -169,13 +169,13 @@ public class Game implements Serializable {
 //					System.out.println(playerBall.getYPosition());
 					gameController.getScoreText().setText(Integer.toString(currentScore));
 					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS)) {
-						gameController.endGame();
+//						gameController.endGame();
 					}
 
 					for (Obstacle obstacle : listOfObstacles) {
 						if (obstacle.isCollision(playerBall)) {
 							if(!immunity){
-								gameController.endGame();
+//								gameController.endGame();
 								gameController.getScoreText().setText(Integer.toString(currentScore));
 							}
 							immunity = true;
@@ -287,9 +287,14 @@ public class Game implements Serializable {
 			this.generateGameElements();
 		}
 
+		double duration = 1000;
+		if(this.listOfObstacles.size() > 10){
+			duration = 500;
+		}
+
 		//Translate all obstacles
 		for (Obstacle obstacle : listOfObstacles) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(duration), obstacle.getObstacleRoot());
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
@@ -298,7 +303,7 @@ public class Game implements Serializable {
 		}
 		// Translate all colour switches
 		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), colourSwitchBall.root);
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(duration), colourSwitchBall.root);
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
@@ -307,7 +312,7 @@ public class Game implements Serializable {
 		}
 		// Translate all stars
 		for (Star star : listOfStar) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.starRoot);
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(duration), star.starRoot);
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
@@ -315,7 +320,7 @@ public class Game implements Serializable {
 			scrollAnimations.add(scrollDown);
 		}
 		// Translate the playerBall
-		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
+		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(duration), this.playerBall.getBallRoot());
 		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 		scrollDown.setByY(lengthOfScroll);
 		scrollDown.setCycleCount(1);
