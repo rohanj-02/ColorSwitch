@@ -29,8 +29,10 @@ public class CompassGame extends Game{
 	}
 
 	private void populateLevel() {
-
-
+		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
+		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 250), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
+		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X + 50, 200 ), STAR_POINTS));
+		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X + 100, 100), COLOUR_SWITCH_RADIUS));
 	}
 
 	public int isScrollRequiredX(){
@@ -57,29 +59,53 @@ public class CompassGame extends Game{
 
 	@Override
 	public boolean isScrollRequired() {
-		int flagX = isScrollRequiredX();
-		int flagY = isScrollRequiredY();
-		if(flagX == 1){
-			if(flagY == 0){
-				this.scrollDirection = DirectionSwitcher.Direction.RIGHT;
+		if(this.playerBall.getDirectionY() == 1){
+			if(this.playerBall.getDirectionX() == 0){
+				this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT;
+				return isScrollRequiredY() == 1;
 			}
-			else if(flagY == 1){
-				this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT_RIGHT;
+			else if(this.playerBall.getDirectionX() == -1){
+				int flagX = isScrollRequiredX();
+				int flagY = isScrollRequiredY();
+				if(flagX == 1){
+					this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT_RIGHT;
+					return flagY == 1;
+				}
+			}
+			else if(this.playerBall.getDirectionX() == 1){
+				int flagX = isScrollRequiredX();
+				int flagY = isScrollRequiredY();
+				if(flagX == -1){
+					this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT_RIGHT;
+					return flagY == 1;
+				}
 			}
 		}
-		else if(flagX == 0 && flagY == 1){
-			this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT;
-		}
-		else if(flagX == -1){
-			if(flagY == 0){
-				this.scrollDirection = DirectionSwitcher.Direction.LEFT;
-			}
-			else if(flagY == 1){
-				this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT_LEFT;
-			}
-		}
-		System.out.println(this.scrollDirection);
-		return flagX != 0 || flagY != 0;
+		return false;
+
+//		int flagX = isScrollRequiredX();
+//		int flagY = isScrollRequiredY();
+//		if(flagX == 1){
+//			if(flagY == 0){
+//				this.scrollDirection = DirectionSwitcher.Direction.RIGHT;
+//			}
+//			else if(flagY == 1){
+//				this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT_RIGHT;
+//			}
+//		}
+//		else if(flagX == 0 && flagY == 1){
+//			this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT;
+//		}
+//		else if(flagX == -1){
+//			if(flagY == 0){
+//				this.scrollDirection = DirectionSwitcher.Direction.LEFT;
+//			}
+//			else if(flagY == 1){
+//				this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT_LEFT;
+//			}
+//		}
+//		System.out.println(this.scrollDirection);
+//		return flagX != 0 || flagY != 0;
 	}
 
 	public double computeLengthOfScrollX(){
@@ -91,7 +117,7 @@ public class CompassGame extends Game{
 				break;
 			case STRAIGHT_RIGHT:
 			case RIGHT:
-				lengthOfScroll = Math.abs( -SCROLL_THRESHOLD_X + this.playerBall.getBallRoot().getTranslateX() + this.getPlayerBall().getPosX() - PLAYER_START_X);
+				lengthOfScroll = -Math.abs( -SCROLL_THRESHOLD_X + this.playerBall.getBallRoot().getTranslateX() + this.getPlayerBall().getPosX() - PLAYER_START_X);
 				break;
 			default:
 				lengthOfScroll = 0;
@@ -104,8 +130,10 @@ public class CompassGame extends Game{
 		double lengthOfScroll;
 		switch(this.scrollDirection){
 			case STRAIGHT:
-			case STRAIGHT_LEFT:
+				lengthOfScroll = Math.abs(SCROLL_THRESHOLD_Y + this.playerBall.getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START_Y);
+				break;
 			case STRAIGHT_RIGHT:
+			case STRAIGHT_LEFT:
 				lengthOfScroll = Math.abs(COMPASS_SCROLL_THRESHOLD_Y + this.playerBall.getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START_Y);
 				break;
 			default:
@@ -119,48 +147,74 @@ public class CompassGame extends Game{
 	public void scrollScreen() {
 		double lengthOfScrollX = computeLengthOfScrollX();
 		double lengthOfScrollY = computeLengthOfScrollY();
+		double lengthOfScroll = Math.min(Math.abs(lengthOfScrollX), Math.abs(lengthOfScrollY));
+		lengthOfScrollX = (lengthOfScrollX/ Math.abs(lengthOfScrollX)) * lengthOfScroll;
+		lengthOfScrollY = (lengthOfScrollY/ Math.abs(lengthOfScrollY)) * lengthOfScroll;
+
 		this.scrollAnimations = new ArrayList<>();
 
 		System.out.println("Length of scrolls : X: " + lengthOfScrollX + ", Y: " + lengthOfScrollY);
 
 		//Translate all obstacles
 		for (Obstacle obstacle : listOfObstacles) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
-			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
-			scrollDown.setByY(lengthOfScrollY);
-			scrollDown.setByX(lengthOfScrollX);
-			scrollDown.setCycleCount(1);
-			scrollDown.play();
-			scrollAnimations.add(scrollDown);
+			TranslateTransition scrollDownX = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
+			scrollDownX.setInterpolator(Interpolator.EASE_BOTH);
+			scrollDownX.setByX(lengthOfScrollX);
+			scrollDownX.setCycleCount(1);
+			scrollDownX.play();
+			scrollAnimations.add(scrollDownX);
+			TranslateTransition scrollDownY = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
+			scrollDownY.setInterpolator(Interpolator.EASE_BOTH);
+			scrollDownY.setByY(lengthOfScrollY);
+			scrollDownY.setCycleCount(1);
+			scrollDownY.play();
+			scrollAnimations.add(scrollDownY);
+
 		}
 		// Translate all colour switches
 		for (CollectableBall collectableBall : listOfSwitch) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), collectableBall.getRoot());
-			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
-			scrollDown.setByY(lengthOfScrollY);
-			scrollDown.setByX(lengthOfScrollX);
-			scrollDown.setCycleCount(1);
-			scrollDown.play();
-			scrollAnimations.add(scrollDown);
+			TranslateTransition scrollDownX = new TranslateTransition(Duration.millis(1000), collectableBall.getRoot());
+			scrollDownX.setInterpolator(Interpolator.EASE_BOTH);
+			scrollDownX.setByX(lengthOfScrollX);
+			scrollDownX.setCycleCount(1);
+			scrollDownX.play();
+			scrollAnimations.add(scrollDownX);
+			TranslateTransition scrollDownY = new TranslateTransition(Duration.millis(1000), collectableBall.getRoot());
+			scrollDownY.setInterpolator(Interpolator.EASE_BOTH);
+			scrollDownY.setByY(lengthOfScrollY);
+			scrollDownY.setCycleCount(1);
+			scrollDownY.play();
+			scrollAnimations.add(scrollDownY);
 		}
 		// Translate all stars
 		for (Star star : listOfStar) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.starRoot);
-			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
-			scrollDown.setByY(lengthOfScrollY);
-			scrollDown.setByX(lengthOfScrollX);
-			scrollDown.setCycleCount(1);
-			scrollDown.play();
-			scrollAnimations.add(scrollDown);
+			TranslateTransition scrollDownX = new TranslateTransition(Duration.millis(1000), star.starRoot);
+			scrollDownX.setInterpolator(Interpolator.EASE_BOTH);
+			scrollDownX.setByX(lengthOfScrollX);
+			scrollDownX.setCycleCount(1);
+			scrollDownX.play();
+			scrollAnimations.add(scrollDownX);
+			TranslateTransition scrollDownY = new TranslateTransition(Duration.millis(1000), star.starRoot);
+			scrollDownY.setInterpolator(Interpolator.EASE_BOTH);
+			scrollDownY.setByY(lengthOfScrollY);
+			scrollDownY.setCycleCount(1);
+			scrollDownY.play();
+			scrollAnimations.add(scrollDownY);
 		}
 		// Translate the playerBall
-		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
-		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
-		scrollDown.setByY(lengthOfScrollY);
-		scrollDown.setByX(lengthOfScrollX);
-		scrollDown.setCycleCount(1);
-		scrollDown.play();
-		scrollAnimations.add(scrollDown);
+
+		TranslateTransition scrollDownX = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
+		scrollDownX.setInterpolator(Interpolator.EASE_BOTH);
+		scrollDownX.setByX(lengthOfScrollX);
+		scrollDownX.setCycleCount(1);
+		scrollDownX.play();
+		scrollAnimations.add(scrollDownX);
+		TranslateTransition scrollDownY = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
+		scrollDownY.setInterpolator(Interpolator.EASE_BOTH);
+		scrollDownY.setByY(lengthOfScrollY);
+		scrollDownY.setCycleCount(1);
+		scrollDownY.play();
+		scrollAnimations.add(scrollDownY);
 	}
 
 	@Override

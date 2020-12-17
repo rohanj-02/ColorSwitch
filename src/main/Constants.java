@@ -7,7 +7,7 @@ public class Constants {
 	public static final Color[] COLOUR_PALETTE = {Color.rgb(250, 225, 0), Color.rgb(144, 13, 255), Color.rgb(255, 1, 129), Color.rgb(50, 219, 240)};
 	public static final double SCREEN_MIDPOINT_X = 250;
 	public static final double SCROLL_THRESHOLD_Y = 200;
-	public static final double COMPASS_SCROLL_THRESHOLD_Y = 100;
+	public static final double COMPASS_SCROLL_THRESHOLD_Y = 300;
 	public static final double SCROLL_THRESHOLD_X = 0;
 	public static final double SCREEN_MIDPOINT_Y = 350;
 
