@@ -53,8 +53,8 @@ public class PlayerBall extends GameElement {
 		String path = Constants.pathList[path_count];
 		ballSVG = new SVGPath();
 		ballSVG.setContent(path);
-		ballSVG.setLayoutX(this.getPosX());
-		ballSVG.setLayoutY(this.getPosY());
+		this.ballSVG.setLayoutX(position.getX() - this.ballSVG.getLayoutBounds().getWidth() / 2);
+		this.ballSVG.setLayoutY(position.getY() - this.ballSVG.getLayoutBounds().getHeight() / 2);
 //		this.rotAnimationTimeline = new Timeline();
 //		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.rotAnimation = new RotateTransition();

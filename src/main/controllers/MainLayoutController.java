@@ -306,8 +306,8 @@ public class MainLayoutController extends AnchorPane {
 		this.gameController = fxmlLoader.getController();
 
 		this.gameController.setPrimaryStage(this.primaryStage);
-		this.gameController.render();
-		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
+//		this.gameController.render();
+//		this.gameController.getGame().setPlayer(this.mainMenu.getCurrentPlayer());
 //		Scene scene = this.getScene();
 //		this.primaryStage = (Stage) scene.getWindow();
 		this.primaryStage.setScene(new Scene(newRoot, SCREEN_SIZE_X, SCREEN_SIZE_Y));
@@ -315,6 +315,8 @@ public class MainLayoutController extends AnchorPane {
 		this.gameController.setMainLayoutController(this);
 		Game game = new Game(this.gameController);
 		this.gameController.setGame(game);
+		this.gameController.render();
+		this.primaryStage.show();
 		this.mainMenu.addGame(game);
 		this.mainMenu.addPlayerToGame(game);
 	}
