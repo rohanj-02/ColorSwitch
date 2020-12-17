@@ -18,17 +18,16 @@ public class CompassGame extends Game{
 	public CompassGame(StartGameController gameController) {
 		super(gameController);
 
-		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 350), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.RIGHT));
+		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 350), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
 //		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 400), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.LEFT));
-		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 450), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.LEFT));
-		for (CollectableBall collectableBall : this.listOfSwitch) {
-			collectableBall.render(this.gameRoot);
-		}
+		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 450), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
+		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X + 100, 350), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_LEFT));
+		this.render();
 	}
 
 	@Override
 	public boolean isScrollRequired() {
-		return (this.getPlayerBall().getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START < -SCROLL_THRESHOLD);
+		return (this.getPlayerBall().getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START < -SCROLL_THRESHOLD_Y);
 	}
 
 	/**
@@ -42,7 +41,7 @@ public class CompassGame extends Game{
 
 	@Override
 	public void scrollScreen() {
-		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD + this.playerBall.getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START);
+		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD_Y + this.playerBall.getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START);
 		this.scrollAnimations = new ArrayList<>();
 		// Generate new game elements when they are above NEW_OBSTACLE_SCROLL_THRESHOLD
 		double topDistance = getDistanceOfTop();

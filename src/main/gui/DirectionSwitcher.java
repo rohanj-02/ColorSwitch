@@ -10,11 +10,7 @@ import java.io.Serializable;
 public class DirectionSwitcher extends CollectableBall{
 
 	public enum Direction implements Serializable {
-		STRAIGHT(1), LEFT(0), RIGHT(2);
-		private int value;
-		Direction(int value){
-			this.value=value;
-		}
+		STRAIGHT, STRAIGHT_LEFT, STRAIGHT_RIGHT, LEFT, RIGHT;
 	}
 
 	public static final long serialVersionUID = 10;
@@ -52,11 +48,17 @@ public class DirectionSwitcher extends CollectableBall{
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 		double angle = 0;
-		if(direction == Direction.LEFT){
+		if(direction == Direction.STRAIGHT_LEFT){
 			angle = 315;
 		}
-		else if(direction == Direction.RIGHT){
+		else if(direction == Direction.STRAIGHT_RIGHT){
 			angle = 45;
+		}
+		else if(direction == Direction.RIGHT){
+			angle = 90;
+		}
+		else if(direction == Direction.LEFT){
+			angle = 270;
 		}
 		this.directionSVG.setRotate(angle);
 	}
@@ -77,11 +79,25 @@ public class DirectionSwitcher extends CollectableBall{
 	private void changeDirection(PlayerBall ball) {
 		// LEFT RIGHT TO STRAIGHT DOES NOT WORK.
 		if(!this.directionChanged){
-			if(this.direction == Direction.LEFT){
+			if(this.direction == Direction.STRAIGHT_LEFT){
 				ball.setDirectionX(-1);
+				ball.setDirectionY(1);
+			}
+			else if(this.direction == Direction.STRAIGHT_RIGHT){
+				ball.setDirectionX(1);
+				ball.setDirectionY(1);
 			}
 			else if(this.direction == Direction.RIGHT){
 				ball.setDirectionX(1);
+				ball.setDirectionY(0);
+			}
+			else if(this.direction == Direction.LEFT){
+				ball.setDirectionX(-1);
+				ball.setDirectionY(0);
+			}
+			else if(this.direction == Direction.STRAIGHT){
+				ball.setDirectionX(0);
+				ball.setDirectionY(1);
 			}
 			else{
 				ball.setDirectionX(0);

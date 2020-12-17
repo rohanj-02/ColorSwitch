@@ -47,7 +47,6 @@ public class PlayerBall extends GameElement {
 
 	public PlayerBall(Point position, int directionX, int directionY){
 		this.setPosition(position);
-		this.setDirection(directionX, directionY);
 		this.pausePosition = new Point(position);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
@@ -60,6 +59,7 @@ public class PlayerBall extends GameElement {
 			System.out.println("Gravity finished");
 //			gameController.simulateEnd();
 		});
+		this.setDirection(directionX, directionY);
 	}
 
 	private void setDirection(int directionX, int directionY) {
@@ -81,6 +81,10 @@ public class PlayerBall extends GameElement {
 
 	public void setDirectionY(int directionY) {
 		this.directionY = directionY;
+		if(this.directionY == 0){
+			this.gravityTransition.pause();
+			this.currentJump.pause();
+		}
 	}
 
 	public double getAngularVelocity() {
@@ -119,7 +123,7 @@ public class PlayerBall extends GameElement {
 	 * Makes the ball jump according to the jumpSize of the ball
 	 */
 	public void jump() {
-		if (this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
+		if (this.directionY == 1 && this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
 			this.gravityTransition.playFrom(Duration.millis(5000));
 		}
 		TranslateTransition jump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
@@ -134,7 +138,16 @@ public class PlayerBall extends GameElement {
 		else if(this.directionX == 0){
 			jump.setByX(0);
 		}
-		jump.setByY(jumpSize);
+		if(this.directionY == 1){
+			// On for compass
+			jump.setByY(jumpSize);
+		}
+		else if(this.directionY == -1){
+			jump.setByY(-jumpSize);
+		}
+		else if(this.directionY == 0){
+			jump.setByY(0);
+		}
 		jump.setCycleCount(1);
 		jump.play();
 		this.currentJump = jump;

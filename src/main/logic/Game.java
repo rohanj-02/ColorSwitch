@@ -59,18 +59,6 @@ public abstract class Game implements Serializable {
 		checkCollision();
 //		printTranslationY();
 //
-		for (Obstacle obstacle : this.listOfObstacles) {
-			obstacle.render(this.gameRoot);
-			obstacle.play();
-		}
-		for (Star star : this.listOfStar) {
-			star.render(this.gameRoot);
-		}
-
-		for (CollectableBall collectableBall : listOfSwitch) {
-			collectableBall.render(this.gameRoot);
-		}
-
 	}
 
 	public StartGameController getGameController() {
@@ -212,6 +200,20 @@ public abstract class Game implements Serializable {
 		this.collisionTimeline.setCycleCount(Animation.INDEFINITE);
 		this.collisionTimeline.getKeyFrames().add(oneFrame);
 		this.collisionTimeline.play();
+	}
+
+	public void render(){
+		for (Obstacle obstacle : this.listOfObstacles) {
+			obstacle.render(this.gameRoot);
+			obstacle.play();
+		}
+		for (Star star : this.listOfStar) {
+			star.render(this.gameRoot);
+		}
+
+		for (CollectableBall collectableBall : listOfSwitch) {
+			collectableBall.render(this.gameRoot);
+		}
 	}
 
 	/**

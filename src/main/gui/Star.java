@@ -87,7 +87,7 @@ public class Star extends GameElement implements Collidable {
 
 	@Override
 	public void setPosition() {
-		Point point = new Point(SCREEN_MIDPOINT_X, this.starRoot.getTranslateY() + this.starRoot.getLayoutY() + this.getPosY());
+		Point point = new Point(this.starRoot.getTranslateX() + this.starRoot.getLayoutX() + this.getPosX(), this.starRoot.getTranslateY() + this.starRoot.getLayoutY() + this.getPosY());
 		this.setPosition(point);
 	}
 
