@@ -54,8 +54,9 @@ public class ColourSwitchBall extends CollectableBall {
 	@Override
 	public void render(Group root) {
 		if (this.root.getChildren().containsAll(Arrays.asList(this.arcList))) {
-			this.root.getChildren().removeAll(this.arcList);
-			root.getChildren().removeAll(this.root);
+//			this.root.getChildren().removeAll(this.arcList);
+//			root.getChildren().removeAll(this.root);
+			return;
 		} else {
 			this.root.getChildren().addAll(this.arcList);
 			root.getChildren().addAll(this.root);

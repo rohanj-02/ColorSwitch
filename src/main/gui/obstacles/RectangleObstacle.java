@@ -87,8 +87,9 @@ public class RectangleObstacle extends Obstacle {
 
 	public void render(Group root) {
 		if (this.obstacleRoot.getChildren().containsAll(Arrays.asList(this.lineList))) {
-			this.obstacleRoot.getChildren().removeAll(this.lineList);
-			root.getChildren().removeAll(this.obstacleRoot);
+//			this.obstacleRoot.getChildren().removeAll(this.lineList);
+//			root.getChildren().removeAll(this.obstacleRoot);
+			return;
 		} else {
 			this.obstacleRoot.getChildren().addAll(this.lineList);
 			root.getChildren().addAll(this.obstacleRoot);

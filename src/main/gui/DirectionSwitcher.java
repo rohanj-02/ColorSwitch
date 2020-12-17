@@ -63,7 +63,9 @@ public class DirectionSwitcher extends CollectableBall{
 
 	@Override
 	public void render(Group root) {
-		this.root.getChildren().add(this.directionSVG);
+		if(!this.root.getChildren().contains(this.directionSVG)){
+			this.root.getChildren().add(this.directionSVG);
+		}
 		root.getChildren().addAll(this.root);
 	}
 

@@ -84,8 +84,9 @@ public class TriangleObstacle extends Obstacle {
 
 	public void render(Group root) {
 		if (this.obstacleRoot.getChildren().containsAll(Arrays.asList(this.edges))) {
-			this.obstacleRoot.getChildren().removeAll(this.edges);
-			root.getChildren().removeAll(this.obstacleRoot);
+//			this.obstacleRoot.getChildren().removeAll(this.edges);
+//			root.getChildren().removeAll(this.obstacleRoot);
+			return;
 		} else {
 			this.obstacleRoot.getChildren().addAll(this.edges);
 			root.getChildren().addAll(this.obstacleRoot);

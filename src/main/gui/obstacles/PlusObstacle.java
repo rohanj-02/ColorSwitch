@@ -85,8 +85,9 @@ public class PlusObstacle extends Obstacle {
 
 	public void render(Group root) {
 		if (this.obstacleRoot.getChildren().containsAll(Arrays.asList(this.armList))) {
-			this.obstacleRoot.getChildren().removeAll(this.armList);
-			root.getChildren().removeAll(this.obstacleRoot);
+//			this.obstacleRoot.getChildren().removeAll(this.armList);
+//			root.getChildren().removeAll(this.obstacleRoot);
+			return;
 		} else {
 			this.obstacleRoot.getChildren().addAll(this.armList);
 			root.getChildren().addAll(this.obstacleRoot);

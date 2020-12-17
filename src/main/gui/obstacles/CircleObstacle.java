@@ -82,8 +82,7 @@ public class CircleObstacle extends Obstacle {
 
 	public void render(Group root) {
 		if (this.obstacleRoot.getChildren().containsAll(Arrays.asList(this.arcList))) {
-			this.obstacleRoot.getChildren().removeAll(this.arcList);
-			root.getChildren().removeAll(this.obstacleRoot);
+			return;
 		} else {
 			this.obstacleRoot.getChildren().addAll(this.arcList);
 			root.getChildren().addAll(this.obstacleRoot);

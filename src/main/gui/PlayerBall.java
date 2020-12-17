@@ -254,6 +254,8 @@ public class PlayerBall extends GameElement {
 	}
 
 	public void render(Group gameRoot) {
-		gameRoot.getChildren().add(this.ballRoot);
+		if(!gameRoot.getChildren().contains(this.ballRoot)){
+			gameRoot.getChildren().add(this.ballRoot);
+		}
 	}
 }
