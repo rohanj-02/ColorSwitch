@@ -14,6 +14,7 @@ public class ObstacleGroup extends Obstacle{
 
 	public ObstacleGroup(Point generatePoint, Boolean direction, int selection) {
 		this.listOfObstacles = new ArrayList<>();
+		this.setPosition(generatePoint);
 		switch(selection){
 			case 6:
 				listOfObstacles.add(new CircleObstacle(generatePoint, CIRCLE_RADIUS, true));
@@ -54,6 +55,7 @@ public class ObstacleGroup extends Obstacle{
 	public void render(Group root) {
 		for(Obstacle obstacle: listOfObstacles){
 			obstacle.render(root);
+			root.getChildren().addAll(this.obstacleRoot);
 		}
 	}
 

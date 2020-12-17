@@ -169,13 +169,13 @@ public class Game implements Serializable {
 //					System.out.println(playerBall.getYPosition());
 					gameController.getScoreText().setText(Integer.toString(currentScore));
 					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS)) {
-//						gameController.endGame();
+						gameController.endGame();
 					}
 
 					for (Obstacle obstacle : listOfObstacles) {
 						if (obstacle.isCollision(playerBall)) {
 							if(!immunity){
-//								gameController.endGame();
+								gameController.endGame();
 								gameController.getScoreText().setText(Integer.toString(currentScore));
 							}
 							immunity = true;
@@ -362,7 +362,7 @@ public class Game implements Serializable {
 	 */
 	public Color generateObstacles() {
 		// Add fixed size and then size percentage
-		int selection = (int) (Math.random() * 5 + 1);
+		int selection = (int) (Math.random() * DIFFICULTY_LEVEL + 1);
 		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START);
 		boolean direction = Math.random() < 0.5;
 		Obstacle newObstacle = new CircleObstacle(generationPoint, CIRCLE_RADIUS, direction);
@@ -385,6 +385,8 @@ public class Game implements Serializable {
 				generationPoint.setX(0);
 				newObstacle = new LineObstacle(generationPoint, SCREEN_SIZE_X, direction);
 				break;
+			case 6:
+				newObstacle = new ObstacleGroup(generationPoint, direction, selection);
 			default:
 				break;
 		}
@@ -393,7 +395,7 @@ public class Game implements Serializable {
 		this.listOfObstacles.add(newObstacle);
 		newObstacle.render(this.gameRoot);
 		newObstacle.play();
-		if(selection == 2){
+		if(selection == 2 || selection >= 6){
 			return COLOUR_PALETTE[0];
 		}
 		return null;
