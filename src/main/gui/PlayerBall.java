@@ -29,6 +29,8 @@ public class PlayerBall extends GameElement {
 	transient private TranslateTransition gravityTransition;
 	transient private TranslateTransition currentJump;
 	private Point pausePosition;
+	private int directionX;
+	private int directionY;
 
 	transient private Interpolator gravityInterpolator = new Interpolator() {
 		@Override
@@ -40,7 +42,12 @@ public class PlayerBall extends GameElement {
 	//	ut + 1/2 at^2
 
 	public PlayerBall(Point position) {
+		this(position, 1, 1);
+	}
+
+	public PlayerBall(Point position, int directionX, int directionY){
 		this.setPosition(position);
+		this.setDirection(directionX, directionY);
 		this.pausePosition = new Point(position);
 		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
@@ -53,6 +60,27 @@ public class PlayerBall extends GameElement {
 			System.out.println("Gravity finished");
 //			gameController.simulateEnd();
 		});
+	}
+
+	private void setDirection(int directionX, int directionY) {
+		this.setDirectionX(directionX);
+		this.setDirectionY(directionY);
+	}
+
+	public int getDirectionX() {
+		return directionX;
+	}
+
+	public void setDirectionX(int directionX) {
+		this.directionX = directionX;
+	}
+
+	public int getDirectionY() {
+		return directionY;
+	}
+
+	public void setDirectionY(int directionY) {
+		this.directionY = directionY;
 	}
 
 	public double getAngularVelocity() {
@@ -96,9 +124,14 @@ public class PlayerBall extends GameElement {
 		}
 		TranslateTransition jump = new TranslateTransition(Duration.millis(1000), this.ballRoot);
 		jump.setInterpolator(this.gravityInterpolator);
+		if(this.directionX == -1){
+			// On for compass
+			jump.setByX(jumpSize);
+		}
+		else if(this.directionX == 1){
+			jump.setByX(-jumpSize);
+		}
 		jump.setByY(jumpSize);
-		// On for compass
-//		jump.setByX(jumpSize);
 		jump.setCycleCount(1);
 		jump.play();
 		this.currentJump = jump;
@@ -128,11 +161,11 @@ public class PlayerBall extends GameElement {
 	}
 
 	public void setPausePosition(){
-		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
-		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
-		System.out.println(" Ball Pos Y" + this.getPosY());
+//		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
+//		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
+//		System.out.println(" Ball Pos Y" + this.getPosY());
 		this.pausePosition = new Point(SCREEN_MIDPOINT_X, this.ballRoot.getTranslateY() + this.ballRoot.getLayoutY() + this.getPosY());
-		System.out.println("Pause position" + this.pausePosition);
+//		System.out.println("Pause position" + this.pausePosition);
 	}
 
 	public void playGameAfterStar(double collisionY, Game game) {
@@ -181,10 +214,10 @@ public class PlayerBall extends GameElement {
 	public void setPosition() {
 		// ! TO BE CALLED ONLY AFTER PAUSE MENU HAS BEEN CALLED!
 		// Will have to change for compass
-		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
-		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
-		System.out.println(" Ball Pos Y" + this.getPosY());
-		System.out.println("Ball Pause Pos Y " + this.pausePosition.getY());
+//		System.out.println(" Ball Layout Y" + this.ballRoot.getLayoutY());
+//		System.out.println(" Ball Translate Y" + this.ballRoot.getTranslateY());
+//		System.out.println(" Ball Pos Y" + this.getPosY());
+//		System.out.println("Ball Pause Pos Y " + this.pausePosition.getY());
 		Point point = new Point(SCREEN_MIDPOINT_X, this.pausePosition.getY());
 		this.setPosition(point);
 	}

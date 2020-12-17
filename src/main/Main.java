@@ -31,7 +31,7 @@ public class Main extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent windowEvent) {
-				System.out.println("Hello?");
+//				System.out.println("Hello?");
 				windowEvent.consume();
 				confirmAndExit(primaryStage);
 			}
