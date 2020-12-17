@@ -25,12 +25,14 @@ public class GameModeController  extends LayoutController implements Initializab
 
 	public void onClassicModeSelect(MouseEvent mouseEvent) {
 		this.setGameMode(Constants.GameMode.CLASSIC);
-		this.parentController.setGameStage(Constants.GameStage.START_GAME);
+		this.increaseStage();
+//		this.parentController.setGameStage(Constants.GameStage.START_GAME);
 	}
 
 	public void onCompassModeSelect(MouseEvent mouseEvent) {
 		this.setGameMode(Constants.GameMode.COMPASS);
-		this.parentController.setGameStage(Constants.GameStage.START_GAME);
+		this.increaseStage();
+//		this.parentController.setGameStage(Constants.GameStage.START_GAME);
 	}
 
 	public void setGameMode(Constants.GameMode gameMode){

@@ -27,7 +27,8 @@ import main.menu.MainMenu;
 import java.io.*;
 import java.nio.file.Paths;
 
-//TODO Change serialisation s.t. the name of load game is Compass game 1 and Classic game 1 instead of Load Game 1
+// TODO Change serialisation s.t. the name of load game is Compass game 1 and Classic game 1 instead of Load Game 1
+// TODO Pause after load game initialises ball at top
 
 import static main.Constants.*;
 
@@ -233,6 +234,10 @@ public class MainLayoutController extends AnchorPane {
 		} else {
 			this.isTransitioning = true;
 		}
+		if(this.gameStage == GameStage.SELECT_SAVED || this.gameStage == GameStage.GAME_MODE_SELECTION){
+			this.setGameStage(GameStage.START_GAME);
+			return;
+		}
 		for (GameStage iter : GameStage.values()) {
 			if (flag) {
 				this.setGameStage(iter);
@@ -252,6 +257,10 @@ public class MainLayoutController extends AnchorPane {
 	public void decreaseGameStage() {
 
 		GameStage prev = GameStage.LANDING;
+		if(this.gameStage == GameStage.SELECT_SAVED || this.gameStage == GameStage.GAME_MODE_SELECTION){
+			this.setGameStage(GameStage.MAIN_MENU);
+			return;
+		}
 		if (this.isTransitioning) {
 			return;
 		} else {
