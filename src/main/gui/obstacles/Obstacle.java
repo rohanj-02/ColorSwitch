@@ -68,7 +68,7 @@ public abstract class Obstacle extends GameElement implements Collidable {
 		public SolidCircle(Point centre, Color color) {
 			this.setPosition(centre);
 			this.colour = color;
-			this.radius = 5;
+			this.radius = 8;
 			this.element = new Circle(centre.getX(), centre.getY(), this.radius);
 			this.element.setFill(color);
 			this.solidCircleRoot = new Group();
@@ -112,6 +112,18 @@ public abstract class Obstacle extends GameElement implements Collidable {
 		@Override
 		public void setOrientation() {
 			this.setOrientation(0);
+		}
+
+		public Circle getElement() {
+			return element;
+		}
+
+		public Group getSolidCircleRoot() {
+			return solidCircleRoot;
+		}
+
+		public void setSolidCircleRoot(Group solidCircleRoot) {
+			this.solidCircleRoot = solidCircleRoot;
 		}
 
 		@Override

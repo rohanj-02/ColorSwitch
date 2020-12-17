@@ -336,6 +336,8 @@ public class MainLayoutController extends AnchorPane {
 //		\new Game(this.gameController);
 		this.gameController.setGameMode(this.gameMode);
 		this.gameController.setGame(game);
+		this.gameController.render();
+		this.primaryStage.show();
 		this.mainMenu.addGame(game);
 		this.mainMenu.addPlayerToGame(game);
 	}
