@@ -74,6 +74,7 @@ public class PauseController extends AnchorPane {
 		//serialization
 		this.parentController.playClickSound();
 		this.parentController.addToSavedGames();
+		this.parentController.closeGame();
 	}
 
 	public void onExitClicked(MouseEvent mouseEvent) {

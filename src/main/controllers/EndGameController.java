@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import main.exceptions.NotEnoughStarsException;
 
 import java.io.IOException;
 
@@ -53,7 +54,6 @@ public class EndGameController extends AnchorPane {
 		int currentScore = this.parentController.getGame().getCurrentScore();
 		if (currentScore >= REVIVE_AMOUNT) {
 			this.parentController.getGame().setCurrentScore(currentScore - REVIVE_AMOUNT);
-
 			this.parentController.getGame().playGameAfterStar();
 			this.parentController.refreshStage();
 			System.out.println("enough stars");
@@ -61,6 +61,11 @@ public class EndGameController extends AnchorPane {
 		} else {
 			this.getErrorText().setText("Not enough Stars");
 			System.out.println("not enough stars");
+			try {
+				throw new NotEnoughStarsException("Not enough stars");
+			} catch (NotEnoughStarsException e) {
+				e.printStackTrace();
+			}
 		}
 		this.parentController.getScoreText().setText(Integer.toString(currentScore));
 		this.opened = false;

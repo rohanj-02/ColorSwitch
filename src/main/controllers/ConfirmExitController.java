@@ -39,9 +39,8 @@ public class ConfirmExitController {
 		opened = false;
 	}
 
-	//TODO Fix position of popup
 	public void show() {
-		this.popup.show(this.primaryStage, this.primaryStage.getX(), this.primaryStage.getY() + 100);
+		this.popup.show(this.primaryStage, this.primaryStage.getX() + 30, this.primaryStage.getY() + 150);
 		opened = true;
 	}
 

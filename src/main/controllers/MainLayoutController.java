@@ -410,7 +410,7 @@ public class MainLayoutController extends AnchorPane {
 			Media hit = new Media(Paths.get(bip).toUri().toString());
 			AudioClip mediaPlayer = new AudioClip(hit.getSource());
 			mediaPlayer.play();
-			mediaPlayer.setVolume(0.2);
+			mediaPlayer.setVolume(0.1);
 
 		}
 	}

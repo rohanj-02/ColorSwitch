@@ -35,20 +35,13 @@
             </HBox>
         </VBox>
         <VBox alignment="CENTER" prefHeight="109.0" prefWidth="341.0" GridPane.rowIndex="2">
-            <VBox alignment="CENTER" prefHeight="68.0" prefWidth="354.0">
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="color-white" text="10 s" textAlignment="CENTER" wrappingWidth="136.03416442871094">
-                    <font>
-                        <Font size="50.0" />
-                    </font>
-                </Text>
-            </VBox>
             <Button fx:id="reviveButton" mnemonicParsing="false" onMouseClicked="#revivePlayer" prefHeight="34.0" prefWidth="90.0" text="50">
                 <graphic>
                     <SVGPath content="M12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5zM12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5z" />
                 </graphic>
             </Button>
         </VBox>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
+        <VBox alignment="CENTER" prefHeight="102.0" prefWidth="289.0" GridPane.rowIndex="3">
             <Text fx:id="errorText" fill="WHITE" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                 <Button fx:id="restartGameButton" mnemonicParsing="false" onMouseClicked="#restartGame" prefHeight="34.0" prefWidth="90.0">

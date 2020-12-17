@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Shape;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import main.Constants;
@@ -36,12 +37,17 @@ public class CircleObstacle extends Obstacle {
 		this.positiveDirection = positiveDirection;
 
 		for (int i = 0; i < this.arcList.length; i++) {
-			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength, this.arcLength);
 
+			this.arcList[i] = new Arc(this.getPosX(), this.getPosY(), radius, radius, i * this.arcLength, this.arcLength);
+			if(i == 0){
+				this.arcList[i].toFront();
+			}
+			this.arcList[i].toBack();
 			// Remove fill and set stroke
 			this.arcList[i].setFill(Color.rgb(0, 0, 0, 0));
 			this.arcList[i].setStrokeWidth(this.strokeWidth);
 			this.arcList[i].setStroke(Constants.COLOUR_PALETTE[i]);
+			this.arcList[i].setStrokeLineCap(StrokeLineCap.ROUND);
 		}
 
 		this.rotAnimation = new Rotate(0, this.getPosX(), this.getPosY());

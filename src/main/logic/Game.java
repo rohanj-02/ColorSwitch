@@ -51,11 +51,11 @@ public class Game implements Serializable {
 		this.gameRoot = new Group();
 		this.playerBall = new PlayerBall(new Point(SCREEN_MIDPOINT_X, PLAYER_START));
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
-//		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
+		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
 		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
 		this.topObstacle.getObstacleRoot().toBack();
 		this.listOfObstacles.add(this.topObstacle);
-//		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
+		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
 //		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
@@ -393,7 +393,6 @@ public class Game implements Serializable {
 	 * Initialise game after serialization
 	 */
 	public void init() {
-		// TODO After save game needs to be exited
 		// TODO Line obstacle may start in the center after init
 		this.gameRoot = new Group();
 		for (Obstacle obstacle : this.listOfObstacles) {

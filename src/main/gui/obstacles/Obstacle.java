@@ -10,7 +10,7 @@ import main.gui.Point;
 public abstract class Obstacle extends GameElement implements Collidable {
 
 	public static final long serialVersionUID = 4;
-	protected double strokeWidth = 20;
+	protected double strokeWidth = 15;
 	protected boolean positiveDirection;
 	transient protected Group obstacleRoot;
 
