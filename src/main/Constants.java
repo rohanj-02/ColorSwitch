@@ -8,7 +8,8 @@ public class Constants {
 	public static final Color[] COLOUR_PALETTE = {Color.rgb(250, 225, 0), Color.rgb(144, 13, 255), Color.rgb(255, 1, 129), Color.rgb(50, 219, 240)};
 	public static final double SCREEN_MIDPOINT_X = 250;
 	public static final double SCROLL_THRESHOLD_Y = 200;
-	public static final double SCROLL_THRESHOLD_X = 125;
+	public static final double COMPASS_SCROLL_THRESHOLD_Y = 100;
+	public static final double SCROLL_THRESHOLD_X = 0;
 	public static final double SCREEN_MIDPOINT_Y = 350;
 	public static final double SCREEN_SIZE_Y = 700;
 	public static final double SCREEN_SIZE_X = 500;
@@ -28,7 +29,8 @@ public class Constants {
 	public static final String DATABASE_FILENAME = "database.ser";
 	public static final Color BONUS_STAR = Color.YELLOW;
 	public static final Color NORMAL_STAR = Color.WHITE;
-	public static final double PLAYER_START = 600;
+	public static final double PLAYER_START_Y = 600;
+	public static final double PLAYER_START_X = SCREEN_MIDPOINT_X;
 	public static final int REVIVE_AMOUNT = 50;
 	public static final Color DIRECTION_COLOUR = Color.WHITE;
 

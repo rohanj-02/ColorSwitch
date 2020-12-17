@@ -21,7 +21,7 @@ public class ClassicGame extends Game{
 
 	@Override
 	public boolean isScrollRequired() {
-		return (this.getPlayerBall().getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START < -SCROLL_THRESHOLD_Y);
+		return (this.getPlayerBall().getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START_Y < -SCROLL_THRESHOLD_Y);
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class ClassicGame extends Game{
 
 	@Override
 	public void scrollScreen() {
-		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD_Y + this.playerBall.getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START);
+		double lengthOfScroll = Math.abs(SCROLL_THRESHOLD_Y + this.playerBall.getBallRoot().getTranslateY() + this.getPlayerBall().getPosY() - PLAYER_START_Y);
 		this.scrollAnimations = new ArrayList<>();
 		// Generate new game elements when they are above NEW_OBSTACLE_SCROLL_THRESHOLD
 		double topDistance = getDistanceOfTop();

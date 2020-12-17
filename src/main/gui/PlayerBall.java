@@ -207,7 +207,7 @@ public class PlayerBall extends GameElement {
 	}
 
 	public void play(double collisionY) {
-		this.ballRoot.setTranslateY(collisionY - PLAYER_START);
+		this.ballRoot.setTranslateY(collisionY - PLAYER_START_Y);
 //		this.ballRoot.setLayoutY(collisionY);
 		this.ballRoot.setVisible(true);
 		Timer t = new Timer();

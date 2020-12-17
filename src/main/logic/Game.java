@@ -44,7 +44,7 @@ public abstract class Game implements Serializable {
 		this.gameController = gameController;
 		this.listOfObstacles = new ArrayList<>();
 		this.gameRoot = new Group();
-		this.playerBall = new PlayerBall(new Point(SCREEN_MIDPOINT_X, PLAYER_START));
+		this.playerBall = new PlayerBall(new Point(SCREEN_MIDPOINT_X, PLAYER_START_Y));
 		this.gameRoot.getChildren().add(playerBall.getBallRoot());
 //		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 400), CIRCLE_RADIUS, true));
 		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -100), CIRCLE_RADIUS, true);
