@@ -2,7 +2,6 @@ package main.gui;
 
 import javafx.animation.*;
 import javafx.scene.Group;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
@@ -143,6 +142,12 @@ public class PlayerBall extends GameElement {
 		return ballSVG;
 	}
 
+
+	// Kept to not destroy every file, getBallSVG() and getBallRoot() serve the same function
+	public SVGPath getBallRoot(){
+		return ballSVG;
+	}
+
 	public void setBallSVG(SVGPath ballSVG) {
 		this.ballSVG = ballSVG;
 	}
@@ -162,6 +167,7 @@ public class PlayerBall extends GameElement {
 		else {
 			this.posDirection = false;
 		}
+
 		if (this.directionY == 1 && this.gravityTransition.getStatus() != Animation.Status.RUNNING) {
 			this.gravityTransition.playFrom(Duration.millis(5000));
 		}
@@ -300,7 +306,6 @@ public class PlayerBall extends GameElement {
 		ballSVG.setContent(path);
 		ballSVG.setLayoutX(this.getPosX());
 		ballSVG.setLayoutY(this.getPosY());
-//		this.ballRoot = new Circle(this.getPosX(), this.getPosY(), radius);
 		this.currentJump = new TranslateTransition(Duration.millis(1000), this.ballSVG);
 		this.ballSVG.setFill(Constants.COLOUR_PALETTE[0]);
 		this.gravityTransition = new TranslateTransition(Duration.millis(10000), this.ballSVG);

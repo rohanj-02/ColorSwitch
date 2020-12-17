@@ -19,12 +19,18 @@ public class CompassGame extends Game{
 	public CompassGame(StartGameController gameController) {
 		super(gameController);
 
-		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 350), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
-//		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 400), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.LEFT));
-		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 450), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
-		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X + 100, 350), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_LEFT));
+//		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 350), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
+////		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 400), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.LEFT));
+//		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X, 450), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_RIGHT));
+//		this.listOfSwitch.add(new DirectionSwitcher(new Point(SCREEN_MIDPOINT_X + 100, 350), COLOUR_SWITCH_RADIUS, DirectionSwitcher.Direction.STRAIGHT_LEFT));
+		this.populateLevel();
 		this.render();
 		this.scrollDirection = DirectionSwitcher.Direction.STRAIGHT;
+	}
+
+	private void populateLevel() {
+
+
 	}
 
 	public int isScrollRequiredX(){
