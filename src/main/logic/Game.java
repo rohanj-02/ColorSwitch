@@ -143,13 +143,13 @@ public abstract class Game implements Serializable {
 					gameController.getScoreText().setText(Integer.toString(currentScore));
 //					System.out.println(playerBall.getYPosition());
 					if (playerBall.getYPosition() > (SCREEN_SIZE_Y + PLAYER_RADIUS)) {
-//						gameController.endGame();
+						gameController.endGame();
 					}
 
 					for (Obstacle obstacle : listOfObstacles) {
 						if (obstacle.isCollision(playerBall)) {
 							if(!immunity){
-//								gameController.endGame();
+								gameController.endGame();
 								gameController.getScoreText().setText(Integer.toString(currentScore));
 							}
 							immunity = true;

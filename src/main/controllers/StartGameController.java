@@ -247,7 +247,9 @@ public class StartGameController implements Initializable {
 	}
 
 	public void render() {
-		this.rootPane.getChildren().add(this.game.getGameRoot());
+		if(!this.rootPane.getChildren().contains(this.game.getGameRoot())){
+			this.rootPane.getChildren().add(this.game.getGameRoot());
+		}
 	}
 
 	public void refreshStage() {
