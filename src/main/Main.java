@@ -36,6 +36,9 @@ public class Main extends Application {
 				confirmAndExit(primaryStage);
 			}
 		});
+		Constants.DOCUMENT_BASE = this.getHostServices().getDocumentBase();
+		System.out.println(Constants.DOCUMENT_BASE);
+//		System.out.println(this.getHostService s().getCodeBase());
 		primaryStage.show();
 		primaryStage.setResizable(false);
 		primaryStage.setTitle("Color Switch");
@@ -44,7 +47,7 @@ public class Main extends Application {
 	public void confirmAndExit(Stage primaryStage) {
 		ConfirmExitController exitController;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/fxml/ConfirmExit.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/ConfirmExit.fxml"));
 			Parent popup = loader.load();
 			exitController = loader.getController();
 			exitController.setPrimaryStage(primaryStage);

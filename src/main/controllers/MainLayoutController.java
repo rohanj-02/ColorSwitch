@@ -16,6 +16,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.Constants;
 import main.Constants.*;
 import main.exceptions.GameDoesNotExistException;
 import main.exceptions.SameNameException;
@@ -24,6 +25,7 @@ import main.logic.Game;
 import main.menu.MainMenu;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Paths;
 
 import static main.Constants.*;
@@ -78,7 +80,9 @@ public class MainLayoutController extends AnchorPane {
 //			System.out.println("Could not load " + DATABASE_FILENAME);
 //			this.mainMenu = MainMenu.getInstance();
 //		}
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
+//		System.out.println(getClass().getResource("/resources/fxml/MainLayout.fxml"));
+//		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/MainLayout.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resources/fxml/MainLayout.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);
 		try {
@@ -264,7 +268,7 @@ public class MainLayoutController extends AnchorPane {
 	 * @throws IOException On not finding the fxml file in resources/fxml/ directory
 	 */
 	public void loadStage(String name) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resources/fxml/" + name));
 		AnchorPane newRoot = fxmlLoader.load();
 		this.setBottomPaneController(fxmlLoader.getController());
 		newRoot.setVisible(false);
@@ -301,7 +305,7 @@ public class MainLayoutController extends AnchorPane {
 	// GAME RELATED METHODS
 
 	public void loadNewGame(String name) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/" + name));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resources/fxml/" + name));
 		AnchorPane newRoot = fxmlLoader.load();
 		this.gameController = fxmlLoader.getController();
 
@@ -320,7 +324,7 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 	public void loadSavedGame(Game game) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/GameScreen.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resources/fxml/GameScreen.fxml"));
 		AnchorPane newRoot = fxmlLoader.load();
 		this.gameController = fxmlLoader.getController();
 		this.gameController.setPrimaryStage(this.primaryStage);
@@ -339,7 +343,7 @@ public class MainLayoutController extends AnchorPane {
 	public void exitGame() {
 		ConfirmExitController exitController;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/ConfirmExit.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/ConfirmExit.fxml"));
 			Parent popup = loader.load();
 			exitController = loader.getController();
 			exitController.setPrimaryStage(this.primaryStage);
@@ -384,8 +388,9 @@ public class MainLayoutController extends AnchorPane {
 	}
 
 	public void playClickSound() {
-		String path = "src/resources/sounds/click-2.mp3";
-		Media media = new Media(Paths.get(path).toUri().toString());
+//		String documentBase =  getHostServices().getDocumentBase();
+		final URL sound = getClass().getResource("/resources/sounds/click-2.mp3");
+		Media media = new Media(sound.toString());
 		MediaPlayer clickSound = new MediaPlayer(media);
 		clickSound.play();
 	}
@@ -406,9 +411,8 @@ public class MainLayoutController extends AnchorPane {
 
 		@Override
 		public void run() {
-			String bip = "src/resources/sounds/GameSound-1.mp3";
-			Media hit = new Media(Paths.get(bip).toUri().toString());
-			AudioClip mediaPlayer = new AudioClip(hit.getSource());
+			final URL sound = getClass().getResource("/resources/sounds/GameSound-1.mp3");
+			AudioClip mediaPlayer = new AudioClip(sound.toString());
 			mediaPlayer.play();
 			mediaPlayer.setVolume(0.1);
 

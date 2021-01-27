@@ -29,6 +29,7 @@ public class Constants {
 	public static final double PLAYER_START = 600;
 	public static final int REVIVE_AMOUNT = 50;
 	public static final int DIFFICULTY_LEVEL = 5;
+	public static String DOCUMENT_BASE = null;
 
 	// MAX UID = 14 Game Element
 	public enum GameStage {

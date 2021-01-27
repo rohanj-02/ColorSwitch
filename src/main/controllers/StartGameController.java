@@ -63,7 +63,7 @@ public class StartGameController implements Initializable {
 		game = new Game(this);
 
 		//Pause popup code
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/fxml/PausePopUp.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/PausePopUp.fxml"));
 		Parent popup = loader.load();
 		this.pausePopupController = loader.getController();
 		this.pausePopupController.setParentController(this);
@@ -72,7 +72,7 @@ public class StartGameController implements Initializable {
 		this.pausePopup.getContent().add(popup);
 
 		// End game popup code
-		FXMLLoader endGameLoader = new FXMLLoader(getClass().getResource("../../resources/fxml/EndGame.fxml"));
+		FXMLLoader endGameLoader = new FXMLLoader(getClass().getResource("/resources/fxml/EndGame.fxml"));
 		Parent endPopup = endGameLoader.load();
 		this.endGamePopupController = endGameLoader.getController();
 		this.endGamePopupController.setParentController(this);
@@ -274,15 +274,15 @@ public class StartGameController implements Initializable {
 	}
 
 	public void playGameSound() {
-		String path = "src/resources/sounds/GameSound-1.mp3";
-		Media media = new Media(new File(path).toURI().toString());
+		final URL sound = getClass().getResource("/resources/sounds/GameSound-1.mp3");
+		Media media = new Media(sound.toString());
 		MediaPlayer gameSound = new MediaPlayer(media);
 		gameSound.play();
 	}
 
 	public void playClickSound() {
-		String path = "src/resources/sounds/click.mp3";
-		Media media = new Media(new File(path).toURI().toString());
+		final URL sound = getClass().getResource("/resources/sounds/click-2.mp3");
+		Media media = new Media(sound.toString());
 		MediaPlayer clickSound = new MediaPlayer(media);
 		clickSound.play();
 	}
