@@ -55,7 +55,7 @@
         </VBox>
       <HBox fx:id="timerPlaceHolder" alignment="CENTER" prefHeight="172.0" prefWidth="86.0" GridPane.columnIndex="1">
          <children>
-            <Button fx:id="timerButton" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="109.0" style="-fx-background-color: 272727; -fx-opaque-insets: 0.25;" textFill="YELLOW">
+            <Button fx:id="timerButton" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="109.0" style="-fx-background-color: #272727; -fx-opaque-insets: 25%;" textFill="YELLOW">
                <font>
                   <Font size="41.0" />
                </font>

@@ -19,7 +19,7 @@ public class Constants {
 	public static final double PLUS_OFFSET = 70;
 	public static final double OBSTACLE_DISTANCE = 400;
 	public static final double OBSTACLE_GENERATE_START = NEW_OBSTACLE_SCROLL_THRESHOLD - OBSTACLE_DISTANCE;
-	public static final double COLOR_SWITCH_START_Y = OBSTACLE_GENERATE_START - (OBSTACLE_DISTANCE / 2);
+	public static final double COLOR_SWITCH_START_Y = OBSTACLE_GENERATE_START + (OBSTACLE_DISTANCE / 2);
 	public static final int STAR_POINTS = 5;
 	public static final double PLAYER_RADIUS = 10;
 	public static final double COLOUR_SWITCH_RADIUS = 15;
@@ -28,6 +28,7 @@ public class Constants {
 	public static final Color NORMAL_STAR = Color.WHITE;
 	public static final double PLAYER_START = 600;
 	public static final int REVIVE_AMOUNT = 50;
+	public static final int DIFFICULTY_LEVEL = 5;
 
 	// MAX UID = 14 Game Element
 	public enum GameStage {

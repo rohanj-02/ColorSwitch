@@ -4,6 +4,7 @@ import javafx.animation.*;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import main.controllers.StartGameController;
 import main.gui.ColourSwitchBall;
@@ -55,11 +56,11 @@ public class Game implements Serializable {
 		this.topObstacle = new CircleObstacle(new Point(SCREEN_MIDPOINT_X, 100), CIRCLE_RADIUS, true);
 		this.topObstacle.getObstacleRoot().toBack();
 		this.listOfObstacles.add(this.topObstacle);
-		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
+//		this.listOfObstacles.add(new CircleObstacle(new Point(SCREEN_MIDPOINT_X, -200), CIRCLE_RADIUS, false));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 400), STAR_POINTS));
 		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, 100), STAR_POINTS));
 //		this.listOfStar.add(new Star(new Point(SCREEN_MIDPOINT_X, -200), STAR_POINTS));
-		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
+//		this.listOfSwitch.add(new ColourSwitchBall(new Point(SCREEN_MIDPOINT_X, -50), COLOUR_SWITCH_RADIUS));
 		this.immunity = false;
 		checkCollision();
 //		printTranslationY();
@@ -165,7 +166,7 @@ public class Game implements Serializable {
 			@Override
 			public void handle(Event event) {
 				if(gameController.getMainLayoutController().getGameStage().equals(GameStage.STARTGAME) && !gameController.getPausePopupController().isOpened()){
-					System.out.println(playerBall.getYPosition());
+//					System.out.println(playerBall.getYPosition());
 					gameController.getScoreText().setText(Integer.toString(currentScore));
 					if (playerBall.getYPosition() > (SCREEN_SIZE_Y - playerBall.getPosY() - PLAYER_RADIUS)) {
 						gameController.endGame();
@@ -286,9 +287,14 @@ public class Game implements Serializable {
 			this.generateGameElements();
 		}
 
+		double duration = 1000;
+		if(this.listOfObstacles.size() > 10){
+			duration = 500;
+		}
+
 		//Translate all obstacles
 		for (Obstacle obstacle : listOfObstacles) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), obstacle.getObstacleRoot());
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(duration), obstacle.getObstacleRoot());
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
@@ -297,7 +303,7 @@ public class Game implements Serializable {
 		}
 		// Translate all colour switches
 		for (ColourSwitchBall colourSwitchBall : listOfSwitch) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), colourSwitchBall.root);
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(duration), colourSwitchBall.root);
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
@@ -306,7 +312,7 @@ public class Game implements Serializable {
 		}
 		// Translate all stars
 		for (Star star : listOfStar) {
-			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), star.starRoot);
+			TranslateTransition scrollDown = new TranslateTransition(Duration.millis(duration), star.starRoot);
 			scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 			scrollDown.setByY(lengthOfScroll);
 			scrollDown.setCycleCount(1);
@@ -314,7 +320,7 @@ public class Game implements Serializable {
 			scrollAnimations.add(scrollDown);
 		}
 		// Translate the playerBall
-		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(1000), this.playerBall.getBallRoot());
+		TranslateTransition scrollDown = new TranslateTransition(Duration.millis(duration), this.playerBall.getBallRoot());
 		scrollDown.setInterpolator(Interpolator.EASE_BOTH);
 		scrollDown.setByY(lengthOfScroll);
 		scrollDown.setCycleCount(1);
@@ -326,9 +332,9 @@ public class Game implements Serializable {
 	 * Generates obstacles, stars and colourSwitches and adds them to the game screen.
 	 */
 	public void generateGameElements() {
-		this.generateObstacles();
+		Color color = this.generateObstacles();
 		this.generateStars();
-		this.generateSwitches();
+		this.generateSwitches(color);
 	}
 
 	/**
@@ -343,20 +349,25 @@ public class Game implements Serializable {
 
 	/**
 	 * Add colourSwitches to the game screen. Appends new colourSwitches to the listOfSwitches
+	 * @param color
 	 */
-	public void generateSwitches() {
+	public void generateSwitches(Color color) {
 		Point generationPoint = new Point(SCREEN_MIDPOINT_X, COLOR_SWITCH_START_Y);
 		ColourSwitchBall newBall = new ColourSwitchBall(generationPoint, COLOUR_SWITCH_RADIUS);
+		if(color != null){
+			newBall.setTargetColor(color);
+		}
 		this.listOfSwitch.add(newBall);
 		newBall.render(this.gameRoot);
 	}
 
 	/**
 	 * Add obstacles to the game screen. Appends new obstacles to the listOfObstacles
+	 * @return
 	 */
-	public void generateObstacles() {
+	public Color generateObstacles() {
 		// Add fixed size and then size percentage
-		int selection = (int) (Math.random() * 5 + 1);
+		int selection = (int) (Math.random() * DIFFICULTY_LEVEL + 1);
 		Point generationPoint = new Point(SCREEN_MIDPOINT_X, OBSTACLE_GENERATE_START);
 		boolean direction = Math.random() < 0.5;
 		Obstacle newObstacle = new CircleObstacle(generationPoint, CIRCLE_RADIUS, direction);
@@ -379,6 +390,8 @@ public class Game implements Serializable {
 				generationPoint.setX(0);
 				newObstacle = new LineObstacle(generationPoint, SCREEN_SIZE_X, direction);
 				break;
+			case 6:
+				newObstacle = new ObstacleGroup(generationPoint, direction, selection);
 			default:
 				break;
 		}
@@ -387,6 +400,10 @@ public class Game implements Serializable {
 		this.listOfObstacles.add(newObstacle);
 		newObstacle.render(this.gameRoot);
 		newObstacle.play();
+		if(selection == 2 || selection >= 6){
+			return COLOUR_PALETTE[0];
+		}
+		return null;
 	}
 
 	/**
