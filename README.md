@@ -30,3 +30,25 @@ https://www.jetbrains.com/help/idea/javafx.html
 In VM options, add the following line after replacing <javafx lib path>:
  
 ```--module-path <javafx lib path> --add-modules javafx.controls,javafx.fxml,javafx.media```
+
+
+ ## Screenshots
+ 
+ ![Landing](https://github.com/rohanj-02/ColorSwitch/blob/main/screenshots/Landing.png?raw=true) 
+ 
+ ![Main Menu](https://github.com/rohanj-02/ColorSwitch/blob/main/screenshots/MainMenu.png?raw=true)
+ 
+ ![Gameplay](https://github.com/rohanj-02/ColorSwitch/blob/main/screenshots/Gameplay.png?raw=true)
+ 
+ ![Pause Menu](https://github.com/rohanj-02/ColorSwitch/blob/main/screenshots/PauseMenu.png?raw=true)
+ 
+ ![Revive User](https://github.com/rohanj-02/ColorSwitch/blob/main/screenshots/Continue.png?raw=true)
+ 
+ ![Saved Games](https://github.com/rohanj-02/ColorSwitch/blob/main/screenshots/SavedGames.png?raw=true)
+ 
+ ![Confirm Exit](https://github.com/rohanj-02/ColorSwitch/blob/main/screenshots/ConfirmExit.png?raw=true)
+ 
+
+## Media
+ 
+ You can look at videos in the screenshots/ directory to see the gameplay
